@@ -68,13 +68,8 @@ describe("User", () => {
   it("Should take in user's friends", () => {
     expect(user1.friends).to.deep.equal([16, 4, 8]);
   });
-});
 
-// id: 1,
-// name: "Luisa Hane",
-// address: "15195 Nakia Tunnel, Erdmanport VA 19901-1697",
-// email: "Diana.Hayes1@hotmail.com",
-// strideLength: 4.3,
-// dailyStepGoal: 10000,
-// friends: [16, 4, 8],
-// };
+  it("Should have a method that returns the user's first name", () => {
+    expect(user1.returnFirstName()).to.equal("Luisa");
+  });
+});
