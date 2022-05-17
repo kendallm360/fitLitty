@@ -17,10 +17,15 @@ body {
   height: 100vh;
   width: 20%;
   display: flex;
-  flex-direction: row;
-  justify-items: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 .navigation {
+}
+
+.date-selection {
+  /* align-self: flex-start; */
 }
 
 .user-info {
@@ -38,6 +43,7 @@ body {
   flex-direction: column;
 }
 .title-bar {
+  border: solid 3px gray;
   height: 10%;
 }
 
