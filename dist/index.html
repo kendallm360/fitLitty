@@ -1,14 +1,34 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Fitlit</title>
   </head>
   <body>
-    <h1>Activity Tracker</h1>
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+    <!-- <h1>Activity Tracker</h1> -->
+    <aside class="information-bar">
+      <section class="navigation">
+        <input type="date" class="date-selection" id="date-selection" />
+      </section>
+      <section class="user-info">Contact card</section>
+    </aside>
 
-<!-- Do not include the scripts.js file here - it is done automatically by the webpack server -->
+    <aside class="main-section">
+      <section class="title-bar">
+        <p class="welcome">Welcome Steve</p>
+      </section>
+
+      <section class="data-display">
+        <div class="steps">activity data</div>
+        <div class="hydration">hydration data</div>
+        <div class="sleep">sleep data</div>
+      </section>
+
+      <section class="friends-zone">
+        <div class="friends">friends</div>
+        <div class="comparisons">compare</div>
+      </section>
+    </aside>
     <script src="bundle.js"></script>
   </body>
 </html>

@@ -1,5 +1,96 @@
-body, html {
-  background-image: linear-gradient(to top, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+body {
+  /* background-image: linear-gradient(
+    to top,
+    #ff9a9e 0%,
+    #fecfef 99%,
+    #fecfef 100%
+  ); */
   background-repeat: no-repeat;
+  border: solid 3px red;
   height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.information-bar {
+  border: solid 3px blue;
+  height: 100vh;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.navigation {
+}
+
+.date-selection {
+  /* align-self: flex-start; */
+}
+
+.user-info {
+  border: solid 3px orange;
+  /* display: ; */
+  height: 40%;
+  width: 100%;
+}
+
+.main-section {
+  border: solid 3px pink;
+  height: 100vh;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+.title-bar {
+  border: solid 3px gray;
+  height: 10%;
+}
+
+.data-display {
+  border: solid 3px purple;
+  height: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.steps {
+  border: solid 3px purple;
+  height: 300px;
+  width: 300px;
+}
+
+.hydration {
+  border: solid 3px orange;
+  height: 300px;
+  width: 300px;
+}
+
+.sleep {
+  border: solid 3px red;
+  height: 300px;
+  width: 300px;
+}
+
+.comparisons {
+  border: solid 3px green;
+}
+
+.friends-zone {
+  border: solid 3px blue;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+}
+
+.friends {
+  border: solid 3px pink;
+  width: 70%;
+}
+
+.comparisons {
+  border: solid 3px orange;
+  width: 30%;
 }
