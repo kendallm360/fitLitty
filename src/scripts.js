@@ -52,7 +52,10 @@ function greetUser () {
   welcomeUser.innerText = `Welcome, ${currentUser.returnFirstName()}!`
 }
 
-
+function compareSteps() {
+  activityWidget.innerText = `Hey Loser! This is how your step goal compares to other users!
+  Yours: ${currentUser.dailyStepGoal} vs Theirs: ${userRepo.getAverageStepGoal()}`
+}
 //  function to load info to contact card
 //  Function that interpolates users stepgoal compared to other users
 //"Heres your step goal compared to others: Yours:   Other users: "
@@ -62,5 +65,6 @@ window.addEventListener('load', () => {
 createUserRepo();
 displayUserDetails();
 greetUser();
+compareSteps();
 
 });
