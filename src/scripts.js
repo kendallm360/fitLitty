@@ -53,7 +53,7 @@ function greetUser () {
 }
 
 function compareSteps() {
-  activityWidget.innerText = `Hey Loser! This is how your step goal compares to other users!
+  activityWidget.innerText = `Hey ${currentUser.name}! This is how your step goal compares to other users!
   Yours: ${currentUser.dailyStepGoal} vs Theirs: ${userRepo.getAverageStepGoal()}`
 }
 //  function to load info to contact card
