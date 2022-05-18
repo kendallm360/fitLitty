@@ -33,6 +33,7 @@ body {
   /* display: ; */
   height: 40%;
   width: 100%;
+  font-weight: bold;
 }
 
 .main-section {
