@@ -1,8 +1,5 @@
 import {
-  getSleepData,
-  getActivityData,
-  getUserData,
-  getHydrationData
+  getData
 } from './apiCalls.js'
 
 import './css/styles.css';
@@ -32,7 +29,7 @@ function userDataInstances() {
 }
 
 function fetchUsers() {
-  Promise.all([getUserData(),getSleepData(), getHydrationData(), getActivityData()]).then((data) => {
+  Promise.all([getData("users"),getData("sleep"), getData("hydration"), getData("activity")]).then((data) => {
     userData = data[0].userData;
     sleepData = data[1].sleepData;
     hydrationData = data[2].hydrationData;
