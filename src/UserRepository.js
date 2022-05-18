@@ -1,13 +1,8 @@
 class UserRepository {
-  constructor(userData) {
+  constructor(userData, hydrationData) {
     this.users = userData;
+    this.hydrationData = hydrationData;
   }
-
-  //   makeUserInstances(data) {
-  //     array.data.map(function (data) {
-  //         return new User(data);
-  //       });
-  //   }
 
   findById(id) {
     return this.users.find((user) => user.id === id);
