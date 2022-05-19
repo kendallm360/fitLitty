@@ -30,9 +30,9 @@
     })
     const week = arr.slice((index - 6) , (index + 1))
       .map(data => {
-        return {date: data.date, [key]: data[attr]}
+        return {date: data.date, [key]: Math.round(data[attr])}
       })
-    return week;
+      return week;
   }
 
   export {
