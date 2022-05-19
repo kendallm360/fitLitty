@@ -66,11 +66,11 @@ function compareSteps() {
   activityWidget.innerText = `Hey ${currentUser.returnFirstName()}!
   This is how your step goal compares to other users!
   Yours: ${currentUser.dailyStepGoal} vs Theirs: ${userRepo.getAverageStepGoal()}`
- 
+
 }
 
 function displayTodaysWaterIntake() {
-  hydrationWidget.innerText = `Hey ${currentUser.returnFirstName()}! 
+  hydrationWidget.innerText = `Hey ${currentUser.returnFirstName()}!
   You drank ${userRepo.getFluidIntakeByDate(11, "2020/01/22")} ounces today`
 }
 
@@ -81,19 +81,13 @@ function setSelectedDate() {
 function displayWeeklyWaterIntake() {
   //refactor date to be dynamic
   let weeklyWaterIntake = userRepo.getDailyFluidIntakeByWeek(11, "2020/01/22")
-  hydrationWidget.innerText += `
-  Your Weekly water intake:
-  ${weeklyWaterIntake[0].date} : ${weeklyWaterIntake[0].fluidOz} oz
-  ${weeklyWaterIntake[1].date} : ${weeklyWaterIntake[1].fluidOz} oz
-  ${weeklyWaterIntake[2].date} : ${weeklyWaterIntake[2].fluidOz} oz
-  ${weeklyWaterIntake[3].date} : ${weeklyWaterIntake[3].fluidOz} oz
-  ${weeklyWaterIntake[4].date} : ${weeklyWaterIntake[4].fluidOz} oz
-  ${weeklyWaterIntake[5].date} : ${weeklyWaterIntake[5].fluidOz} oz
-  ${weeklyWaterIntake[6].date} : ${weeklyWaterIntake[6].fluidOz} oz
-  `
+  hydrationWidget.innerHTML += `<br>Your Weekly water intake:<br>`
+  weeklyWaterIntake.forEach((intake) => {
+    hydrationWidget.innerHTML += `${intake.date} : ${intake.fluidOz} oz<br>`
+  })
 }
 
-//"2020/01/22"
+// "2020/01/22"
 
 //eventlistener
 window.addEventListener('load', () => {
