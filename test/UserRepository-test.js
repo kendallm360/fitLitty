@@ -1,6 +1,12 @@
 import { expect } from "chai";
 import Hydration from "../src/Hydration";
 import UserRepository from "../src/UserRepository";
+import {
+  filterById,
+  getAverage,
+  getDataByDate,
+  getDataByWeek
+} from '../src/util.js'
 
 describe("User Data", () => {
   let userRepo;
@@ -63,7 +69,7 @@ describe("User Data", () => {
 describe("Hydration Data", () => {
   let hydrationData;
   let userRepo;
-  let testUsers; 
+  let testUsers;
 
   beforeEach(() => {
     testUsers = [
@@ -110,7 +116,7 @@ describe("Hydration Data", () => {
 
     userRepo = new UserRepository(testUsers, hydrationData)
 
-    
+
   })
 
   it("should take in hydrationData", () => {
