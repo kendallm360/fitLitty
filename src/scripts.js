@@ -50,7 +50,9 @@ function fetchUsers() {
     compareSteps();
     displayTodaysWaterIntake();
     displayWeeklyWaterIntake();
-    displayTodaysSleepStats()
+    displayTodaysSleepStats();
+    displayWeeklySleep();
+    displayAverageSleepData();
   })
 }
 
@@ -99,6 +101,25 @@ function displayTodaysSleepStats() {
   sleepWidget.innerText = `Hey ${currentUser.returnFirstName()}!
   You slept ${userRepo.getSleepByDate(11, "2020/01/22")} hours today.
   Your sleep quality was ${userRepo.getQualityByDate(11, "2020/01/22")}
+  `
+};
+
+function displayWeeklySleep() {
+  let weeklySleep = userRepo.getSleepByWeek(11, "2020/01/22");
+  let weeklyQuality = userRepo.getQualityByWeek(11, "2020/01/22");
+  sleepWidget.innerHTML += `<br>Your Weekly sleep stats:<br>`
+  weeklySleep.forEach((sleepData, index) => {
+    sleepWidget.innerHTML += `${sleepData.date}:<br> Hours: ${sleepData.hoursSlept}
+    Quality: ${weeklyQuality[index].sleepQuality} 
+    `
+  })
+};
+
+function displayAverageSleepData() {
+  let allTimeSleep = userRepo.getAverageSleep(11)
+  let allTimeQuality = userRepo.getAverageSleepQuality(11)
+  sleepWidget.innerHTML += `<br> Your average hours slept: ${allTimeSleep} hours<br>
+  Your average sleep quality: ${allTimeQuality}
   `
 }
 
