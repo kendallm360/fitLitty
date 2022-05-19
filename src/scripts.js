@@ -8,12 +8,20 @@ import './images/turing-logo.png'
 import UserRepository from './UserRepository';
 import User from './User';
 
+// import {
+//   filterById,
+//   getAverage,
+//   getDataByDate,
+//   getDataByWeek
+// } from './util.js'
+
 //Query selectors
 const contactCard = document.querySelector(".user-info");
 const welcomeUser = document.querySelector(".welcome");
 const activityWidget = document.querySelector(".steps");
 const hydrationWidget = document.querySelector(".hydration");
-const dateSelected = document.querySelector(".date-selection")
+const dateSelected = document.querySelector(".date-selection");
+const sleepWidget = document.querySelector(".sleep");
 
 //global variables
 let userRepo;
@@ -40,14 +48,14 @@ function fetchUsers() {
     displayUserDetails();
     greetUser();
     compareSteps();
-
     displayTodaysWaterIntake();
     displayWeeklyWaterIntake();
+    displayTodaysSleepStats()
   })
 }
 
 function createUserRepo() {
-  userRepo = new UserRepository(userDataInstances(), hydrationData)
+  userRepo = new UserRepository(userDataInstances(), hydrationData, sleepData)
   currentUser = userRepo.findById(11);
 };
 
@@ -85,6 +93,13 @@ function displayWeeklyWaterIntake() {
   weeklyWaterIntake.forEach((intake) => {
     hydrationWidget.innerHTML += `${intake.date} : ${intake.fluidOz} oz<br>`
   })
+}
+
+function displayTodaysSleepStats() {
+  sleepWidget.innerText = `Hey ${currentUser.returnFirstName()}!
+  You slept ${userRepo.getSleepByDate(11, "2020/01/22")} hours today.
+  Your sleep quality was ${userRepo.getQualityByDate(11, "2020/01/22")}
+  `
 }
 
 // "2020/01/22"
