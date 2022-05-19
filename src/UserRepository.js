@@ -6,9 +6,10 @@ import {
 } from './util.js'
 
 class UserRepository {
-  constructor(userData, hydrationData) {
+  constructor(userData, hydrationData, sleepData) {
     this.users = userData;
     this.hydrationData = hydrationData;
+    this.sleepData = sleepData;
   }
 
 //User methods
@@ -28,19 +29,52 @@ class UserRepository {
   getAverageFluidIntake(id) {
     let filteredHydration = filterById(id, this.hydrationData)
     return getAverage(filteredHydration, "numOunces")
-  }
+  };
 
    getFluidIntakeByDate(id, date){
      let filteredHydration = filterById(id, this.hydrationData)
      return getDataByDate(filteredHydration, date, "numOunces")
-   }
+   };
 
   getDailyFluidIntakeByWeek(id, dateSelected){
     let filteredHydration = filterById(id, this.hydrationData)
     return getDataByWeek(filteredHydration, dateSelected, "fluidOz", "numOunces")
-  }
+  };
 
 //sleep methods
+  getAverageSleep(id){
+  let filteredSleep = filterById(id, this.sleepData)
+    return getAverage(filteredSleep, "hoursSlept")
+  };
+
+  getAverageSleepQuality(id) {
+    let filteredSleep = filterById(id, this.sleepData)
+      return getAverage(filteredSleep, "sleepQuality")
+  };
+
+  getSleepByDate(id, date) {
+    let filteredSleep = filterById(id, this.sleepData)
+      return getDataByDate(filteredSleep, date, "hoursSlept")
+  };
+
+  getQualityByDate(id, date) {
+    let filteredSleep = filterById(id, this.sleepData);
+      return getDataByDate(filteredSleep, date, "sleepQuality")
+  };
+
+  getSleepByWeek(id, date) {
+    let filteredSleep = filterById(id, this.sleepData);
+    return getDataByWeek(filteredSleep, date, "hoursSlept", "hoursSlept")
+  };
+
+  getQualityByWeek(id, date) {
+    let filteredSleep = filterById(id, this.sleepData);
+    return getDataByWeek(filteredSleep, date, "sleepQuality", "sleepQuality")
+  };
+
+  getAverageSleepQualityAll(){
+    return getAverage(this.sleepData, "sleepQuality");
+  }
 
 }
 
