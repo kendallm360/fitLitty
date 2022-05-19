@@ -47,13 +47,14 @@ class UserRepository {
     const index = filteredFluidById.findIndex(data => {
       return data.date === dateSelected
     })
-    
     const week = filteredFluidById.slice((index - 6) , (index + 1))
       .map(data => {
         return data.numOunces
       })
     return week;
    }
+
+   
 }
 
 export default UserRepository;

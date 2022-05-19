@@ -96,6 +96,7 @@ describe("Hydration Data", () => {
       },
     ]
     hydrationData = [
+      {"userID":1,"date":"2019/06/14","numOunces":96},
       {"userID":1,"date":"2019/06/15","numOunces":37},
       {"userID":2,"date":"2019/06/15","numOunces":75},
       {"userID":1,"date":"2019/06/16","numOunces":69},
@@ -104,6 +105,7 @@ describe("Hydration Data", () => {
       {"userID":1,"date":"2019/06/19","numOunces":96},
       {"userID":1,"date":"2019/06/20","numOunces":69},
       {"userID":1,"date":"2019/06/21","numOunces":96},
+      {"userID":1,"date":"2019/06/22","numOunces":96}
     ]
 
     userRepo = new UserRepository(testUsers, hydrationData)
@@ -112,7 +114,7 @@ describe("Hydration Data", () => {
   })
 
   it("should average a users fluid intake", () => {
-    expect(userRepo.getAverageFluidIntake(1)).to.equal(76)
+    expect(userRepo.getAverageFluidIntake(1)).to.equal(80)
   })
 
   it("should return a users fluid intake on given date", () => {
