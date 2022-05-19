@@ -51,20 +51,20 @@ class UserRepository {
   }
 
 //hydration methods
-  getFilteredHydration(){
+  getFilteredHydration(id){
     return this.filterById(id, "hydrationData");
   }
 
   getAverageFluidIntake(id) {
-    return this.getAverage(getFilteredHydration(), "numOunces")
+    return this.getAverage(this.getFilteredHydration(id), "numOunces")
   }
 
    getFluidIntakeByDate(id, date){
-     return this.getDataByDate(getFilteredHydration(), date, "numOunces")
+     return this.getDataByDate(this.getFilteredHydration(id), date, "numOunces")
    }
 
   getDailyFluidIntakeByWeek(id, dateSelected){
-    return this.getDataByWeek(getFilteredHydration(), dateSelected, "fluidOz", "numOunces")
+    return this.getDataByWeek(this.getFilteredHydration(id), dateSelected, "fluidOz", "numOunces")
   }
 
 //sleep methods
