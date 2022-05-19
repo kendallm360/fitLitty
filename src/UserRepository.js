@@ -51,22 +51,24 @@ class UserRepository {
   }
 
 //hydration methods
+  getFilteredHydration(){
+    return this.filterById(id, "hydrationData");
+  }
+
   getAverageFluidIntake(id) {
-    const filteredHydration = this.filterById(id, "hydrationData");
-    return this.getAverage(filteredHydration, "numOunces")
+    return this.getAverage(getFilteredHydration(), "numOunces")
   }
 
    getFluidIntakeByDate(id, date){
-     const filteredFluidById = this.filterById(id, "hydrationData");
-     return this.getDataByDate(filteredFluidById, date, "numOunces")
+     return this.getDataByDate(getFilteredHydration(), date, "numOunces")
    }
 
   getDailyFluidIntakeByWeek(id, dateSelected){
-    const filteredFluidById = this.filterById(id, "hydrationData");
-    return this.getDataByWeek(filteredFluidById, dateSelected, "fluidOz", "numOunces")
+    return this.getDataByWeek(getFilteredHydration(), dateSelected, "fluidOz", "numOunces")
   }
 
 //sleep methods
+
 }
 
 export default UserRepository;
