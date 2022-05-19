@@ -49,7 +49,7 @@ class UserRepository {
     })
     const week = filteredFluidById.slice((index - 6) , (index + 1))
       .map(data => {
-        return data.numOunces
+        return {date: data.date, fluidOz: data.numOunces}
       })
     return week;
    }
