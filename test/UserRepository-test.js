@@ -113,6 +113,10 @@ describe("Hydration Data", () => {
     
   })
 
+  it("should take in hydrationData", () => {
+    expect(userRepo.hydrationData).to.equal(hydrationData)
+  })
+
   it("should average a users fluid intake", () => {
     expect(userRepo.getAverageFluidIntake(1)).to.equal(80)
   })
@@ -123,6 +127,12 @@ describe("Hydration Data", () => {
   })
 
   it("should show users fluid intake for each day of a given week", () => {
-    expect(userRepo.getDailyFluidIntakeByWeek(1, "2019/06/21")).to.deep.equal([37,69,96,69,96,69,96])
+    expect(userRepo.getDailyFluidIntakeByWeek(1, "2019/06/21")).to.deep.equal([{date:"2019/06/15", fluidOz:37},
+    {date:"2019/06/16", fluidOz:69},
+    {date:"2019/06/17", fluidOz:96},
+    {date:"2019/06/18", fluidOz:69},
+    {date:"2019/06/19", fluidOz:96},
+    {date:"2019/06/20", fluidOz:69},
+    {date:"2019/06/21", fluidOz:96}])
   })
 })

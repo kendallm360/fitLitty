@@ -12,6 +12,8 @@ import User from './User';
 const contactCard = document.querySelector(".user-info");
 const welcomeUser = document.querySelector(".welcome");
 const activityWidget = document.querySelector(".steps");
+const hydrationWidget = document.querySelector(".hydration");
+const dateSelected = document.querySelector(".date-selection")
 
 //global variables
 let userRepo;
@@ -38,11 +40,14 @@ function fetchUsers() {
     displayUserDetails();
     greetUser();
     compareSteps();
+
+    displayTodaysWaterIntake();
+    displayWeeklyWaterIntake();
   })
 }
 
 function createUserRepo() {
-  userRepo = new UserRepository(userDataInstances())
+  userRepo = new UserRepository(userDataInstances(), hydrationData)
   currentUser = userRepo.findById(11);
 };
 
@@ -61,9 +66,37 @@ function compareSteps() {
   activityWidget.innerText = `Hey ${currentUser.returnFirstName()}!
   This is how your step goal compares to other users!
   Yours: ${currentUser.dailyStepGoal} vs Theirs: ${userRepo.getAverageStepGoal()}`
+ 
 }
+
+function displayTodaysWaterIntake() {
+  hydrationWidget.innerText = `Hey ${currentUser.returnFirstName()}! 
+  You drank ${userRepo.getFluidIntakeByDate(11, "2020/01/22")} ounces today`
+}
+
+function setSelectedDate() {
+   dateSelected.value = "2020-01-22";
+}
+
+function displayWeeklyWaterIntake() {
+  //refactor date to be dynamic
+  let weeklyWaterIntake = userRepo.getDailyFluidIntakeByWeek(11, "2020/01/22")
+  hydrationWidget.innerText += `
+  Your Weekly water intake:
+  ${weeklyWaterIntake[0].date} : ${weeklyWaterIntake[0].fluidOz} oz
+  ${weeklyWaterIntake[1].date} : ${weeklyWaterIntake[1].fluidOz} oz
+  ${weeklyWaterIntake[2].date} : ${weeklyWaterIntake[2].fluidOz} oz
+  ${weeklyWaterIntake[3].date} : ${weeklyWaterIntake[3].fluidOz} oz
+  ${weeklyWaterIntake[4].date} : ${weeklyWaterIntake[4].fluidOz} oz
+  ${weeklyWaterIntake[5].date} : ${weeklyWaterIntake[5].fluidOz} oz
+  ${weeklyWaterIntake[6].date} : ${weeklyWaterIntake[6].fluidOz} oz
+  `
+}
+
+//"2020/01/22"
 
 //eventlistener
 window.addEventListener('load', () => {
+setSelectedDate();
 fetchUsers();
 });
