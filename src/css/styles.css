@@ -1,5 +1,6 @@
 body {
   background-color: black;
+  font-family: helvetica;
   color: white;
   /* background-image: linear-gradient(
     to top,
@@ -8,7 +9,7 @@ body {
     #fecfef 100%
   ); */
   background-repeat: no-repeat;
-  border: solid 3px red;
+  /* border: solid 3px red; */
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -28,7 +29,7 @@ ul.navbar li:hover{
   cursor: pointer;
 }
 .information-bar {
-  border: solid 3px blue;
+  /* border: solid 3px blue; */
   height: 100vh;
   width: 20%;
   display: flex;
@@ -44,15 +45,14 @@ ul.navbar li:hover{
 }
 
 .user-info {
-  border: solid 3px orange;
+  border: solid 3px gray;
   /* display: ; */
-  height: 40%;
+  height: 15%;
   width: 100%;
-  font-weight: bold;
 }
 
 .main-section {
-  border: solid 3px pink;
+  border: solid 3px gray;
   height: 100vh;
   width: 80%;
   display: flex;
@@ -60,62 +60,72 @@ ul.navbar li:hover{
 }
 .title-bar {
   border: solid 3px gray;
-  height: 10%;
+  height: 15%;
 }
 
 .data-display {
-  border: solid 3px purple;
-  height: 70%;
+  /* border: solid 3px purple; */
+  height: 90%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
 }
-
+.widget {
+  padding: 20px;
+}
 #snapshot {
-  border: solid 3px blue;
-  height: 300px;
-  width: 300px;
+  border: solid 3px orange;
+  font-size: 2em;
+  height: 450px;
+  width: 550px;
 }
 
 #activity {
   border: solid 3px purple;
-  height: 300px;
-  width: 300px;
+  font-size: 2em;
+  height: 450px;
+  width: 550px;
   display: none;
 }
 
 #hydration {
-  border: solid 3px orange;
-  height: 300px;
-  width: 300px;
+  border: solid 3px blue;
+  font-size: 2em;
+  height: 450px;
+  width: 550px;
   display: none;
+}
+
+#weeklyHydrationChart {
+  height: 100%;
 }
 
 #sleep {
   border: solid 3px red;
-  min-height: 300px;
-  width: 300px;
+  font-size: 1.5em;
+  height: 450px;
+  width: 550px;
   display: none;
 }
 
-.comparisons {
+/* .comparisons {
   border: solid 3px green;
-}
+} */
 
-.friends-zone {
+/* .friends-zone {
   border: solid 3px blue;
   height: 20%;
   display: flex;
   flex-direction: row;
-}
+} */
 
-.friends {
+/* .friends {
   border: solid 3px pink;
   width: 70%;
-}
+} */
 
-.comparisons {
+/* .comparisons {
   border: solid 3px orange;
   width: 30%;
-}
+} */

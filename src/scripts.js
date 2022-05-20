@@ -8,6 +8,9 @@ import './images/turing-logo.png'
 import UserRepository from './UserRepository';
 import User from './User';
 
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
+
 //Query selectors
 const contactCard = document.querySelector(".user-info");
 const snapshotWidget = document.querySelector("#snapshot");
@@ -17,6 +20,7 @@ const sleepWidget = document.querySelector("#sleep");
 const dateSelected = document.querySelector(".date-selection");
 const buttons= Array.from(document.querySelectorAll(".dataButton"));
 const widgets = Array.from(document.querySelectorAll(".widget"));
+const weeklyHydration = document.querySelector("#weeklyHydrationChart")
 //global variables
 let userRepo;
 let currentUser;
@@ -42,7 +46,7 @@ function fetchUsers() {
     displayUserDetails();
     compareSteps();
     displaySnapshotData();
-    displayTodaysWaterIntake();
+    // displayTodaysWaterIntake();
     displayWeeklyWaterIntake();
     displayTodaysSleepStats();
     displayWeeklySleep();
@@ -80,7 +84,7 @@ function setSelectedDate() {
 
 function displaySnapshotData() {
   snapshotWidget.innerHTML += `
-  Hey ${currentUser.returnFirstName()}!
+  Hey ${currentUser.returnFirstName()}!<br><br>
   Here's a quick snapshot of your day:<br><br>
   You drank ${userRepo.getFluidIntakeByDate(11, "2020/01/22")} ounces<br><br>
   You slept ${userRepo.getSleepByDate(11, "2020/01/22")} hours<br>
@@ -91,10 +95,52 @@ function displaySnapshotData() {
 function displayWeeklyWaterIntake() {
   //refactor date to be dynamic
   let weeklyWaterIntake = userRepo.getDailyFluidIntakeByWeek(11, "2020/01/22")
-  hydrationWidget.innerHTML += `<br>Your Weekly water intake:<br>`
-  weeklyWaterIntake.forEach((intake) => {
-    hydrationWidget.innerHTML += `${intake.date} : ${intake.fluidOz} oz<br>`
-  })
+  const config = createHydrationChart(weeklyWaterIntake);
+  const weeklyHydrationChart = new Chart(weeklyHydration, config)
+  // hydrationWi dget.innerHTML += `<br>Your Weekly water intake:<br>`
+  // weeklyWaterIntake.forEach((intake) => {
+  //   hydrationWidget.innerHTML += `${intake.date} : ${intake.fluidOz} oz<br>`
+  // })
+}
+
+function createHydrationChart(weeklyWaterIntake) {
+  const labels = weeklyWaterIntake.map(intake => intake.date);
+  const values = weeklyWaterIntake.map(intake => intake.fluidOz)
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: "Weekly Hydration",
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1,
+      data: values
+    }]
+  };
+
+  const config = {
+    type: "bar",
+    data: data,
+    options: {
+      barThickness: 11,
+    }
+  }
+  return config
 }
 
 function displayTodaysSleepStats() {
