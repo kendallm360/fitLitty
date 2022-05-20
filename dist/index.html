@@ -7,27 +7,33 @@
   <body>
     <!-- <h1>Activity Tracker</h1> -->
     <aside class="information-bar">
-      <section class="navigation">
+      <section class="user-info">
+        <p class="welcome"></p>
         <input type="date" class="date-selection" id="date-selection" />
       </section>
-      <section class="user-info">Contact card</section>
     </aside>
 
     <aside class="main-section">
       <section class="title-bar">
-        <p class="welcome"></p>
+        <ul class="navbar">
+          <li class="dataButton" id="snapshot-button" data-target="snapshot">Snapshot</li>
+          <li class="dataButton" id="activity-button" data-target="activity">Activity</li>
+          <li class="dataButton" id="hydration-button" data-target="hydration">Hydration</li>
+          <li class="dataButton" id="sleep-button" data-target="sleep">Sleep</li>
+        </ul>
       </section>
 
       <section class="data-display">
-        <div class="steps">activity data</div>
-        <div class="hydration">hydration data</div>
-        <div class="sleep">sleep data</div>
+        <div class="widget" id="snapshot"></div>
+        <div class="widget" id="activity"><canvas id="stepComparisonDonut"></canvas></div>
+        <div class="widget" id="hydration"><canvas id="weeklyHydrationChart"></canvas></div>
+        <div class="widget" id="sleep"><canvas id="weeklySleepChart"></canvas></div>
       </section>
 
-      <section class="friends-zone">
+      <!-- <section class="friends-zone">
         <div class="friends">friends</div>
         <div class="comparisons">compare</div>
-      </section>
+      </section> -->
     </aside>
     <script src="bundle.js"></script>
   </body>
