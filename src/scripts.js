@@ -20,7 +20,9 @@ const sleepWidget = document.querySelector("#sleep");
 const dateSelected = document.querySelector(".date-selection");
 const buttons= Array.from(document.querySelectorAll(".dataButton"));
 const widgets = Array.from(document.querySelectorAll(".widget"));
-const weeklyHydration = document.querySelector("#weeklyHydrationChart")
+const weeklyHydration = document.querySelector("#weeklyHydrationChart");
+const weeklySleep = document.querySelector("#weeklySleepChart")
+
 //global variables
 let userRepo;
 let currentUser;
@@ -48,9 +50,9 @@ function fetchUsers() {
     displaySnapshotData();
     // displayTodaysWaterIntake();
     displayWeeklyWaterIntake();
-    displayTodaysSleepStats();
+    // displayTodaysSleepStats();
     displayWeeklySleep();
-    displayAverageSleepData();
+    // displayAverageSleepData();
   })
 }
 
@@ -97,10 +99,6 @@ function displayWeeklyWaterIntake() {
   let weeklyWaterIntake = userRepo.getDailyFluidIntakeByWeek(11, "2020/01/22")
   const config = createHydrationChart(weeklyWaterIntake);
   const weeklyHydrationChart = new Chart(weeklyHydration, config)
-  // hydrationWi dget.innerHTML += `<br>Your Weekly water intake:<br>`
-  // weeklyWaterIntake.forEach((intake) => {
-  //   hydrationWidget.innerHTML += `${intake.date} : ${intake.fluidOz} oz<br>`
-  // })
 }
 
 function createHydrationChart(weeklyWaterIntake) {
@@ -137,7 +135,7 @@ function createHydrationChart(weeklyWaterIntake) {
     type: "bar",
     data: data,
     options: {
-      barThickness: 11,
+      barThickness: 20,
     }
   }
   return config
@@ -151,15 +149,57 @@ function displayTodaysSleepStats() {
 };
 
 function displayWeeklySleep() {
-  let weeklySleep = userRepo.getSleepByWeek(11, "2020/01/22");
-  let weeklyQuality = userRepo.getQualityByWeek(11, "2020/01/22");
-  sleepWidget.innerHTML += `<br>Your Weekly sleep stats:<br>`
-  weeklySleep.forEach((sleepData, index) => {
-    sleepWidget.innerHTML += `${sleepData.date}: Hours: ${sleepData.hoursSlept}
-    Quality: ${weeklyQuality[index].sleepQuality}<br>
-    `
-  })
+  let sleep = userRepo.getSleepByWeek(11, "2020/01/22");
+  let quality = userRepo.getQualityByWeek(11, "2020/01/22");
+  const config = createSleepChart(sleep, quality)
+  return new Chart(weeklySleep, config)
+  // sleepWidget.innerHTML += `<br>Your Weekly sleep stats:<br>`
+  // weeklySleep.forEach((sleepData, index) => {
+  //   sleepWidget.innerHTML += `${sleepData.date}: Hours: ${sleepData.hoursSlept}
+  //   Quality: ${weeklyQuality[index].sleepQuality}<br>
+  //   `
+  // })
 };
+function createSleepChart(weeklySleep, weeklyQuality) {
+  const labels = weeklySleep.map(sleep => sleep.date);
+  const sleepValues = weeklySleep.map(sleep => sleep.hoursSlept)
+  const qualityValues = weeklyQuality.map(quality => quality.sleepQuality)
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: "Weekly Sleep Hours",
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)'
+      ],
+      borderWidth: 1,
+      data: sleepValues
+    },
+    {
+      label: "Weekly Sleep Quality",
+      backgroundColor: [
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1,
+      data: qualityValues
+    }]
+  };
+
+  const config = {
+    type: "bar",
+    data: data,
+    options: {
+      barThickness: 20,
+    }
+  }
+  return config
+}
 
 function displayAverageSleepData() {
   let allTimeSleep = userRepo.getAverageSleep(11)
