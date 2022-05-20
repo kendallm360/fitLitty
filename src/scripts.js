@@ -7,6 +7,9 @@ import './images/turing-logo.png'
 
 import UserRepository from './UserRepository';
 import User from './User';
+import HydrationRepository from './HydrationRepository.js';
+import SleepRepository from './SleepRepository'
+
 
 // import {
 //   filterById,
@@ -25,6 +28,8 @@ const sleepWidget = document.querySelector(".sleep");
 
 //global variables
 let userRepo;
+let hydrationRepo;
+let sleepRepo;
 let currentUser;
 let userData;
 let sleepData;
@@ -57,8 +62,10 @@ function fetchUsers() {
 }
 
 function createUserRepo() {
-  userRepo = new UserRepository(userDataInstances(), hydrationData, sleepData)
+  userRepo = new UserRepository(userDataInstances())
   currentUser = userRepo.findById(11);
+  hydrationRepo = new HydrationRepository(hydrationData);
+  sleepRepo = new SleepRepository(sleepData);
 };
 
 function displayUserDetails(){
@@ -81,7 +88,7 @@ function compareSteps() {
 
 function displayTodaysWaterIntake() {
   hydrationWidget.innerText = `Hey ${currentUser.returnFirstName()}!
-  You drank ${userRepo.getFluidIntakeByDate(11, "2020/01/22")} ounces today`
+  You drank ${hydrationRepo.getFluidIntakeByDate(11, "2020/01/22")} ounces today`
 }
 
 function setSelectedDate() {
@@ -90,7 +97,7 @@ function setSelectedDate() {
 
 function displayWeeklyWaterIntake() {
   //refactor date to be dynamic
-  let weeklyWaterIntake = userRepo.getDailyFluidIntakeByWeek(11, "2020/01/22")
+  let weeklyWaterIntake = hydrationRepo.getDailyFluidIntakeByWeek(11, "2020/01/22")
   hydrationWidget.innerHTML += `<br>Your Weekly water intake:<br>`
   weeklyWaterIntake.forEach((intake) => {
     hydrationWidget.innerHTML += `${intake.date} : ${intake.fluidOz} oz<br>`
@@ -99,27 +106,27 @@ function displayWeeklyWaterIntake() {
 
 function displayTodaysSleepStats() {
   sleepWidget.innerText = `Hey ${currentUser.returnFirstName()}!
-  You slept ${userRepo.getSleepByDate(11, "2020/01/22")} hours today.
-  Your sleep quality was ${userRepo.getQualityByDate(11, "2020/01/22")}
+  You slept ${sleepRepo.getSleepByDate(11, "2020/01/22")} hours today.
+  Your sleep quality was ${sleepRepo.getQualityByDate(11, "2020/01/22")}
   `
 };
 
 function displayWeeklySleep() {
-  let weeklySleep = userRepo.getSleepByWeek(11, "2020/01/22");
-  let weeklyQuality = userRepo.getQualityByWeek(11, "2020/01/22");
+  let weeklySleep = sleepRepo.getSleepByWeek(11, "2020/01/22");
+  let weeklyQuality = sleepRepo.getQualityByWeek(11, "2020/01/22");
   sleepWidget.innerHTML += `<br>Your Weekly sleep stats:<br>`
   weeklySleep.forEach((sleepData, index) => {
-    sleepWidget.innerHTML += `${sleepData.date}:<br> Hours: ${sleepData.hoursSlept}
-    Quality: ${weeklyQuality[index].sleepQuality} 
+    sleepWidget.innerHTML += `<br>${sleepData.date}:<br> Hours: ${sleepData.hoursSlept}
+    Quality: ${weeklyQuality[index].sleepQuality}/5
     `
   })
 };
 
 function displayAverageSleepData() {
-  let allTimeSleep = userRepo.getAverageSleep(11)
-  let allTimeQuality = userRepo.getAverageSleepQuality(11)
+  let allTimeSleep = sleepRepo.getAverageSleep(11)
+  let allTimeQuality = sleepRepo.getAverageSleepQuality(11)
   sleepWidget.innerHTML += `<br> Your average hours slept: ${allTimeSleep} hours<br>
-  Your average sleep quality: ${allTimeQuality}
+  Your average sleep quality: ${allTimeQuality}/5
   `
 }
 
