@@ -1,4 +1,6 @@
 body {
+  background-color: black;
+  color: white;
   /* background-image: linear-gradient(
     to top,
     #ff9a9e 0%,
@@ -11,7 +13,20 @@ body {
   display: flex;
   flex-direction: row;
 }
-
+ul.navbar {
+  display: flex;
+  justify-content: center;
+}
+ul.navbar li {
+  color: white;
+  font-size: 2em;
+  margin-left: 30px;
+  list-style-type: none;
+}
+ul.navbar li:hover{
+  color: yellow;
+  cursor: pointer;
+}
 .information-bar {
   border: solid 3px blue;
   height: 100vh;
@@ -57,22 +72,31 @@ body {
   align-items: center;
 }
 
-.steps {
+#snapshot {
+  border: solid 3px blue;
+  height: 300px;
+  width: 300px;
+}
+
+#activity {
   border: solid 3px purple;
   height: 300px;
   width: 300px;
+  display: none;
 }
 
-.hydration {
+#hydration {
   border: solid 3px orange;
   height: 300px;
   width: 300px;
+  display: none;
 }
 
-.sleep {
+#sleep {
   border: solid 3px red;
-  height: 300px;
+  min-height: 300px;
   width: 300px;
+  display: none;
 }
 
 .comparisons {

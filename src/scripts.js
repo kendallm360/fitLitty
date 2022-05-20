@@ -8,21 +8,15 @@ import './images/turing-logo.png'
 import UserRepository from './UserRepository';
 import User from './User';
 
-// import {
-//   filterById,
-//   getAverage,
-//   getDataByDate,
-//   getDataByWeek
-// } from './util.js'
-
 //Query selectors
 const contactCard = document.querySelector(".user-info");
-const welcomeUser = document.querySelector(".welcome");
-const activityWidget = document.querySelector(".steps");
-const hydrationWidget = document.querySelector(".hydration");
+const snapshotWidget = document.querySelector("#snapshot");
+const activityWidget = document.querySelector("#activity");
+const hydrationWidget = document.querySelector("#hydration");
+const sleepWidget = document.querySelector("#sleep");
 const dateSelected = document.querySelector(".date-selection");
-const sleepWidget = document.querySelector(".sleep");
-
+const buttons= Array.from(document.querySelectorAll(".dataButton"));
+const widgets = Array.from(document.querySelectorAll(".widget"));
 //global variables
 let userRepo;
 let currentUser;
@@ -46,8 +40,8 @@ function fetchUsers() {
     activityData = data[3].activityData;
     createUserRepo();
     displayUserDetails();
-    greetUser();
     compareSteps();
+    displaySnapshotData();
     displayTodaysWaterIntake();
     displayWeeklyWaterIntake();
     displayTodaysSleepStats();
@@ -63,13 +57,9 @@ function createUserRepo() {
 
 function displayUserDetails(){
   contactCard.innerText = `
-  Name: ${currentUser.name}
-  Address: ${currentUser.address}
-  Email: ${currentUser.email}`;
-}
-
-function greetUser () {
-  welcomeUser.innerText = `Welcome, ${currentUser.returnFirstName()}!`
+  Welcome! ${currentUser.name}
+  ${currentUser.address}
+  ${currentUser.email}`;
 }
 
 function compareSteps() {
@@ -86,6 +76,16 @@ function displayTodaysWaterIntake() {
 
 function setSelectedDate() {
    dateSelected.value = "2020-01-22";
+}
+
+function displaySnapshotData() {
+  snapshotWidget.innerHTML += `
+  Hey ${currentUser.returnFirstName()}!
+  Here's a quick snapshot of your day:<br><br>
+  You drank ${userRepo.getFluidIntakeByDate(11, "2020/01/22")} ounces<br><br>
+  You slept ${userRepo.getSleepByDate(11, "2020/01/22")} hours<br>
+  Your sleep quality was ${userRepo.getQualityByDate(11, "2020/01/22")}
+  `
 }
 
 function displayWeeklyWaterIntake() {
@@ -109,8 +109,8 @@ function displayWeeklySleep() {
   let weeklyQuality = userRepo.getQualityByWeek(11, "2020/01/22");
   sleepWidget.innerHTML += `<br>Your Weekly sleep stats:<br>`
   weeklySleep.forEach((sleepData, index) => {
-    sleepWidget.innerHTML += `${sleepData.date}:<br> Hours: ${sleepData.hoursSlept}
-    Quality: ${weeklyQuality[index].sleepQuality} 
+    sleepWidget.innerHTML += `${sleepData.date}: Hours: ${sleepData.hoursSlept}
+    Quality: ${weeklyQuality[index].sleepQuality}<br>
     `
   })
 };
@@ -121,12 +121,26 @@ function displayAverageSleepData() {
   sleepWidget.innerHTML += `<br> Your average hours slept: ${allTimeSleep} hours<br>
   Your average sleep quality: ${allTimeQuality}
   `
-}
+};
 
-// "2020/01/22"
+function displayActiveWidget(selection) {
+  widgets.forEach((widget) => {
+    if(selection === widget.id){
+      widget.style.display = "flex"
+    }else{
+      widget.style.display = "none";
+    }
+  })
+}
 
 //eventlistener
 window.addEventListener('load', () => {
 setSelectedDate();
 fetchUsers();
 });
+
+buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+  displayActiveWidget(button.dataset.target)
+  })
+})
