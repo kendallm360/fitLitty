@@ -73,6 +73,7 @@ ul.navbar li:hover{
 }
 .widget {
   padding: 20px;
+  align-items: center;
 }
 #snapshot {
   border: solid 3px orange;
@@ -87,6 +88,11 @@ ul.navbar li:hover{
   height: 450px;
   width: 550px;
   display: none;
+  position: relative;
+}
+#stepComparisonDonut {
+  height: 400px;
+  width: 400px;
 }
 
 #hydration {
