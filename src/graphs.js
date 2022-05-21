@@ -34,7 +34,7 @@ function createSleepChart(weeklySleep, weeklyQuality) {
     data: data,
     options: {
       barThickness: 20,
-    }
+    },
   }
   return config
 }

@@ -62,6 +62,7 @@ function fetchUsers() {
     compareSteps();
     displayWeeklyWaterIntake();
     displayWeeklySleep();
+    // displayAllWidgets();
   })
 }
 
@@ -140,13 +141,30 @@ function displayAverageSleepData() {
   `
 };
 
+function toggleWidgetSize(widget) {
+  widget.classList.toggle("widget")
+  widget.classList.toggle("resize-widget")
+}
+
 function displayActiveWidget(selection) {
   widgets.forEach((widget) => {
     if(selection === widget.id){
       widget.style.display = "flex"
+      widget.classList.add("resize-widget")
+      widget.classList.remove("widget")
     }else{
       widget.style.display = "none";
     }
+  })
+}
+
+function displayAllWidgets() {
+  widgets.forEach((widget) => {
+  
+   widget.style.display = "flex";
+   widget.classList.add("widget")
+    widget.classList.remove("resize-widget")
+    
   })
 }
 
@@ -158,6 +176,11 @@ fetchUsers();
 
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
-  displayActiveWidget(button.dataset.target)
+    if (button.dataset.target === "snapshot"){
+      
+      displayAllWidgets();
+    } else {
+      displayActiveWidget(button.dataset.target)
+    }
   })
 })

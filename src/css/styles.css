@@ -74,33 +74,44 @@ ul.navbar li:hover{
 .widget {
   padding: 20px;
   align-items: center;
+  height: 200px;
+  width: 200px;
 }
+
+.resize-widget {
+  padding: 20px;
+  align-items: center;
+  height: 400px;
+  width: 400px;
+}
+
+
 #snapshot {
   border: solid 3px orange;
-  font-size: 2em;
-  height: 450px;
-  width: 550px;
+  font-size: 1em;
+  
+  display:flex;
 }
 
 #activity {
   border: solid 3px purple;
   font-size: 2em;
-  height: 450px;
-  width: 550px;
-  display: none;
+  
+  display: flex;
   position: relative;
+ 
 }
 #stepComparisonDonut {
   height: 400px;
   width: 400px;
+  
 }
 
 #hydration {
   border: solid 3px blue;
   font-size: 2em;
-  height: 450px;
-  width: 550px;
-  display: none;
+  
+  display: flex;
 }
 
 #weeklyHydrationChart {
@@ -110,10 +121,10 @@ ul.navbar li:hover{
 #sleep {
   border: solid 3px red;
   font-size: 1.5em;
-  height: 450px;
-  width: 550px;
-  display: none;
+  
+  display: flex;
 }
+
 
 /* .comparisons {
   border: solid 3px green;
