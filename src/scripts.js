@@ -95,7 +95,9 @@ function displaySnapshotData() {
   Here's a quick snapshot of your day:<br><br>
   You drank ${hydrationRepo.getFluidIntakeByDate(11, "2020/01/22")} ounces<br><br>
   You slept ${sleepRepo.getSleepByDate(11, "2020/01/22")} hours<br>
-  Your sleep quality was ${sleepRepo.getQualityByDate(11, "2020/01/22")}
+  Your average all-time is ${sleepRepo.getAverageSleep(11)} hours<br><br>
+  Your sleep quality was ${sleepRepo.getQualityByDate(11, "2020/01/22")}<br>
+  Your average quality all-time is ${sleepRepo.getAverageSleepQuality(11)}
   `
 }
 

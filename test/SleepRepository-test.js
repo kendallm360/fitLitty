@@ -42,7 +42,7 @@ describe("Sleep Data", () => {
       });
   
       it("should show how many hours user slept for specific day", () => {
-        expect(userRepo.getSleepByDate(1,"2019/06/17")).to.equal(8.2)
+        expect(userRepo.getSleepByDate(1,"2019/06/17")).to.equal(8)
       });
   
       it("should show sleep quality for a user on a specific day", () => {

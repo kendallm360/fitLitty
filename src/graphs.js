@@ -45,7 +45,7 @@ function createHydrationChart(weeklyWaterIntake) {
   const data = {
     labels: labels,
     datasets: [{
-      label: "Weekly Hydration",
+      label: "Weekly Hydration (ounces)",
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(255, 159, 64, 0.2)',

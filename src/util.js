@@ -21,7 +21,7 @@
     const objByDate = arr.find(data => {
       return data.date === date;
     })
-    return objByDate[attr];
+    return Math.round(objByDate[attr]);
   }
 //this.getDataByWeek(filteredHydration, dateSelected, "fluidOz", "numOunces")
   function getDataByWeek(arr, dateSelected, key, attr){
