@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   font-family: helvetica;
   color: white;
   /* background-image: linear-gradient(
@@ -54,6 +54,7 @@ ul.navbar #sleep-button:hover{
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
+  
 }
 .navigation {
 }
@@ -63,27 +64,28 @@ ul.navbar #sleep-button:hover{
 }
 
 .user-info {
-  border: solid 3px gray;
+  border: solid 1px gray;
   /* display: ; */
   height: 15%;
   width: 100%;
+  
 }
 
 .main-section {
-  border: solid 3px gray;
+  border: solid 1px gray;
   height: 100vh;
   width: 80%;
   display: flex;
   flex-direction: column;
 }
 .title-bar {
-  border: solid 3px gray;
+  border: solid 1px gray;
   height: 15%;
 }
 
 .data-display {
   /* border: solid 3px purple; */
-  height: 90%;
+  height: 86%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -99,7 +101,6 @@ ul.navbar #sleep-button:hover{
   display:flex;
   flex-direction: column;
   justify-content: center;
-  
 }
 
 .resize-widget {
@@ -116,23 +117,19 @@ ul.navbar #sleep-button:hover{
 #snapshot {
   border: solid 3px orange;
   font-size: 1em;
-  
   display:flex;
 }
 
 #activity {
   border: solid 3px purple;
   font-size: 1em;
-  
   display: flex;
- 
- 
 }
+
 #stepComparisonDonut {
   height: 400px;
   width: 400px;
   margin-top:-10px;
-  
 }
 
 #hydration {

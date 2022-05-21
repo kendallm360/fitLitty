@@ -112,11 +112,9 @@ function compareSteps() {
 
 function displayWeeklyWaterIntake() {
   //refactor date to be dynamic
-
   let weeklyWaterIntake = hydrationRepo.getDailyFluidIntakeByWeek(11, "2020/01/22")
   const config = createHydrationChart(weeklyWaterIntake);
-  const weeklyHydrationChart = new Chart(weeklyHydration, config)
-
+  const weeklyHydrationChart = new Chart(weeklyHydration, config);
 }
 
 function displayTodaysSleepStats() {
@@ -127,7 +125,6 @@ function displayTodaysSleepStats() {
 };
 
 function displayWeeklySleep() {
-
   let sleep = sleepRepo.getSleepByWeek(11, "2020/01/22");
   let quality = sleepRepo.getQualityByWeek(11, "2020/01/22");
   const config = createSleepChart(sleep, quality)
@@ -162,7 +159,6 @@ function displayActiveWidget(selection) {
 
 function displayAllWidgets() {
   widgets.forEach((widget) => {
-  
    widget.style.display = "flex";
    widget.classList.add("widget")
     widget.classList.remove("resize-widget")
@@ -179,7 +175,6 @@ fetchUsers();
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
     if (button.dataset.target === "snapshot"){
-      
       displayAllWidgets();
     } else {
       displayActiveWidget(button.dataset.target)
