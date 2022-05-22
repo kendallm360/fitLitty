@@ -62,6 +62,7 @@ function fetchUsers() {
     compareSteps();
     displayWeeklyWaterIntake();
     displayWeeklySleep();
+    // displayAllWidgets();
   })
 }
 
@@ -94,7 +95,9 @@ function displaySnapshotData() {
   Here's a quick snapshot of your day:<br><br>
   You drank ${hydrationRepo.getFluidIntakeByDate(11, "2020/01/22")} ounces<br><br>
   You slept ${sleepRepo.getSleepByDate(11, "2020/01/22")} hours<br>
-  Your sleep quality was ${sleepRepo.getQualityByDate(11, "2020/01/22")}
+  Your average all-time is ${sleepRepo.getAverageSleep(11)} hours<br><br>
+  Your sleep quality was ${sleepRepo.getQualityByDate(11, "2020/01/22")}<br>
+  Your average quality all-time is ${sleepRepo.getAverageSleepQuality(11)}
   `
 }
 
@@ -109,11 +112,9 @@ function compareSteps() {
 
 function displayWeeklyWaterIntake() {
   //refactor date to be dynamic
-
   let weeklyWaterIntake = hydrationRepo.getDailyFluidIntakeByWeek(11, "2020/01/22")
   const config = createHydrationChart(weeklyWaterIntake);
-  const weeklyHydrationChart = new Chart(weeklyHydration, config)
-
+  const weeklyHydrationChart = new Chart(weeklyHydration, config);
 }
 
 function displayTodaysSleepStats() {
@@ -124,7 +125,6 @@ function displayTodaysSleepStats() {
 };
 
 function displayWeeklySleep() {
-
   let sleep = sleepRepo.getSleepByWeek(11, "2020/01/22");
   let quality = sleepRepo.getQualityByWeek(11, "2020/01/22");
   const config = createSleepChart(sleep, quality)
@@ -140,13 +140,29 @@ function displayAverageSleepData() {
   `
 };
 
+function toggleWidgetSize(widget) {
+  widget.classList.toggle("widget")
+  widget.classList.toggle("resize-widget")
+}
+
 function displayActiveWidget(selection) {
   widgets.forEach((widget) => {
     if(selection === widget.id){
       widget.style.display = "flex"
+      widget.classList.add("resize-widget")
+      widget.classList.remove("widget")
     }else{
       widget.style.display = "none";
     }
+  })
+}
+
+function displayAllWidgets() {
+  widgets.forEach((widget) => {
+   widget.style.display = "flex";
+   widget.classList.add("widget")
+    widget.classList.remove("resize-widget")
+    
   })
 }
 
@@ -158,6 +174,10 @@ fetchUsers();
 
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
-  displayActiveWidget(button.dataset.target)
+    if (button.dataset.target === "snapshot"){
+      displayAllWidgets();
+    } else {
+      displayActiveWidget(button.dataset.target)
+    }
   })
 })

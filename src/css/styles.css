@@ -1,5 +1,5 @@
 body {
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   font-family: helvetica;
   color: white;
   /* background-image: linear-gradient(
@@ -24,10 +24,28 @@ ul.navbar li {
   margin-left: 30px;
   list-style-type: none;
 }
+
 ul.navbar li:hover{
   color: yellow;
   cursor: pointer;
 }
+
+ul.navbar #activity-button:hover{
+  color: purple;
+  cursor: pointer;
+}
+
+ul.navbar #hydration-button:hover{
+  color: blue;
+  cursor: pointer;
+}
+
+ul.navbar #sleep-button:hover{
+  color: red;
+  cursor: pointer;
+}
+
+
 .information-bar {
   /* border: solid 3px blue; */
   height: 100vh;
@@ -36,6 +54,7 @@ ul.navbar li:hover{
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
+  
 }
 .navigation {
 }
@@ -45,62 +64,79 @@ ul.navbar li:hover{
 }
 
 .user-info {
-  border: solid 3px gray;
+  border: solid 1px gray;
   /* display: ; */
   height: 15%;
   width: 100%;
+  
 }
 
 .main-section {
-  border: solid 3px gray;
+  border: solid 1px gray;
   height: 100vh;
   width: 80%;
   display: flex;
   flex-direction: column;
 }
 .title-bar {
-  border: solid 3px gray;
+  border: solid 1px gray;
   height: 15%;
 }
 
 .data-display {
   /* border: solid 3px purple; */
-  height: 90%;
+  height: 86%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  flex-wrap:wrap;
 }
+
 .widget {
   padding: 20px;
   align-items: center;
+  height: 35%;
+  width: 30%;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
+.resize-widget {
+  padding: 20px;
+  align-items: center;
+  height: 400px;
+  width: 400px;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
 #snapshot {
   border: solid 3px orange;
-  font-size: 2em;
-  height: 450px;
-  width: 550px;
+  font-size: 1em;
+  display:flex;
 }
 
 #activity {
   border: solid 3px purple;
-  font-size: 2em;
-  height: 450px;
-  width: 550px;
-  display: none;
-  position: relative;
+  font-size: 1em;
+  display: flex;
 }
+
 #stepComparisonDonut {
   height: 400px;
   width: 400px;
+  margin-top:-10px;
 }
 
 #hydration {
   border: solid 3px blue;
-  font-size: 2em;
-  height: 450px;
-  width: 550px;
-  display: none;
+  font-size: 1em;
+  
+  display: flex;
 }
 
 #weeklyHydrationChart {
@@ -109,11 +145,11 @@ ul.navbar li:hover{
 
 #sleep {
   border: solid 3px red;
-  font-size: 1.5em;
-  height: 450px;
-  width: 550px;
-  display: none;
+  font-size: 1em;
+  
+  display: flex;
 }
+
 
 /* .comparisons {
   border: solid 3px green;
