@@ -3,7 +3,7 @@ body {
   background-repeat: no-repeat;
   color: white;
   font-family: helvetica;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: row;
 }
@@ -43,7 +43,6 @@ ul.navbar #sleep-button:hover {
 .welcome {
   color: orange;
   font-size: 3em;
-  /* font-weight: 100; */
   text-align: center;
 }
 
@@ -59,7 +58,8 @@ ul.navbar #sleep-button:hover {
 
 .user-info {
   border: solid 1px gray;
-  height: 22.5%;
+  font-size: 0.75em;
+  height: 25%;
   width: 100%;
 }
 
@@ -73,11 +73,11 @@ ul.navbar #sleep-button:hover {
 
 .title-bar {
   border: solid 1px gray;
-  height: 25%;
+  height: 25vh;
 }
 
 .data-display {
-  height: 86%;
+  height: 70vh;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
