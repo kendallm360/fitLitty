@@ -18,6 +18,7 @@ import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
 //Query selectors
+const welcomeMessage = document.querySelector(".welcome");
 const contactCard = document.querySelector(".user-info");
 const snapshotWidget = document.querySelector("#snapshot");
 const hydrationWidget = document.querySelector("#hydration");
@@ -63,6 +64,7 @@ const fetchUsers = () => {
     compareSteps();
     displayWeeklyWaterIntake();
     displayWeeklySleep();
+    displayWelcomeMessage();
   });
 };
 
@@ -73,17 +75,29 @@ const createUserRepo = () => {
   sleepRepo = new SleepRepository(sleepData);
 };
 
+const displayWelcomeMessage = () => {
+  welcomeMessage.innerText = `Welcome ${currentUser.returnFirstName()}!`;
+};
+
 const displayUserDetails = () => {
-  contactCard.innerText = `
-  Welcome! ${currentUser.name}
-  ${currentUser.address}
-  ${currentUser.email}`;
+  contactCard.innerHTML = `
+  <br><br>
+  User Contact Card:<br><br>
+  Address:<br>
+  ${currentUser.address}<br><br>
+  Email:
+  ${currentUser.email}<br><br>
+  Stride Length:
+  ${currentUser.strideLength}<br><br>
+  Daily Step Goal:
+  ${currentUser.dailyStepGoal}<br><br>
+  `;
 };
 
 const displayTodaysWaterIntake = () => {
   hydrationWidget.innerText = `Hey ${currentUser.returnFirstName()}!
   You drank ${hydrationRepo.getFluidIntakeByDate(
-    11,
+    currentUser.id,
     "2020/01/22"
   )} ounces today`;
 };
@@ -94,16 +108,22 @@ const setSelectedDate = () => {
 
 const displaySnapshotData = () => {
   snapshotWidget.innerHTML += `
-  Hey ${currentUser.returnFirstName()}!<br><br>
   Here's a quick snapshot of your day:<br><br>
   You drank ${hydrationRepo.getFluidIntakeByDate(
-    11,
+    currentUser.id,
     "2020/01/22"
   )} ounces<br><br>
-  You slept ${sleepRepo.getSleepByDate(11, "2020/01/22")} hours<br>
-  Your average all-time is ${sleepRepo.getAverageSleep(11)} hours<br><br>
-  Your sleep quality was ${sleepRepo.getQualityByDate(11, "2020/01/22")}<br>
-  Your average quality all-time is ${sleepRepo.getAverageSleepQuality(11)}
+  You slept ${sleepRepo.getSleepByDate(currentUser.id, "2020/01/22")} hours<br>
+  Your average all-time is ${sleepRepo.getAverageSleep(
+    currentUser.id
+  )} hours<br><br>
+  Your sleep quality was ${sleepRepo.getQualityByDate(
+    currentUser.id,
+    "2020/01/22"
+  )}<br>
+  Your average quality all-time is ${sleepRepo.getAverageSleepQuality(
+    currentUser.id
+  )}
   `;
 };
 
@@ -115,7 +135,7 @@ const compareSteps = () => {
 const displayWeeklyWaterIntake = () => {
   //refactor date to be dynamic
   let weeklyWaterIntake = hydrationRepo.getDailyFluidIntakeByWeek(
-    11,
+    currentUser.id,
     "2020/01/22"
   );
   const config = createHydrationChart(weeklyWaterIntake);
@@ -124,29 +144,30 @@ const displayWeeklyWaterIntake = () => {
 
 const displayTodaysSleepStats = () => {
   sleepWidget.innerText = `Hey ${currentUser.returnFirstName()}!
-  You slept ${sleepRepo.getSleepByDate(11, "2020/01/22")} hours today.
-  Your sleep quality was ${sleepRepo.getQualityByDate(11, "2020/01/22")}
+  You slept ${sleepRepo.getSleepByDate(
+    currentUser.id,
+    "2020/01/22"
+  )} hours today.
+  Your sleep quality was ${sleepRepo.getQualityByDate(
+    currentUser.id,
+    "2020/01/22"
+  )}
   `;
 };
 
 const displayWeeklySleep = () => {
-  let sleep = sleepRepo.getSleepByWeek(11, "2020/01/22");
-  let quality = sleepRepo.getQualityByWeek(11, "2020/01/22");
+  let sleep = sleepRepo.getSleepByWeek(currentUser.id, "2020/01/22");
+  let quality = sleepRepo.getQualityByWeek(currentUser.id, "2020/01/22");
   const config = createSleepChart(sleep, quality);
   return new Chart(weeklySleep, config);
 };
 
 const displayAverageSleepData = () => {
-  let allTimeSleep = sleepRepo.getAverageSleep(11);
-  let allTimeQuality = sleepRepo.getAverageSleepQuality(11);
+  let allTimeSleep = sleepRepo.getAverageSleep(currentUser.id);
+  let allTimeQuality = sleepRepo.getAverageSleepQuality(currentUser.id);
   sleepWidget.innerHTML += `<br> Your average hours slept: ${allTimeSleep} hours<br>
   Your average sleep quality: ${allTimeQuality}/5
   `;
-};
-
-const toggleWidgetSize = (widget) => {
-  widget.classList.toggle("widget");
-  widget.classList.toggle("resize-widget");
 };
 
 const displayActiveWidget = (selection) => {
@@ -171,8 +192,8 @@ const displayAllWidgets = () => {
 
 //eventlistener
 window.addEventListener("load", () => {
-  setSelectedDate();
   fetchUsers();
+  setSelectedDate();
 });
 
 buttons.forEach((button) => {
