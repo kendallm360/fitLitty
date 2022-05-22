@@ -1,33 +1,29 @@
-import {
-  getData
-} from './apiCalls.js'
+import { getData } from "./apiCalls.js";
 
 import {
   createSleepChart,
   createHydrationChart,
-  createCompareDonut
-} from './graphs.js'
+  createCompareDonut,
+} from "./graphs.js";
 
-import './css/styles.css';
-import './images/turing-logo.png'
+import "./css/styles.css";
+import "./images/turing-logo.png";
 
-import UserRepository from './UserRepository';
-import User from './User';
-import HydrationRepository from './HydrationRepository.js';
-import SleepRepository from './SleepRepository'
+import UserRepository from "./UserRepository";
+import User from "./User";
+import HydrationRepository from "./HydrationRepository.js";
+import SleepRepository from "./SleepRepository";
 
-
-import { Chart, registerables } from 'chart.js';
+import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
 //Query selectors
 const contactCard = document.querySelector(".user-info");
 const snapshotWidget = document.querySelector("#snapshot");
-const activityWidget = document.querySelector("#activity");
 const hydrationWidget = document.querySelector("#hydration");
 const sleepWidget = document.querySelector("#sleep");
 const dateSelected = document.querySelector(".date-selection");
-const buttons= Array.from(document.querySelectorAll(".dataButton"));
+const buttons = Array.from(document.querySelectorAll(".dataButton"));
 const widgets = Array.from(document.querySelectorAll(".widget"));
 const weeklyHydration = document.querySelector("#weeklyHydrationChart");
 const weeklySleep = document.querySelector("#weeklySleepChart");
@@ -44,14 +40,19 @@ let hydrationData;
 let activityData;
 
 //functions
-function userDataInstances() {
+const userDataInstances = () => {
   return userData.map(function (data) {
-    return new User(data)
+    return new User(data);
   });
-}
+};
 
-function fetchUsers() {
-  Promise.all([getData("users"),getData("sleep"), getData("hydration"), getData("activity")]).then((data) => {
+const fetchUsers = () => {
+  Promise.all([
+    getData("users"),
+    getData("sleep"),
+    getData("hydration"),
+    getData("activity"),
+  ]).then((data) => {
     userData = data[0].userData;
     sleepData = data[1].sleepData;
     hydrationData = data[2].hydrationData;
@@ -62,122 +63,124 @@ function fetchUsers() {
     compareSteps();
     displayWeeklyWaterIntake();
     displayWeeklySleep();
-    // displayAllWidgets();
-  })
-}
+  });
+};
 
-function createUserRepo() {
-  userRepo = new UserRepository(userDataInstances())
+const createUserRepo = () => {
+  userRepo = new UserRepository(userDataInstances());
   currentUser = userRepo.findById(11);
   hydrationRepo = new HydrationRepository(hydrationData);
   sleepRepo = new SleepRepository(sleepData);
 };
 
-function displayUserDetails(){
+const displayUserDetails = () => {
   contactCard.innerText = `
   Welcome! ${currentUser.name}
   ${currentUser.address}
   ${currentUser.email}`;
-}
+};
 
-function displayTodaysWaterIntake() {
+const displayTodaysWaterIntake = () => {
   hydrationWidget.innerText = `Hey ${currentUser.returnFirstName()}!
-  You drank ${hydrationRepo.getFluidIntakeByDate(11, "2020/01/22")} ounces today`
-}
+  You drank ${hydrationRepo.getFluidIntakeByDate(
+    11,
+    "2020/01/22"
+  )} ounces today`;
+};
 
-function setSelectedDate() {
-   dateSelected.value = "2020-01-22";
-}
+const setSelectedDate = () => {
+  dateSelected.value = "2020-01-22";
+};
 
-function displaySnapshotData() {
+const displaySnapshotData = () => {
   snapshotWidget.innerHTML += `
   Hey ${currentUser.returnFirstName()}!<br><br>
   Here's a quick snapshot of your day:<br><br>
-  You drank ${hydrationRepo.getFluidIntakeByDate(11, "2020/01/22")} ounces<br><br>
+  You drank ${hydrationRepo.getFluidIntakeByDate(
+    11,
+    "2020/01/22"
+  )} ounces<br><br>
   You slept ${sleepRepo.getSleepByDate(11, "2020/01/22")} hours<br>
   Your average all-time is ${sleepRepo.getAverageSleep(11)} hours<br><br>
   Your sleep quality was ${sleepRepo.getQualityByDate(11, "2020/01/22")}<br>
   Your average quality all-time is ${sleepRepo.getAverageSleepQuality(11)}
-  `
-}
+  `;
+};
 
-function compareSteps() {
+const compareSteps = () => {
   const config = createCompareDonut(currentUser, userRepo.getAverageStepGoal());
-  const stepComparison = new Chart(stepComparisonDonut, config)
-  // activityWidget.innerText = `Hey ${currentUser.returnFirstName()}!
-  // This is how your step goal compares to other users!
-  // Yours: ${currentUser.dailyStepGoal} vs Theirs: ${userRepo.getAverageStepGoal()}`
+  const stepComparison = new Chart(stepComparisonDonut, config);
+};
 
-}
-
-function displayWeeklyWaterIntake() {
+const displayWeeklyWaterIntake = () => {
   //refactor date to be dynamic
-  let weeklyWaterIntake = hydrationRepo.getDailyFluidIntakeByWeek(11, "2020/01/22")
+  let weeklyWaterIntake = hydrationRepo.getDailyFluidIntakeByWeek(
+    11,
+    "2020/01/22"
+  );
   const config = createHydrationChart(weeklyWaterIntake);
   const weeklyHydrationChart = new Chart(weeklyHydration, config);
-}
+};
 
-function displayTodaysSleepStats() {
+const displayTodaysSleepStats = () => {
   sleepWidget.innerText = `Hey ${currentUser.returnFirstName()}!
   You slept ${sleepRepo.getSleepByDate(11, "2020/01/22")} hours today.
   Your sleep quality was ${sleepRepo.getQualityByDate(11, "2020/01/22")}
-  `
+  `;
 };
 
-function displayWeeklySleep() {
+const displayWeeklySleep = () => {
   let sleep = sleepRepo.getSleepByWeek(11, "2020/01/22");
   let quality = sleepRepo.getQualityByWeek(11, "2020/01/22");
-  const config = createSleepChart(sleep, quality)
-  return new Chart(weeklySleep, config)
-
+  const config = createSleepChart(sleep, quality);
+  return new Chart(weeklySleep, config);
 };
 
-function displayAverageSleepData() {
-  let allTimeSleep = sleepRepo.getAverageSleep(11)
-  let allTimeQuality = sleepRepo.getAverageSleepQuality(11)
+const displayAverageSleepData = () => {
+  let allTimeSleep = sleepRepo.getAverageSleep(11);
+  let allTimeQuality = sleepRepo.getAverageSleepQuality(11);
   sleepWidget.innerHTML += `<br> Your average hours slept: ${allTimeSleep} hours<br>
   Your average sleep quality: ${allTimeQuality}/5
-  `
+  `;
 };
 
-function toggleWidgetSize(widget) {
-  widget.classList.toggle("widget")
-  widget.classList.toggle("resize-widget")
-}
+const toggleWidgetSize = (widget) => {
+  widget.classList.toggle("widget");
+  widget.classList.toggle("resize-widget");
+};
 
-function displayActiveWidget(selection) {
+const displayActiveWidget = (selection) => {
   widgets.forEach((widget) => {
-    if(selection === widget.id){
-      widget.style.display = "flex"
-      widget.classList.add("resize-widget")
-      widget.classList.remove("widget")
-    }else{
+    if (selection === widget.id) {
+      widget.style.display = "flex";
+      widget.classList.add("resize-widget");
+      widget.classList.remove("widget");
+    } else {
       widget.style.display = "none";
     }
-  })
-}
+  });
+};
 
-function displayAllWidgets() {
+const displayAllWidgets = () => {
   widgets.forEach((widget) => {
-   widget.style.display = "flex";
-   widget.classList.add("widget")
-    widget.classList.remove("resize-widget")
-    
-  })
-}
+    widget.style.display = "flex";
+    widget.classList.add("widget");
+    widget.classList.remove("resize-widget");
+  });
+};
 
 //eventlistener
-window.addEventListener('load', () => {
-setSelectedDate();
-fetchUsers();
+window.addEventListener("load", () => {
+  setSelectedDate();
+  fetchUsers();
 });
 
 buttons.forEach((button) => {
-  button.addEventListener('click', () => {
-    if (button.dataset.target === "snapshot"){
+  button.addEventListener("click", () => {
+    if (button.dataset.target === "snapshot") {
       displayAllWidgets();
     } else {
-      displayActiveWidget(button.dataset.target)
+      displayActiveWidget(button.dataset.target);
     }
-  })
-})
+  });
+});
