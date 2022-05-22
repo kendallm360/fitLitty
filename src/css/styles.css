@@ -1,74 +1,66 @@
 body {
   background-color: rgb(0, 0, 0);
-  font-family: helvetica;
-  color: white;
-  /* background-image: linear-gradient(
-    to top,
-    #ff9a9e 0%,
-    #fecfef 99%,
-    #fecfef 100%
-  ); */
   background-repeat: no-repeat;
-  /* border: solid 3px red; */
-  height: 100%;
+  color: white;
+  font-family: helvetica;
+  height: 100vh;
   display: flex;
   flex-direction: row;
 }
+
 ul.navbar {
   display: flex;
   justify-content: center;
 }
+
 ul.navbar li {
   color: white;
   font-size: 2em;
-  margin-left: 30px;
   list-style-type: none;
+  margin-left: 30px;
 }
 
-ul.navbar li:hover{
-  color: yellow;
+ul.navbar li:hover {
+  color: orange;
   cursor: pointer;
 }
 
-ul.navbar #activity-button:hover{
+ul.navbar #activity-button:hover {
   color: purple;
   cursor: pointer;
 }
 
-ul.navbar #hydration-button:hover{
+ul.navbar #hydration-button:hover {
   color: blue;
   cursor: pointer;
 }
 
-ul.navbar #sleep-button:hover{
+ul.navbar #sleep-button:hover {
   color: red;
   cursor: pointer;
 }
 
+.welcome {
+  color: orange;
+  font-size: 3em;
+  text-align: center;
+}
 
 .information-bar {
-  /* border: solid 3px blue; */
+  display: flex;
   height: 100vh;
   width: 20%;
-  display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  
-}
-.navigation {
-}
-
-.date-selection {
-  /* align-self: flex-start; */
+  text-align: center;
 }
 
 .user-info {
   border: solid 1px gray;
-  /* display: ; */
-  height: 15%;
+  font-size: 0.75em;
+  height: 25%;
   width: 100%;
-  
 }
 
 .main-section {
@@ -78,46 +70,43 @@ ul.navbar #sleep-button:hover{
   display: flex;
   flex-direction: column;
 }
+
 .title-bar {
   border: solid 1px gray;
-  height: 15%;
+  height: 25vh;
 }
 
 .data-display {
-  /* border: solid 3px purple; */
-  height: 86%;
+  height: 70vh;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 }
 
-.widget {
-  padding: 20px;
-  align-items: center;
+.widget,
+.resize-widget {
   height: 35%;
+  padding: 20px;
   width: 30%;
-  display:flex;
+  align-items: center;
+  display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .resize-widget {
-  padding: 20px;
-  align-items: center;
   height: 400px;
+  padding: 20px;
   width: 400px;
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
 }
-
 
 #snapshot {
   border: solid 3px orange;
   font-size: 1em;
-  display:flex;
+  display: flex;
+  text-align: center;
 }
 
 #activity {
@@ -128,14 +117,13 @@ ul.navbar #sleep-button:hover{
 
 #stepComparisonDonut {
   height: 400px;
+  margin-top: -10px;
   width: 400px;
-  margin-top:-10px;
 }
 
 #hydration {
   border: solid 3px blue;
   font-size: 1em;
-  
   display: flex;
 }
 
@@ -146,28 +134,9 @@ ul.navbar #sleep-button:hover{
 #sleep {
   border: solid 3px red;
   font-size: 1em;
-  
   display: flex;
 }
 
-
-/* .comparisons {
-  border: solid 3px green;
-} */
-
-/* .friends-zone {
-  border: solid 3px blue;
-  height: 20%;
-  display: flex;
-  flex-direction: row;
-} */
-
-/* .friends {
-  border: solid 3px pink;
-  width: 70%;
-} */
-
-/* .comparisons {
-  border: solid 3px orange;
-  width: 30%;
-} */
+.hidden {
+  display: none;
+}

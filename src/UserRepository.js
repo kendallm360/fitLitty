@@ -1,82 +1,17 @@
-import {
-  filterById,
-  getAverage,
-  getDataByDate,
-  getDataByWeek
-} from './util.js'
+import { getAverage } from "./util.js";
 
 class UserRepository {
-  constructor(userData, hydrationData, sleepData) {
+  constructor(userData) {
     this.users = userData;
-    this.hydrationData = hydrationData;
-    this.sleepData = sleepData;
   }
 
-//User methods
   findById(id) {
     return this.users.find((user) => user.id === id);
   }
 
   getAverageStepGoal() {
-    return getAverage(this.users, "dailyStepGoal")
+    return getAverage(this.users, "dailyStepGoal");
   }
 }
-
-//hydration methods
-  // getFilteredHydration(id){
-  //   return this.filterById(id, "hydrationData");
-  // }
-
-//   getAverageFluidIntake(id) {
-//     let filteredHydration = filterById(id, this.hydrationData)
-//     return getAverage(filteredHydration, "numOunces")
-//   };
-
-//    getFluidIntakeByDate(id, date){
-//      let filteredHydration = filterById(id, this.hydrationData)
-//      return getDataByDate(filteredHydration, date, "numOunces")
-//    };
-
-//   getDailyFluidIntakeByWeek(id, dateSelected){
-//     let filteredHydration = filterById(id, this.hydrationData)
-//     return getDataByWeek(filteredHydration, dateSelected, "fluidOz", "numOunces")
-//   };
-
-// //sleep methods
-//   getAverageSleep(id){
-//   let filteredSleep = filterById(id, this.sleepData)
-//     return getAverage(filteredSleep, "hoursSlept")
-//   };
-
-//   getAverageSleepQuality(id) {
-//     let filteredSleep = filterById(id, this.sleepData)
-//       return getAverage(filteredSleep, "sleepQuality")
-//   };
-
-//   getSleepByDate(id, date) {
-//     let filteredSleep = filterById(id, this.sleepData)
-//       return getDataByDate(filteredSleep, date, "hoursSlept")
-//   };
-
-//   getQualityByDate(id, date) {
-//     let filteredSleep = filterById(id, this.sleepData);
-//       return getDataByDate(filteredSleep, date, "sleepQuality")
-//   };
-
-//   getSleepByWeek(id, date) {
-//     let filteredSleep = filterById(id, this.sleepData);
-//     return getDataByWeek(filteredSleep, date, "hoursSlept", "hoursSlept")
-//   };
-
-//   getQualityByWeek(id, date) {
-//     let filteredSleep = filterById(id, this.sleepData);
-//     return getDataByWeek(filteredSleep, date, "sleepQuality", "sleepQuality")
-//   };
-
-//   getAverageSleepQualityAll(){
-//     return getAverage(this.sleepData, "sleepQuality");
-//   }
-
-// }
 
 export default UserRepository;

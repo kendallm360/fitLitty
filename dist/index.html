@@ -1,48 +1,48 @@
-<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <title>Fitlit</title>
   </head>
   <body>
-    <!-- <h1>Activity Tracker</h1> -->
     <aside class="information-bar">
       <section class="user-info">
-        <p class="welcome"></p>
-        <input type="date" class="date-selection" id="date-selection" />
+        <input type="date" class="date-selection hidden" id="date-selection" />
       </section>
     </aside>
-
     <aside class="main-section">
       <section class="title-bar">
+        <p class="welcome"></p>
         <ul class="navbar">
-          <li class="dataButton" id="snapshot-button" data-target="snapshot">Snapshot</li>
-          <li class="dataButton" id="activity-button" data-target="activity">Activity</li>
-          <li class="dataButton" id="hydration-button" data-target="hydration">Hydration</li>
-          <li class="dataButton" id="sleep-button" data-target="sleep">Sleep</li>
+          <li class="dataButton" id="snapshot-button" data-target="snapshot">
+            Snapshot
+          </li>
+          <li class="dataButton" id="activity-button" data-target="activity">
+            Steps
+          </li>
+          <li class="dataButton" id="hydration-button" data-target="hydration">
+            Hydration
+          </li>
+          <li class="dataButton" id="sleep-button" data-target="sleep">
+            Sleep
+          </li>
         </ul>
       </section>
-
       <section class="data-display">
         <div class="widget" id="snapshot"></div>
         <div class="widget" id="activity">
-          <p>steps</p>
+          <p>Steps</p>
           <canvas id="stepComparisonDonut"></canvas>
         </div>
         <div class="widget" id="hydration">
-          <p>hydration</p>
+          <p>Hydration</p>
           <canvas id="weeklyHydrationChart"></canvas>
         </div>
         <div class="widget" id="sleep">
-          <p>sleep</p>
+          <p>Sleep</p>
           <canvas id="weeklySleepChart"></canvas>
         </div>
       </section>
-
-      <!-- <section class="friends-zone">
-        <div class="friends">friends</div>
-        <div class="comparisons">compare</div>
-      </section> -->
     </aside>
     <script src="bundle.js"></script>
   </body>
