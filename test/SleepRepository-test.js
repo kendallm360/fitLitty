@@ -23,6 +23,10 @@ describe("Sleep Data", () => {
     userRepo = new SleepRepository(sleepData);
   });
 
+  it("should take in sleep data", () => {
+    expect(userRepo.sleepData).to.deep.equal(sleepData)
+  })
+
   it("should show average of hours slept per day for a user", () => {
     expect(userRepo.getAverageSleep(1)).to.equal(7);
   });
