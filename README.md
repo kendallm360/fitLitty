@@ -1,4 +1,4 @@
-# FitLit Starter Kit
+# FitLit
 
 ## Setup
 
@@ -32,7 +32,7 @@ In this project, we were given data from an activity tracker for many users over
 - VS Code & Atom
 
 ## Challenges:
-- Implementing the Fetch API 
+- Implementing the Fetch API
 - The donut graph sizing was hard to fit to size
 - Thinking of sad paths for testing
 - Deciding on class structure and where each method should live
@@ -52,7 +52,7 @@ For this project we sourced inspiration from Dribble creators, and also used our
 ### Example of Project:
 
 ### Scrolling feature:
-![Scrolling](https://media2.giphy.com/media/U2Cd38gV8vtMMJy6RG/giphy.gif)
+![Demo](../)
 
 ### Future Additions:
 - Functionality that allows the user to filter by date
