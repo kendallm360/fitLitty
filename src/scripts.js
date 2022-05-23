@@ -94,14 +94,6 @@ const displayUserDetails = () => {
   `;
 };
 
-const displayTodaysWaterIntake = () => {
-  hydrationWidget.innerText = `Hey ${currentUser.returnFirstName()}!
-  You drank ${hydrationRepo.getFluidIntakeByDate(
-    currentUser.id,
-    "2020/01/22"
-  )} ounces today`;
-};
-
 const setSelectedDate = () => {
   dateSelected.value = "2020-01-22";
 };
@@ -133,7 +125,6 @@ const compareSteps = () => {
 };
 
 const displayWeeklyWaterIntake = () => {
-  //refactor date to be dynamic
   let weeklyWaterIntake = hydrationRepo.getDailyFluidIntakeByWeek(
     currentUser.id,
     "2020/01/22"
@@ -160,14 +151,6 @@ const displayWeeklySleep = () => {
   let quality = sleepRepo.getQualityByWeek(currentUser.id, "2020/01/22");
   const config = createSleepChart(sleep, quality);
   return new Chart(weeklySleep, config);
-};
-
-const displayAverageSleepData = () => {
-  let allTimeSleep = sleepRepo.getAverageSleep(currentUser.id);
-  let allTimeQuality = sleepRepo.getAverageSleepQuality(currentUser.id);
-  sleepWidget.innerHTML += `<br> Your average hours slept: ${allTimeSleep} hours<br>
-  Your average sleep quality: ${allTimeQuality}/5
-  `;
 };
 
 const displayActiveWidget = (selection) => {
