@@ -1,4 +1,4 @@
-# FitLit
+# FitLitty
 
 ## Setup
 
@@ -6,7 +6,7 @@ The details and setup of this project are outline in [this project spec](http://
 
 ## Overview:
 
-In this project, we were given data from an activity tracker for many users over many days. Think of something like Fitbit. Fitbit devices log data and present it on a dashboard for their users. Our goal was to present a useful dashboard for a user to view and see their latest activity data, goals, and milestones.
+Fitlitty is a wellness app that tracks a users  information including sleep, hydration and activity. The app shows a personalized interface, with personal information and widgets for respective wellness categories. Information shown includes sleep time and quality compared to user's all time average, as well as interactive graphs showing weekly sleep, weekly hydration and today’s step count compared to all users.
 
 ## Goals:
 
