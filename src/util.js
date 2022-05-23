@@ -18,10 +18,10 @@ const getDataByDate = (arr, date, attr) => {
   return Math.round(objByDate[attr]);
 };
 
-const getDataByWeek = (arr, dateSelected, key, attr) => {
+const getDataByWeek = (arr, dateSelected, attr) => {
   const index = arr.findIndex((data) => data.date === dateSelected);
   const week = arr.slice(index - 6, index + 1).map((data) => {
-    return { date: data.date, [key]: Math.round(data[attr]) };
+    return { date: data.date, [attr]: Math.round(data[attr]) };
   });
   return week;
 };

@@ -35,7 +35,7 @@ const createSleepChart = (weeklySleep, weeklyQuality) => {
 
 const createHydrationChart = (weeklyWaterIntake) => {
   const labels = weeklyWaterIntake.map((intake) => intake.date);
-  const values = weeklyWaterIntake.map((intake) => intake.fluidOz);
+  const values = weeklyWaterIntake.map((intake) => intake.numOunces);
   const data = {
     labels: labels,
     datasets: [

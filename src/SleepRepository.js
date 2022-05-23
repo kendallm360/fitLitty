@@ -32,12 +32,12 @@ import {
       
         getSleepByWeek(id, date) {
           let filteredSleep = filterById(id, this.sleepData);
-          return getDataByWeek(filteredSleep, date, "hoursSlept", "hoursSlept")
+          return getDataByWeek(filteredSleep, date, "hoursSlept")
         };
       
         getQualityByWeek(id, date) {
           let filteredSleep = filterById(id, this.sleepData);
-          return getDataByWeek(filteredSleep, date, "sleepQuality", "sleepQuality")
+          return getDataByWeek(filteredSleep, date, "sleepQuality")
         };
       
         getAverageSleepQualityAll(){

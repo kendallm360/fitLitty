@@ -22,7 +22,7 @@ import {
     
       getDailyFluidIntakeByWeek(id, dateSelected){
         let filteredHydration = filterById(id, this.hydrationData)
-        return getDataByWeek(filteredHydration, dateSelected, "fluidOz", "numOunces")
+        return getDataByWeek(filteredHydration, dateSelected, "numOunces")
       };
   }
 
