@@ -52,7 +52,7 @@ For this project we sourced inspiration from Dribble creators, and also used our
 ### Example of Project:
 
 ### Scrolling feature:
-![Demo](../)
+![Demo](./src/images/demogif.gif)
 
 ### Future Additions:
 - Functionality that allows the user to filter by date
