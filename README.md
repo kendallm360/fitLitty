@@ -1,78 +1,65 @@
 # FitLit Starter Kit
 
-The details of this project are outline in [this project spec](http://frontend.turing.io/projects/fitlit.html).
-
 ## Setup
 
-1. Within your group, decide on one person to have the project repository (repo) on their GitHub account. Then, that person should fork this repo - on the top right corner of this page, click the **Fork** button.
-1. Both memebers of the group should clone down the _forked_ repo. Since you don't want to name your project "activity-tracker-starter", you can use an optional argument when you run git clone (you replace the [...] with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Once you have cloned the repo, change into the directory and install the project dependencies. Run `npm install` to install project dependencies.
-1. Run `npm start` in the terminal to see the HTML page (you should see some boilerplate HTML displayed on the page).  `Control + C` is the command to stop running the local server.  Closing the terminal without stopping the server first could allow the server to continue to run in the background and cause problems. This command is not specific to Webpack; make note of it for future use.   
-1. Make sure both members of your team are collaborators on the forked repo.  
-1. Do not run `npm audit fix --force`.  This will update to the latest version of packages.  We need to be using `webpack-dev-server@3.11.2` which is not the latest version.  If you start to run into Webpack errors, first check that all group members are using the correct version.  
+The details and setup of this project are outline in [this project spec](http://frontend.turing.io/projects/fitlit.html).
 
-## Testing
+## Overview:
 
-There is no boilerplate for testing in this starter-kit repo. You will need to set this up yourself. However, if you ran `npm install`, then the tooling you need to start testing is already installed (`mocha` and `chai`).
+In this project, we were given data from an activity tracker for many users over many days. Think of something like Fitbit. Fitbit devices log data and present it on a dashboard for their users. Your goal is to present a useful dashboard for a user to view and see their latest activity data, goals, and milestones.
+
+## Goals:
+
+- Implement ES6 classes that communicate to each other as needed
+- Use object and array prototype methods to perform data manipulation
+- Create a user interface that is easy to use and clearly displays information.
+- Write modular, reusable code that follows SRP (Single Responsibility Principle)
+- Implement a robust testing suite using TDD
+- Make network requests to retrieve data
+- Work with a local server and make network requests to API endpoints to retrieve and manipulate data
+- Refactor your code to DRY up repetitive logic
+- Ensure your app follows best practices for accessibility
+- Practice talking about your code and high level technical concepts
+- Implement feedback to improve product and process.
 
 
-## Data Model
+## Tech used:
+- JavaScript
+- Mocha
+- Chai
+- CSS
+- HTML
+- VS Code & Atom
 
-**Users**
+## Challenges:
+- Implementing the Fetch API 
+- The donut graph sizing was hard to fit to size
+- Thinking of sad paths for testing
+- Deciding on class structure and where each method should live
 
-```
-[
-  {
-    "id": [number],
-    "name": [string],
-    "address": [string],
-    "email": [string],
-    "strideLength": [number - feet],
-    "dailyStepGoal": [number - steps],
-    "friends": [array - one-way connection to other user(s)]
-  },
-  ...more user data
-]
-```
+## Wins:
+- Making our function dynamic made building the later classes much easier
+- The initial planning of how we would approach the project
+- The project board helped keep us on track
 
-**Activity**
 
-```
-[
-  {
-    "userID": [number],
-    "date": [string YYYY/MM/DD],
-    "numSteps": [number - steps],
-    "minutesActive": [number - minutes],
-    "flightsOfStairs": [number - flights]
-  },
-  ...more activity data
-]
-```
+## Testing:
+Mocha and chai are already set up, with a boilerplate test for you.
 
-**Hydration**
+### Design Inspiration:
+For this project we sourced inspiration from Dribble creators, and also used our imagination during the building process to make it our own!
 
-```
-[
-  {
-    "userID": [number],
-    "date": [string YYYY/MM/DD],
-    "numOunces": [number - ounces]
-  },
-  ...more hydration data
-]
-```
+### Example of Project:
 
-**Sleep**
+### Scrolling feature:
+![Scrolling](https://media2.giphy.com/media/U2Cd38gV8vtMMJy6RG/giphy.gif)
 
-```
-[
-  {
-    "userID": [number],
-    "date": [string YYYY/MM/DD],
-    "hoursSlept": [number - hours],
-    "sleepQuality": [number - unitless]
-  },
-  ...more sleep data
-]
-```
+### Future Additions:
+- Functionality that allows the user to filter by date
+- A feature that allows the user to change the color scheme
+- Pictures to the design
+
+## Contributors:
+- [Trish Fox-Collis](https://github.com/tfoxcollis)
+- [Masaki Kleinkopf](https://github.com/masaki-kleinkopf)
+- [Kendall McGree](https://github.com/kendallm360)
