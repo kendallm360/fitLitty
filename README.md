@@ -50,8 +50,6 @@ Mocha and chai are already set up, with a boilerplate test for you.
 For this project we sourced inspiration from Dribble creators, and also used our imagination during the building process to make it our own!
 
 ### Example of Project:
-
-### Scrolling feature:
 ![Demo](./src/images/demogif.gif)
 
 ### Future Additions:
