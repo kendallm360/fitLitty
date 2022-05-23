@@ -6,7 +6,7 @@ The details and setup of this project are outline in [this project spec](http://
 
 ## Overview:
 
-In this project, we were given data from an activity tracker for many users over many days. Think of something like Fitbit. Fitbit devices log data and present it on a dashboard for their users. Your goal is to present a useful dashboard for a user to view and see their latest activity data, goals, and milestones.
+In this project, we were given data from an activity tracker for many users over many days. Think of something like Fitbit. Fitbit devices log data and present it on a dashboard for their users. Our goal was to present a useful dashboard for a user to view and see their latest activity data, goals, and milestones.
 
 ## Goals:
 
