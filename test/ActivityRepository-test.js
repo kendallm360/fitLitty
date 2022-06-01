@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { activityData } from "./mockData/mock";
+import { activityData, userRepoInstance } from "./mockData/mock";
 
 describe("Activity", () => {
   let activity;
@@ -13,7 +13,7 @@ describe("Activity", () => {
   });
 
   it.only("should have a method that returns the miles a user has walked", () => {
-    // activity.getMilesWalked(1, 4, "2019/06/15");
-    expect(activity.getMilesWalked(1, 4, "2019/06/15")).to.equal(2.7);
+    let current_user = userRepoInstance.users[0]
+    expect(activity.getMilesWalked(current_user, "2019/06/15")).to.equal(2.9);
   });
 });
