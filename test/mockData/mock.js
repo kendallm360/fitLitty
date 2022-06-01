@@ -1,3 +1,4 @@
+import SleepRepository from "../../src/SleepRepository";
 import User from "../../src/User";
 import UserRepository from "../../src/UserRepository";
 
@@ -106,6 +107,20 @@ const userInstance3 = new User({
   friends: undefined,
 });
 
+const sleepData = new SleepRepository([
+  { userID: 1, date: "2019/06/15", hoursSlept: 6.1, sleepQuality: 2.2 },
+  { userID: 1, date: "2019/06/16", hoursSlept: 6.6, sleepQuality: 2 },
+  { userID: 1, date: "2019/06/17", hoursSlept: 8.2, sleepQuality: 3 },
+  { userID: 1, date: "2019/06/18", hoursSlept: 5.0, sleepQuality: 2.7 },
+  { userID: 1, date: "2019/06/19", hoursSlept: 6.5, sleepQuality: 2.3 },
+  { userID: 2, date: "2019/06/19", hoursSlept: 6.1, sleepQuality: 2.4 },
+  { userID: 1, date: "2019/06/20", hoursSlept: 7.0, sleepQuality: 4 },
+  { userID: 1, date: "2019/06/21", hoursSlept: 8.5, sleepQuality: 1.2 },
+  { userID: 1, date: "2019/06/22", hoursSlept: 6.5, sleepQuality: 3.1 },
+  { userID: 1, date: "2019/06/23", hoursSlept: 6.7, sleepQuality: 4.4 },
+  { userID: 1, date: "2019/06/24", hoursSlept: 7.5, sleepQuality: 4.8 },
+]);
+
 export {
   userRepoInstance,
   userHydrationData,
@@ -115,4 +130,5 @@ export {
   userInstance1,
   userInstance2,
   userInstance3,
+  sleepData,
 };
