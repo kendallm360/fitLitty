@@ -21,7 +21,7 @@ Chart.register(...registerables);
 const welcomeMessage = document.querySelector(".welcome");
 const contactCard = document.querySelector(".user-info");
 const snapshotWidget = document.querySelector("#snapshot");
-const hydrationWidget = document.querySelector("#hydration");
+// const hydrationWidget = document.querySelector("#hydration");
 const sleepWidget = document.querySelector("#sleep");
 const dateSelected = document.querySelector(".date-selection");
 const buttons = Array.from(document.querySelectorAll(".dataButton"));
@@ -53,24 +53,31 @@ const fetchUsers = () => {
     getData("sleep"),
     getData("hydration"),
     getData("activity"),
-  ]).then((data) => {
-    userData = data[0].userData;
-    sleepData = data[1].sleepData;
-    hydrationData = data[2].hydrationData;
-    activityData = data[3].activityData;
-    createUserRepo();
-    displayUserDetails();
-    displaySnapshotData();
-    compareSteps();
-    displayWeeklyWaterIntake();
-    displayWeeklySleep();
-    displayWelcomeMessage();
-  });
+  ])
+    .then((data) => {
+      userData = data[0].userData;
+      sleepData = data[1].sleepData;
+      hydrationData = data[2].hydrationData;
+      activityData = data[3].activityData;
+      createUserRepo();
+      displayUserDetails();
+      displaySnapshotData();
+      compareSteps();
+      displayWeeklyWaterIntake();
+      displayWeeklySleep();
+      displayWelcomeMessage();
+    })
+    //Added what Nik suggested verbatim below.
+    //Solid example of error handling
+    .catch((error) =>
+      console.log(error, "Error is coming back from the server")
+    );
 };
 
 const createUserRepo = () => {
   userRepo = new UserRepository(userDataInstances());
-  currentUser = userRepo.findById(11);
+  // currentUser = userRepo.findById(11);
+  currentUser = userRepo.generateRandomUser();
   hydrationRepo = new HydrationRepository(hydrationData);
   sleepRepo = new SleepRepository(sleepData);
 };
