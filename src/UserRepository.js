@@ -1,17 +1,25 @@
 import { getAverage } from "./util.js";
 
-class UserRepository {
+export default class UserRepository {
   constructor(userData) {
     this.users = userData;
   }
 
   findById(id) {
-    return this.users.find((user) => user.id === id);
+    if (id === undefined) {
+      return "Oops it looks like no id was passed in";
+    } else {
+      return this.users.find((user) => user.id === id);
+    }
   }
 
   getAverageStepGoal() {
     return getAverage(this.users, "dailyStepGoal");
   }
+
+  generateRandomUser() {
+    return this.users[Math.floor(Math.random() * this.users.length)];
+  }
 }
 
-export default UserRepository;
+// export default UserRepository;

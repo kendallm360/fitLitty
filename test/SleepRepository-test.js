@@ -1,31 +1,31 @@
 import { expect } from "chai";
-import SleepRepository from "../src/SleepRepository";
+// import SleepRepository from "../src/SleepRepository";
+import { sleepData } from "./mockData/mock";
 
 describe("Sleep Data", () => {
   let userRepo;
-  let sleepData;
+  // let sleepData;
 
   beforeEach(() => {
-    sleepData = [
-      { userID: 1, date: "2019/06/15", hoursSlept: 6.1, sleepQuality: 2.2 },
-      { userID: 1, date: "2019/06/16", hoursSlept: 6.6, sleepQuality: 2 },
-      { userID: 1, date: "2019/06/17", hoursSlept: 8.2, sleepQuality: 3 },
-      { userID: 1, date: "2019/06/18", hoursSlept: 5.0, sleepQuality: 2.7 },
-      { userID: 1, date: "2019/06/19", hoursSlept: 6.5, sleepQuality: 2.3 },
-      { userID: 2, date: "2019/06/19", hoursSlept: 6.1, sleepQuality: 2.4 },
-      { userID: 1, date: "2019/06/20", hoursSlept: 7.0, sleepQuality: 4 },
-      { userID: 1, date: "2019/06/21", hoursSlept: 8.5, sleepQuality: 1.2 },
-      { userID: 1, date: "2019/06/22", hoursSlept: 6.5, sleepQuality: 3.1 },
-      { userID: 1, date: "2019/06/23", hoursSlept: 6.7, sleepQuality: 4.4 },
-      { userID: 1, date: "2019/06/24", hoursSlept: 7.5, sleepQuality: 4.8 },
-    ];
-
-    userRepo = new SleepRepository(sleepData);
+    // sleepData = [
+    //   { userID: 1, date: "2019/06/15", hoursSlept: 6.1, sleepQuality: 2.2 },
+    //   { userID: 1, date: "2019/06/16", hoursSlept: 6.6, sleepQuality: 2 },
+    //   { userID: 1, date: "2019/06/17", hoursSlept: 8.2, sleepQuality: 3 },
+    //   { userID: 1, date: "2019/06/18", hoursSlept: 5.0, sleepQuality: 2.7 },
+    //   { userID: 1, date: "2019/06/19", hoursSlept: 6.5, sleepQuality: 2.3 },
+    //   { userID: 2, date: "2019/06/19", hoursSlept: 6.1, sleepQuality: 2.4 },
+    //   { userID: 1, date: "2019/06/20", hoursSlept: 7.0, sleepQuality: 4 },
+    //   { userID: 1, date: "2019/06/21", hoursSlept: 8.5, sleepQuality: 1.2 },
+    //   { userID: 1, date: "2019/06/22", hoursSlept: 6.5, sleepQuality: 3.1 },
+    //   { userID: 1, date: "2019/06/23", hoursSlept: 6.7, sleepQuality: 4.4 },
+    //   { userID: 1, date: "2019/06/24", hoursSlept: 7.5, sleepQuality: 4.8 },
+    // ];
+    userRepo = sleepData;
   });
 
   it("should take in sleep data", () => {
-    expect(userRepo.sleepData).to.deep.equal(sleepData)
-  })
+    expect(userRepo.sleepData).to.deep.equal(sleepData.sleepData);
+  });
 
   it("should show average of hours slept per day for a user", () => {
     expect(userRepo.getAverageSleep(1)).to.equal(7);

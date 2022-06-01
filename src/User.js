@@ -10,7 +10,11 @@ class User {
   }
 
   returnFirstName() {
-    return this.name.split(" ")[0];
+    if (this.name === undefined) {
+      return "Oops it looks like your name is missing from our data base";
+    } else {
+      return this.name.split(" ")[0];
+    }
   }
 }
 

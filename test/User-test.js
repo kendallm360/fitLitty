@@ -1,34 +1,50 @@
 import { expect } from "chai";
 import User from "../src/User";
+import { userInstance1, userInstance2, userInstance3 } from "./mockData/mock";
 
 describe("User", () => {
   let user1;
   let user2;
-  let userData1;
-  let userData2;
+  let user3;
+  // let userData1;
+  // let userData2;
+  // let userData3;
 
   beforeEach(() => {
-    userData1 = {
-      id: 1,
-      name: "Luisa Hane",
-      address: "15195 Nakia Tunnel, Erdmanport VA 19901-1697",
-      email: "Diana.Hayes1@hotmail.com",
-      strideLength: 4.3,
-      dailyStepGoal: 10000,
-      friends: [16, 4, 8],
-    };
+    // userData1 = {
+    //   id: 1,
+    //   name: "Luisa Hane",
+    //   address: "15195 Nakia Tunnel, Erdmanport VA 19901-1697",
+    //   email: "Diana.Hayes1@hotmail.com",
+    //   strideLength: 4.3,
+    //   dailyStepGoal: 10000,
+    //   friends: [16, 4, 8],
+    // };
 
-    userData2 = {
-      id: 2,
-      name: "Jarvis Considine",
-      address: "30086 Kathryn Port, Ciceroland NE 07273",
-      email: "Dimitri.Bechtelar11@gmail.com",
-      strideLength: 4.5,
-      dailyStepGoal: 5000,
-      friends: [9, 18, 24, 19],
-    };
-    user1 = new User(userData1);
-    user2 = new User(userData2);
+    // userData2 = {
+    //   id: 2,
+    //   name: "Jarvis Considine",
+    //   address: "30086 Kathryn Port, Ciceroland NE 07273",
+    //   email: "Dimitri.Bechtelar11@gmail.com",
+    //   strideLength: 4.5,
+    //   dailyStepGoal: 5000,
+    //   friends: [9, 18, 24, 19],
+    // };
+    // userData3 = {
+    //   id: undefined,
+    //   name: undefined,
+    //   address: undefined,
+    //   email: undefined,
+    //   strideLength: undefined,
+    //   dailyStepGoal: undefined,
+    //   friends: undefined,
+    // };
+    // user1 = new User(userData1);
+    user1 = userInstance1;
+    // user2 = new User(userData2);
+    user2 = userInstance2;
+    // user3 = new User(userData3);
+    user3 = userInstance3;
   });
 
   it("Should be a function", () => {
@@ -42,6 +58,10 @@ describe("User", () => {
   it("Should take in user's id", () => {
     expect(user1.id).to.equal(1);
   });
+
+  // it("Should throw an error if no id is available", () => {
+  //   expect(user3.id).to.equal(?);
+  // });
 
   it("Should take in user's name", () => {
     expect(user1.name).to.equal("Luisa Hane");
@@ -71,5 +91,11 @@ describe("User", () => {
 
   it("Should have a method that returns the user's first name", () => {
     expect(user1.returnFirstName()).to.equal("Luisa");
+  });
+
+  it("The method should return a message if a name is missing", () => {
+    expect(user3.returnFirstName()).to.equal(
+      "Oops it looks like your name is missing from our data base"
+    );
   });
 });
