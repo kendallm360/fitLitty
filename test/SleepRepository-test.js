@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import SleepRepository from "../src/SleepRepository";
+// import SleepRepository from "../src/SleepRepository";
 import { sleepData } from "./mockData/mock";
 
 describe("Sleep Data", () => {
@@ -20,7 +20,6 @@ describe("Sleep Data", () => {
     //   { userID: 1, date: "2019/06/23", hoursSlept: 6.7, sleepQuality: 4.4 },
     //   { userID: 1, date: "2019/06/24", hoursSlept: 7.5, sleepQuality: 4.8 },
     // ];
-
     userRepo = sleepData;
   });
 
