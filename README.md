@@ -41,6 +41,7 @@ Fitlitty is a wellness app that tracks a users  information including sleep, hyd
 - Making our function dynamic made building the later classes much easier
 - The initial planning of how we would approach the project
 - The project board helped keep us on track
+- The util file we made has made this project much easier than it should have been
 
 
 ## Testing:
