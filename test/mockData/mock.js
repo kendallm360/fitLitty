@@ -2,6 +2,7 @@ import SleepRepository from "../../src/SleepRepository";
 import HydrationRepository from "../../src/HydrationRepository";
 import User from "../../src/User";
 import UserRepository from "../../src/UserRepository";
+import ActivityRepository from "../../src/ActivityRepository";
 
 const userRepoInstance = new UserRepository([
   {
@@ -135,6 +136,64 @@ const hydrationData = new HydrationRepository([
   { userID: 1, date: "2019/06/22", numOunces: 96 },
 ]);
 
+const activityData = new ActivityRepository([
+  {
+    userID: 1,
+    date: "2019/06/09",
+    numSteps: 3486,
+    minutesActive: 114,
+    flightsOfStairs: 32,
+  },
+  {
+    userID: 1,
+    date: "2019/06/10",
+    numSteps: 3486,
+    minutesActive: 114,
+    flightsOfStairs: 32,
+  },
+  {
+    userID: 1,
+    date: "2019/06/11",
+    numSteps: 3486,
+    minutesActive: 114,
+    flightsOfStairs: 32,
+  },
+  {
+    userID: 1,
+    date: "2019/06/12",
+    numSteps: 3486,
+    minutesActive: 114,
+    flightsOfStairs: 32,
+  },
+  {
+    userID: 1,
+    date: "2019/06/13",
+    numSteps: 7402,
+    minutesActive: 116,
+    flightsOfStairs: 33,
+  },
+  {
+    userID: 1,
+    date: "2019/06/14",
+    numSteps: 4294,
+    minutesActive: 138,
+    flightsOfStairs: 10,
+  },
+  {
+    userID: 1,
+    date: "2019/06/15",
+    numSteps: 3577,
+    minutesActive: 140,
+    flightsOfStairs: 16,
+  },
+  {
+    userID: 2,
+    date: "2019/06/15",
+    numSteps: 5001,
+    minutesActive: 114,
+    flightsOfStairs: 32,
+  },
+]);
 export {
   userRepoInstance,
   userHydrationData,
@@ -146,4 +205,5 @@ export {
   userInstance3,
   sleepData,
   hydrationData,
+  activityData,
 };

@@ -66,6 +66,7 @@ const fetchUsers = () => {
       displayWeeklyWaterIntake();
       displayWeeklySleep();
       displayWelcomeMessage();
+      // console.log()
     })
     //Added what Nik suggested verbatim below.
     //Solid example of error handling

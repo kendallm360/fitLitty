@@ -18,6 +18,11 @@ const getDataByDate = (arr, date, attr) => {
   return Math.round(objByDate[attr]);
 };
 
+const getFilteredDataByDate = (arr, date) => {
+  const arrayByDate = arr.filter((data) => data.date === date);
+  return arrayByDate;
+};
+
 const getDataByWeek = (arr, dateSelected, attr) => {
   const index = arr.findIndex((data) => data.date === dateSelected);
   const week = arr.slice(index - 6, index + 1).map((data) => {
@@ -26,4 +31,10 @@ const getDataByWeek = (arr, dateSelected, attr) => {
   return week;
 };
 
-export { filterById, getAverage, getDataByDate, getDataByWeek };
+export {
+  filterById,
+  getAverage,
+  getDataByDate,
+  getDataByWeek,
+  getFilteredDataByDate,
+};
