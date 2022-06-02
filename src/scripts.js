@@ -13,6 +13,7 @@ import UserRepository from "./UserRepository";
 import User from "./User";
 import HydrationRepository from "./HydrationRepository.js";
 import SleepRepository from "./SleepRepository";
+import ActivityRepository from "./activityRepository";
 
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
@@ -34,6 +35,7 @@ const stepComparisonDonut = document.querySelector("#stepComparisonDonut");
 let userRepo;
 let hydrationRepo;
 let sleepRepo;
+let activityRepo;
 let currentUser;
 let userData;
 let sleepData;
@@ -81,6 +83,7 @@ const createUserRepo = () => {
   currentUser = userRepo.generateRandomUser();
   hydrationRepo = new HydrationRepository(hydrationData);
   sleepRepo = new SleepRepository(sleepData);
+  activityRepo = new ActivityRepository(activityData);
 };
 
 const displayWelcomeMessage = () => {
@@ -109,23 +112,28 @@ const setSelectedDate = () => {
 const displaySnapshotData = () => {
   snapshotWidget.innerHTML += `
   Here's a quick snapshot of your day:<br><br>
+  You took ${activityRepo.getSteps(currentUser, "2020/01/22")} steps today <br><br>
+  You were active for ${activityRepo.getMinutesActive(currentUser, "2020/01/22")} steps today <br><br>
   You drank ${hydrationRepo.getFluidIntakeByDate(
     currentUser.id,
     "2020/01/22"
   )} ounces<br><br>
-  You slept ${sleepRepo.getSleepByDate(currentUser.id, "2020/01/22")} hours<br>
-  Your average all-time is ${sleepRepo.getAverageSleep(
-    currentUser.id
-  )} hours<br><br>
+  You slept ${sleepRepo.getSleepByDate(currentUser.id, "2020/01/22")} hours<br><br>
   Your sleep quality was ${sleepRepo.getQualityByDate(
     currentUser.id,
     "2020/01/22"
   )}<br>
-  Your average quality all-time is ${sleepRepo.getAverageSleepQuality(
-    currentUser.id
-  )}
+  
   `;
 };
+
+// Your average all-time is ${sleepRepo.getAverageSleep(
+//   currentUser.id
+// )} hours<br><br>
+
+// Your average quality all-time is ${sleepRepo.getAverageSleepQuality(
+//   currentUser.id
+// )}
 
 const compareSteps = () => {
   const config = createCompareDonut(currentUser, userRepo.getAverageStepGoal());

@@ -11,6 +11,12 @@ export default class ActivityRepository {
     this.activityData = activityData;
   }
 
+  getSteps (current_user, date) {
+    let filteredActivity = filterById(current_user.id, this.activityData);
+    let stepsTaken = getDataByDate(filteredActivity, date, "numSteps");
+    return stepsTaken;
+  }
+
   getMilesWalked(current_user, date) {
     let filteredActivity = filterById(current_user.id, this.activityData);
     let stepsTaken = getDataByDate(filteredActivity, date, "numSteps");
