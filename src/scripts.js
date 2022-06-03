@@ -139,12 +139,10 @@ const displayAllUsersActivity = () => {
   allUsersActivityWidget.innerHTML += `
   Check out other users activity today <br><br>
   They averaged <br><br>
+
    ${activityRepo.getEveryonesAverageStepsTaken(currentDate)} steps. <br><br>
    ${activityRepo.getEveryonesAverageMinutesActive(currentDate)} minutes of activity. <br><br>
    ${activityRepo.getEveryonesAverageStairsClimb(currentDate)} stairs climbed. <br><br>
-
-
-
   `
 }
 

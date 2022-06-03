@@ -106,7 +106,7 @@ const createCompareDonut = (currentUser, avgSteps) => {
 
 const createActivityChart = (weeklySteps, weeklyFlightsClimbed, weeklyMinutesActive) => {
   const labels = weeklySteps.map((activity) => activity.date);
-  const stepValues = weeklySteps.map((activity) => activity.numSteps / 100 ) 
+  const stepValues = weeklySteps.map((activity) => activity.numSteps  ) 
   const stairValues = weeklyFlightsClimbed.map((activity) => activity.flightsOfStairs);
   const minutesActiveValues = weeklyMinutesActive.map((activity) => activity.minutesActive);
 
@@ -119,6 +119,7 @@ const createActivityChart = (weeklySteps, weeklyFlightsClimbed, weeklyMinutesAct
         borderColor: ["rgb(255, 99, 132)"],
         borderWidth: 1,
         data: stepValues,
+        yAxisID:'y1'
       },
       {
         label: "Weekly Flights Climbed",
@@ -126,6 +127,8 @@ const createActivityChart = (weeklySteps, weeklyFlightsClimbed, weeklyMinutesAct
         borderColor: ["rgb(201, 203, 207)"],
         borderWidth: 1,
         data: stairValues,
+        yAxisID:'y',
+        borderDash: [5, 5]
       },
       {
         label: "Weekly Minutes Active",
@@ -133,6 +136,7 @@ const createActivityChart = (weeklySteps, weeklyFlightsClimbed, weeklyMinutesAct
         borderColor: ["rgb(201, 203, 207)"],
         borderWidth: 1,
         data: minutesActiveValues,
+        yAxisID:'y'
       },
     ],
   };
@@ -142,17 +146,38 @@ const createActivityChart = (weeklySteps, weeklyFlightsClimbed, weeklyMinutesAct
     data: data,
     options: {
       responsive: true,
+      interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      stacked: false,
       plugins: {
-        legend: {
-          position: 'top',
-        },
         title: {
           display: true,
-          text: 'Chart.js Line Chart'
+          text: 'Chart.js Line Chart - Multi Axis'
         }
+      },
+      scales: {
+        y: {
+          type: 'linear',
+          display: true,
+          position: 'left',
+        },
+        y1: {
+          type: 'linear',
+          display: true,
+          position: 'right',
+          ticks: { color: "rgb(255, 99, 132)"},
+          // grid line settings
+          grid: {
+            drawOnChartArea: false, // only want the grid lines for one axis to show up
+          },
+        },
       }
     },
   };
   return config;
+
+  
 };
 export { createSleepChart, createHydrationChart, createCompareDonut, createActivityChart };
