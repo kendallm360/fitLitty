@@ -140,9 +140,6 @@ const displayAllUsersActivity = () => {
    ${activityRepo.getEveryonesAverageStepsTaken("2020/01/22")} steps. <br><br>
    ${activityRepo.getEveryonesAverageMinutesActive("2020/01/22")} minutes of activity. <br><br>
    ${activityRepo.getEveryonesAverageStairsClimb("2020/01/22")} stairs climbed. <br><br>
-
-
-
   `
 }
 
