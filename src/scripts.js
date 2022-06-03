@@ -3,6 +3,7 @@ import { getData } from "./apiCalls.js";
 import {
   createSleepChart,
   createHydrationChart,
+  createActivityChart,
   createCompareDonut,
 } from "./graphs.js";
 
@@ -13,6 +14,7 @@ import UserRepository from "./UserRepository";
 import User from "./User";
 import HydrationRepository from "./HydrationRepository.js";
 import SleepRepository from "./SleepRepository";
+import ActivityRepository from "./activityRepository";
 
 import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
@@ -21,6 +23,7 @@ Chart.register(...registerables);
 const welcomeMessage = document.querySelector(".welcome");
 const contactCard = document.querySelector(".user-info");
 const snapshotWidget = document.querySelector("#snapshot");
+const allUsersActivityWidget = document.querySelector("#all-users-activity")
 // const hydrationWidget = document.querySelector("#hydration");
 const sleepWidget = document.querySelector("#sleep");
 const dateSelected = document.querySelector(".date-selection");
@@ -28,12 +31,14 @@ const buttons = Array.from(document.querySelectorAll(".dataButton"));
 const widgets = Array.from(document.querySelectorAll(".widget"));
 const weeklyHydration = document.querySelector("#weeklyHydrationChart");
 const weeklySleep = document.querySelector("#weeklySleepChart");
+const weeklyActivity = document.querySelector("#weeklyActivityChart");
 const stepComparisonDonut = document.querySelector("#stepComparisonDonut");
 
 //global variables
 let userRepo;
 let hydrationRepo;
 let sleepRepo;
+let activityRepo;
 let currentUser;
 let userData;
 let sleepData;
@@ -65,6 +70,8 @@ const fetchUsers = () => {
       compareSteps();
       displayWeeklyWaterIntake();
       displayWeeklySleep();
+      displayWeeklyActivity();
+      displayAllUsersActivity();
       displayWelcomeMessage();
       // console.log()
     })
@@ -81,6 +88,7 @@ const createUserRepo = () => {
   currentUser = userRepo.generateRandomUser();
   hydrationRepo = new HydrationRepository(hydrationData);
   sleepRepo = new SleepRepository(sleepData);
+  activityRepo = new ActivityRepository(activityData);
 };
 
 const displayWelcomeMessage = () => {
@@ -109,23 +117,42 @@ const setSelectedDate = () => {
 const displaySnapshotData = () => {
   snapshotWidget.innerHTML += `
   Here's a quick snapshot of your day:<br><br>
+  You took ${activityRepo.getSteps(currentUser, "2020/01/22")} steps today <br><br>
+  You were active for ${activityRepo.getMinutesActive(currentUser, "2020/01/22")} minutes today <br><br>
+  You walked ${activityRepo.getMilesWalked(currentUser, "2020/01/22")} miles today <br><br>
   You drank ${hydrationRepo.getFluidIntakeByDate(
     currentUser.id,
     "2020/01/22"
   )} ounces<br><br>
-  You slept ${sleepRepo.getSleepByDate(currentUser.id, "2020/01/22")} hours<br>
-  Your average all-time is ${sleepRepo.getAverageSleep(
-    currentUser.id
-  )} hours<br><br>
+  You slept ${sleepRepo.getSleepByDate(currentUser.id, "2020/01/22")} hours<br><br>
   Your sleep quality was ${sleepRepo.getQualityByDate(
     currentUser.id,
     "2020/01/22"
   )}<br>
-  Your average quality all-time is ${sleepRepo.getAverageSleepQuality(
-    currentUser.id
-  )}
+  
   `;
 };
+
+const displayAllUsersActivity = () => {
+  allUsersActivityWidget.innerHTML += `
+  Check out other users activity today <br><br>
+  They averaged <br><br>
+   ${activityRepo.getEveryonesAverageStepsTaken("2020/01/22")} steps. <br><br>
+   ${activityRepo.getEveryonesAverageMinutesActive("2020/01/22")} minutes of activity. <br><br>
+   ${activityRepo.getEveryonesAverageStairsClimb("2020/01/22")} stairs climbed. <br><br>
+
+
+
+  `
+}
+
+// Your average all-time is ${sleepRepo.getAverageSleep(
+//   currentUser.id
+// )} hours<br><br>
+
+// Your average quality all-time is ${sleepRepo.getAverageSleepQuality(
+//   currentUser.id
+// )}
 
 const compareSteps = () => {
   const config = createCompareDonut(currentUser, userRepo.getAverageStepGoal());
@@ -159,6 +186,14 @@ const displayWeeklySleep = () => {
   let quality = sleepRepo.getQualityByWeek(currentUser.id, "2020/01/22");
   const config = createSleepChart(sleep, quality);
   return new Chart(weeklySleep, config);
+};
+
+const displayWeeklyActivity = () => {
+  let steps = activityRepo.getStepsByWeek(currentUser, "2020/01/22");
+  let flights = activityRepo.getFlightsByWeek(currentUser, "2020/01/22");
+  let minutes = activityRepo.getMinutesActiveByWeek(currentUser, "2020/01/22")
+  const config = createActivityChart(steps, flights, minutes);
+  return new Chart(weeklyActivity, config);
 };
 
 const displayActiveWidget = (selection) => {
