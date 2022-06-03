@@ -113,7 +113,8 @@ const displaySnapshotData = () => {
   snapshotWidget.innerHTML += `
   Here's a quick snapshot of your day:<br><br>
   You took ${activityRepo.getSteps(currentUser, "2020/01/22")} steps today <br><br>
-  You were active for ${activityRepo.getMinutesActive(currentUser, "2020/01/22")} steps today <br><br>
+  You were active for ${activityRepo.getMinutesActive(currentUser, "2020/01/22")} minutes today <br><br>
+  You walked ${activityRepo.getMilesWalked(currentUser, "2020/01/22")} miles today <br><br>
   You drank ${hydrationRepo.getFluidIntakeByDate(
     currentUser.id,
     "2020/01/22"
