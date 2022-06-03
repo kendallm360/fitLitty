@@ -127,7 +127,8 @@ const createActivityChart = (weeklySteps, weeklyFlightsClimbed, weeklyMinutesAct
         borderColor: ["rgb(201, 203, 207)"],
         borderWidth: 1,
         data: stairValues,
-        yAxisID:'y'
+        yAxisID:'y',
+        borderDash: [5, 5]
       },
       {
         label: "Weekly Minutes Active",
@@ -166,7 +167,7 @@ const createActivityChart = (weeklySteps, weeklyFlightsClimbed, weeklyMinutesAct
           type: 'linear',
           display: true,
           position: 'right',
-          ticks: { color: "rgb(255, 99, 132)" },
+          ticks: { color: "rgb(255, 99, 132)"},
           // grid line settings
           grid: {
             drawOnChartArea: false, // only want the grid lines for one axis to show up
