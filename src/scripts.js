@@ -180,11 +180,9 @@ const displayAllUsersActivity = () => {
    ${activityRepo.getEveryonesAverageStairsClimb(
      currentDate
    )} stairs climbed. <br><br>
-
-
-
   `;
 };
+
 
 // Your average all-time is ${sleepRepo.getAverageSleep(
 //   currentUser.id

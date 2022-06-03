@@ -114,42 +114,66 @@ const createActivityChart = (
   weeklyActivityChart.data.labels = labels;
   weeklyActivityChart.data.datasets = [
     {
-      label: "Weekly Steps",
-      backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-      borderColor: ["rgb(255, 99, 132)"],
-      borderWidth: 1,
-      data: stepValues,
-    },
-    {
-      label: "Weekly Flights Climbed",
-      backgroundColor: ["rgba(201, 203, 207, 0.2)"],
-      borderColor: ["rgb(201, 203, 207)"],
-      borderWidth: 1,
-      data: stairValues,
-    },
-    {
-      label: "Weekly Minutes Active",
-      backgroundColor: ["rgba(201, 203, 207, 0.2)"],
-      borderColor: ["rgb(201, 203, 207)"],
-      borderWidth: 1,
-      data: minutesActiveValues,
-    },
+        label: "Weekly Steps",
+        backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+        borderColor: ["rgb(255, 99, 132)"],
+        borderWidth: 1,
+        data: stepValues,
+        yAxisID:'y1'
+      },
+      {
+        label: "Weekly Flights Climbed",
+        backgroundColor: ["rgba(201, 203, 207, 0.2)"],
+        borderColor: ["rgb(201, 203, 207)"],
+        borderWidth: 1,
+        data: stairValues,
+        yAxisID:'y',
+        borderDash: [5, 5]
+      },
+      {
+        label: "Weekly Minutes Active",
+        backgroundColor: ["rgba(201, 203, 207, 0.2)"],
+        borderColor: ["rgb(201, 203, 207)"],
+        borderWidth: 1,
+        data: minutesActiveValues,
+        yAxisID:'y'
+      },
   ];
 
   weeklyActivityChart.options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
+      responsive: true,
+      interaction: {
+        mode: 'index',
+        intersect: false,
       },
-      title: {
-        display: true,
-        text: "Chart.js Line Chart",
+      stacked: false,
+      plugins: {
+        title: {
+          display: true,
+          text: 'Chart.js Line Chart - Multi Axis'
+        }
       },
-    },
-  };
+      scales: {
+        y: {
+          type: 'linear',
+          display: true,
+          position: 'left',
+        },
+        y1: {
+          type: 'linear',
+          display: true,
+          position: 'right',
+          ticks: { color: "rgb(255, 99, 132)"},
+          // grid line settings
+          grid: {
+            drawOnChartArea: false, // only want the grid lines for one axis to show up
+          },
+        },
+      }
+    }
   weeklyActivityChart.update();
 };
+
 export {
   createSleepChart,
   createHydrationChart,
