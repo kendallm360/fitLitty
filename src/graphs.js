@@ -1,9 +1,9 @@
-const createSleepChart = (weeklySleep, weeklyQuality) => {
+const createSleepChart = (weeklySleep, weeklyQuality, weeklySleepChart) => {
   const labels = weeklySleep.map((sleep) => sleep.date);
   const sleepValues = weeklySleep.map((sleep) => sleep.hoursSlept);
   const qualityValues = weeklyQuality.map((quality) => quality.sleepQuality);
 
-  const data = {
+  weeklySleepChart.data = {
     labels: labels,
     datasets: [
       {
@@ -23,20 +23,16 @@ const createSleepChart = (weeklySleep, weeklyQuality) => {
     ],
   };
 
-  const config = {
-    type: "bar",
-    data: data,
-    options: {
-      barThickness: 20,
-    },
+  weeklySleepChart.options = {
+    barThickness: 20,
   };
-  return config;
+  weeklySleepChart.update();
 };
 
-const createHydrationChart = (weeklyWaterIntake) => {
+const createHydrationChart = (weeklyWaterIntake, weeklyHydrationChart) => {
   const labels = weeklyWaterIntake.map((intake) => intake.date);
   const values = weeklyWaterIntake.map((intake) => intake.numOunces);
-  const data = {
+  weeklyHydrationChart.data = {
     labels: labels,
     datasets: [
       {
@@ -65,14 +61,10 @@ const createHydrationChart = (weeklyWaterIntake) => {
     ],
   };
 
-  const config = {
-    type: "bar",
-    data: data,
-    options: {
-      barThickness: 20,
-    },
+  weeklyHydrationChart.options = {
+    barThickness: 20,
   };
-  return config;
+  weeklyHydrationChart.update();
 };
 
 const createCompareDonut = (currentUser, avgSteps) => {
@@ -108,8 +100,7 @@ const createActivityChart = (
   weeklySteps,
   weeklyFlightsClimbed,
   weeklyMinutesActive,
-  weeklyActivityChart,
-  date
+  weeklyActivityChart
 ) => {
   const labels = weeklySteps.map((activity) => activity.date);
   const stepValues = weeklySteps.map((activity) => activity.numSteps / 100);
@@ -123,8 +114,7 @@ const createActivityChart = (
   weeklyActivityChart.data.labels = labels;
   weeklyActivityChart.data.datasets = [
     {
-      // label: "Weekly Steps",
-      label: date,
+      label: "Weekly Steps",
       backgroundColor: ["rgba(255, 99, 132, 0.2)"],
       borderColor: ["rgb(255, 99, 132)"],
       borderWidth: 1,

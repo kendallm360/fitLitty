@@ -49,7 +49,8 @@ let activityData;
 let currentDate = dateSelected.value.split("-").join("/") || "2019/12/18";
 // let currentDate = dateSelected.value.split("-").join("/");
 let weeklyActivityChart = new Chart("weeklyActivityChart", { type: "line" });
-let weekl;
+let weeklyHydrationChart = new Chart("weeklyHydrationChart", { type: "bar" });
+let weeklySleepChart = new Chart("weeklySleepChart", { type: "bar" });
 
 //functions
 const userDataInstances = () => {
@@ -203,8 +204,7 @@ const displayWeeklyWaterIntake = () => {
     currentUser.id,
     currentDate
   );
-  const config = createHydrationChart(weeklyWaterIntake);
-  const weeklyHydrationChart = new Chart(weeklyHydration, config);
+  createHydrationChart(weeklyWaterIntake, weeklyHydrationChart);
 };
 
 const displayTodaysSleepStats = () => {
@@ -223,21 +223,14 @@ const displayTodaysSleepStats = () => {
 const displayWeeklySleep = () => {
   let sleep = sleepRepo.getSleepByWeek(currentUser.id, currentDate);
   let quality = sleepRepo.getQualityByWeek(currentUser.id, currentDate);
-  const config = createSleepChart(sleep, quality);
-  return new Chart(weeklySleep, config);
+  createSleepChart(sleep, quality, weeklySleepChart);
 };
 
 const displayWeeklyActivity = () => {
   let steps = activityRepo.getStepsByWeek(currentUser, currentDate);
   let flights = activityRepo.getFlightsByWeek(currentUser, currentDate);
   let minutes = activityRepo.getMinutesActiveByWeek(currentUser, currentDate);
-  createActivityChart(
-    steps,
-    flights,
-    minutes,
-    weeklyActivityChart,
-    currentDate
-  );
+  createActivityChart(steps, flights, minutes, weeklyActivityChart);
 };
 
 const displayActiveWidget = (selection) => {
@@ -270,6 +263,8 @@ window.addEventListener("load", () => {
 dateSelected.addEventListener("change", (event) => {
   setDate(event);
   displayWeeklyActivity();
+  displayWeeklyWaterIntake();
+  displayWeeklySleep();
 });
 
 buttons.forEach((button) => {
