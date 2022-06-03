@@ -106,7 +106,7 @@ const createCompareDonut = (currentUser, avgSteps) => {
 
 const createActivityChart = (weeklySteps, weeklyFlightsClimbed, weeklyMinutesActive) => {
   const labels = weeklySteps.map((activity) => activity.date);
-  const stepValues = weeklySteps.map((activity) => activity.numSteps);
+  const stepValues = weeklySteps.map((activity) => activity.numSteps / 100 ) 
   const stairValues = weeklyFlightsClimbed.map((activity) => activity.flightsOfStairs);
   const minutesActiveValues = weeklyMinutesActive.map((activity) => activity.minutesActive);
 
@@ -138,10 +138,19 @@ const createActivityChart = (weeklySteps, weeklyFlightsClimbed, weeklyMinutesAct
   };
 
   const config = {
-    type: "bar",
+    type: 'line',
     data: data,
     options: {
-      barThickness: 20,
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Chart.js Line Chart'
+        }
+      }
     },
   };
   return config;

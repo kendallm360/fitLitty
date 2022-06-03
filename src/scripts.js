@@ -23,6 +23,7 @@ Chart.register(...registerables);
 const welcomeMessage = document.querySelector(".welcome");
 const contactCard = document.querySelector(".user-info");
 const snapshotWidget = document.querySelector("#snapshot");
+const allUsersActivityWidget = document.querySelector("#all-users-activity")
 // const hydrationWidget = document.querySelector("#hydration");
 const sleepWidget = document.querySelector("#sleep");
 const dateSelected = document.querySelector(".date-selection");
@@ -70,6 +71,7 @@ const fetchUsers = () => {
       displayWeeklyWaterIntake();
       displayWeeklySleep();
       displayWeeklyActivity();
+      displayAllUsersActivity();
       displayWelcomeMessage();
       // console.log()
     })
@@ -130,6 +132,19 @@ const displaySnapshotData = () => {
   
   `;
 };
+
+const displayAllUsersActivity = () => {
+  allUsersActivityWidget.innerHTML += `
+  Check out other users activity today <br><br>
+  They averaged <br><br>
+   ${activityRepo.getEveryonesAverageStepsTaken("2020/01/22")} steps. <br><br>
+   ${activityRepo.getEveryonesAverageMinutesActive("2020/01/22")} minutes of activity. <br><br>
+   ${activityRepo.getEveryonesAverageStairsClimb("2020/01/22")} stairs climbed. <br><br>
+
+
+
+  `
+}
 
 // Your average all-time is ${sleepRepo.getAverageSleep(
 //   currentUser.id
