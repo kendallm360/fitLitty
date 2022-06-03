@@ -40,6 +40,7 @@ let hydrationRepo;
 let sleepRepo;
 let activityRepo;
 let currentUser;
+let currentDate;
 let userData;
 let sleepData;
 let hydrationData;
@@ -75,17 +76,18 @@ const fetchUsers = () => {
       displayWelcomeMessage();
       // console.log()
     })
+      .catch((error) =>
+        console.log(error, "Error is coming back from the server")
+      );
     //Added what Nik suggested verbatim below.
     //Solid example of error handling
-    .catch((error) =>
-      console.log(error, "Error is coming back from the server")
-    );
 };
 
 const createUserRepo = () => {
   userRepo = new UserRepository(userDataInstances());
   // currentUser = userRepo.findById(11);
   currentUser = userRepo.generateRandomUser();
+  currentDate = "2019/12/18";
   hydrationRepo = new HydrationRepository(hydrationData);
   sleepRepo = new SleepRepository(sleepData);
   activityRepo = new ActivityRepository(activityData);
@@ -111,25 +113,25 @@ const displayUserDetails = () => {
 };
 
 const setSelectedDate = () => {
-  dateSelected.value = "2020-01-22";
+  dateSelected.value = currentDate;
 };
 
 const displaySnapshotData = () => {
   snapshotWidget.innerHTML += `
   Here's a quick snapshot of your day:<br><br>
-  You took ${activityRepo.getSteps(currentUser, "2020/01/22")} steps today <br><br>
-  You were active for ${activityRepo.getMinutesActive(currentUser, "2020/01/22")} minutes today <br><br>
-  You walked ${activityRepo.getMilesWalked(currentUser, "2020/01/22")} miles today <br><br>
+  You took ${activityRepo.getSteps(currentUser, currentDate)} steps today <br><br>
+  You were active for ${activityRepo.getMinutesActive(currentUser, currentDate)} minutes today <br><br>
+  You walked ${activityRepo.getMilesWalked(currentUser, currentDate)} miles today <br><br>
   You drank ${hydrationRepo.getFluidIntakeByDate(
     currentUser.id,
-    "2020/01/22"
+    currentDate
   )} ounces<br><br>
-  You slept ${sleepRepo.getSleepByDate(currentUser.id, "2020/01/22")} hours<br><br>
+  You slept ${sleepRepo.getSleepByDate(currentUser.id, currentDate)} hours<br><br>
   Your sleep quality was ${sleepRepo.getQualityByDate(
     currentUser.id,
-    "2020/01/22"
+    currentDate
   )}<br>
-  
+
   `;
 };
 
@@ -137,9 +139,10 @@ const displayAllUsersActivity = () => {
   allUsersActivityWidget.innerHTML += `
   Check out other users activity today <br><br>
   They averaged <br><br>
-   ${activityRepo.getEveryonesAverageStepsTaken("2020/01/22")} steps. <br><br>
-   ${activityRepo.getEveryonesAverageMinutesActive("2020/01/22")} minutes of activity. <br><br>
-   ${activityRepo.getEveryonesAverageStairsClimb("2020/01/22")} stairs climbed. <br><br>
+
+   ${activityRepo.getEveryonesAverageStepsTaken(currentDate)} steps. <br><br>
+   ${activityRepo.getEveryonesAverageMinutesActive(currentDate)} minutes of activity. <br><br>
+   ${activityRepo.getEveryonesAverageStairsClimb(currentDate)} stairs climbed. <br><br>
   `
 }
 
@@ -159,7 +162,7 @@ const compareSteps = () => {
 const displayWeeklyWaterIntake = () => {
   let weeklyWaterIntake = hydrationRepo.getDailyFluidIntakeByWeek(
     currentUser.id,
-    "2020/01/22"
+    currentDate
   );
   const config = createHydrationChart(weeklyWaterIntake);
   const weeklyHydrationChart = new Chart(weeklyHydration, config);
@@ -169,26 +172,26 @@ const displayTodaysSleepStats = () => {
   sleepWidget.innerText = `Hey ${currentUser.returnFirstName()}!
   You slept ${sleepRepo.getSleepByDate(
     currentUser.id,
-    "2020/01/22"
+    currentDate
   )} hours today.
   Your sleep quality was ${sleepRepo.getQualityByDate(
     currentUser.id,
-    "2020/01/22"
+    currentDate
   )}
   `;
 };
 
 const displayWeeklySleep = () => {
-  let sleep = sleepRepo.getSleepByWeek(currentUser.id, "2020/01/22");
-  let quality = sleepRepo.getQualityByWeek(currentUser.id, "2020/01/22");
+  let sleep = sleepRepo.getSleepByWeek(currentUser.id, currentDate);
+  let quality = sleepRepo.getQualityByWeek(currentUser.id, currentDate);
   const config = createSleepChart(sleep, quality);
   return new Chart(weeklySleep, config);
 };
 
 const displayWeeklyActivity = () => {
-  let steps = activityRepo.getStepsByWeek(currentUser, "2020/01/22");
-  let flights = activityRepo.getFlightsByWeek(currentUser, "2020/01/22");
-  let minutes = activityRepo.getMinutesActiveByWeek(currentUser, "2020/01/22")
+  let steps = activityRepo.getStepsByWeek(currentUser, currentDate);
+  let flights = activityRepo.getFlightsByWeek(currentUser, currentDate);
+  let minutes = activityRepo.getMinutesActiveByWeek(currentUser, currentDate)
   const config = createActivityChart(steps, flights, minutes);
   return new Chart(weeklyActivity, config);
 };
