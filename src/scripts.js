@@ -3,6 +3,7 @@ import { getData } from "./apiCalls.js";
 import {
   createSleepChart,
   createHydrationChart,
+  createActivityChart,
   createCompareDonut,
 } from "./graphs.js";
 
@@ -29,6 +30,7 @@ const buttons = Array.from(document.querySelectorAll(".dataButton"));
 const widgets = Array.from(document.querySelectorAll(".widget"));
 const weeklyHydration = document.querySelector("#weeklyHydrationChart");
 const weeklySleep = document.querySelector("#weeklySleepChart");
+const weeklyActivity = document.querySelector("#weeklyActivityChart");
 const stepComparisonDonut = document.querySelector("#stepComparisonDonut");
 
 //global variables
@@ -67,6 +69,7 @@ const fetchUsers = () => {
       compareSteps();
       displayWeeklyWaterIntake();
       displayWeeklySleep();
+      displayWeeklyActivity();
       displayWelcomeMessage();
       // console.log()
     })
@@ -168,6 +171,14 @@ const displayWeeklySleep = () => {
   let quality = sleepRepo.getQualityByWeek(currentUser.id, "2020/01/22");
   const config = createSleepChart(sleep, quality);
   return new Chart(weeklySleep, config);
+};
+
+const displayWeeklyActivity = () => {
+  let steps = activityRepo.getStepsByWeek(currentUser, "2020/01/22");
+  let flights = activityRepo.getFlightsByWeek(currentUser, "2020/01/22");
+  let minutes = activityRepo.getMinutesActiveByWeek(currentUser, "2020/01/22")
+  const config = createActivityChart(steps, flights, minutes);
+  return new Chart(weeklyActivity, config);
 };
 
 const displayActiveWidget = (selection) => {

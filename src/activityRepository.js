@@ -17,12 +17,20 @@ export default class ActivityRepository {
     return stepsTaken;
   }
 
+  getFlightsClimbed (current_user, date) {
+    let filteredActivity = filterById(current_user.id, this.activityData);
+    let flightsClimbed = getDataByDate(filteredActivity, date, "flightsOfStairs");
+    return flightsClimbed;
+  }
+
   getMilesWalked(current_user, date) {
     let filteredActivity = filterById(current_user.id, this.activityData);
     let stepsTaken = getDataByDate(filteredActivity, date, "numSteps");
     let milesWalked = (current_user.strideLength * stepsTaken) / 5280;
     return parseFloat(milesWalked.toFixed(1));
   }
+
+
 
   getMinutesActive(current_user, date) {
     let filteredActivity = filterById(current_user.id, this.activityData);
@@ -33,8 +41,19 @@ export default class ActivityRepository {
   getMinutesActiveByWeek(current_user, date) {
     let filteredActivity = filterById(current_user.id, this.activityData);
     let weeklyActivity = getDataByWeek(filteredActivity, date, "minutesActive");
-    let minutesActiveByWeek = getAverage(weeklyActivity, "minutesActive");
-    return minutesActiveByWeek;
+    return weeklyActivity;
+  }
+
+  getStepsByWeek(current_user, date) {
+    let filteredActivity = filterById(current_user.id, this.activityData);
+    let weeklyActivity = getDataByWeek(filteredActivity, date, "numSteps");
+    return weeklyActivity
+  }
+
+  getFlightsByWeek(current_user, date) {
+    let filteredActivity = filterById(current_user.id, this.activityData);
+    let weeklyActivity = getDataByWeek(filteredActivity, date, "flightsOfStairs");
+    return weeklyActivity
   }
 
   determineStepGoal(current_user, date) {
@@ -62,6 +81,7 @@ export default class ActivityRepository {
     );
     return bestDay[0].flightsOfStairs;
   }
+
   getEveryonesAverageStairsClimb(date) {
     let usersDataBydate = getFilteredDataByDate(this.activityData, date);
     let everyonesAverage = getAverage(usersDataBydate, "flightsOfStairs");
