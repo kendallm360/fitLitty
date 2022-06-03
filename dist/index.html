@@ -2,30 +2,57 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="fitness tracker">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="fitness tracker" />
     <title>Fitlit</title>
   </head>
   <body>
     <aside class="information-bar">
-      <section class="user-info">
-        <input type="date" class="date-selection hidden" id="date-selection" />
-      </section>
+      <section class="user-info"></section>
+      <input type="date" class="dateSelection" id="date-selection" />
     </aside>
     <aside class="main-section">
       <section class="title-bar">
         <p class="welcome"></p>
         <ul class="navbar">
-          <li class="dataButton" id="snapshot-button" data-target="snapshot" role="button" aria-pressed="false" tabindex="0">
+          <li
+            class="dataButton"
+            id="snapshot-button"
+            data-target="snapshot"
+            role="button"
+            aria-pressed="false"
+            tabindex="0"
+          >
             Snapshot
           </li>
-          <li class="dataButton" id="activity-button" data-target="activity" role="button" aria-pressed="false" tabindex="0">
+          <li
+            class="dataButton"
+            id="activity-button"
+            data-target="activity"
+            role="button"
+            aria-pressed="false"
+            tabindex="0"
+          >
             Activity
           </li>
-          <li class="dataButton" id="hydration-button" data-target="hydration" role="button" aria-pressed="false" tabindex="0">
+          <li
+            class="dataButton"
+            id="hydration-button"
+            data-target="hydration"
+            role="button"
+            aria-pressed="false"
+            tabindex="0"
+          >
             Hydration
           </li>
-          <li class="dataButton" id="sleep-button" data-target="sleep" role="button" aria-pressed="false" tabindex="0">
+          <li
+            class="dataButton"
+            id="sleep-button"
+            data-target="sleep"
+            role="button"
+            aria-pressed="false"
+            tabindex="0"
+          >
             Sleep
           </li>
         </ul>
@@ -48,8 +75,7 @@
           <p>Sleep</p>
           <canvas id="weeklySleepChart"></canvas>
         </div>
-        <div class="widget" id="all-users-activity">
-        </div>
+        <div class="widget" id="all-users-activity"></div>
       </section>
     </aside>
     <script src="bundle.js"></script>

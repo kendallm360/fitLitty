@@ -104,55 +104,65 @@ const createCompareDonut = (currentUser, avgSteps) => {
   return config;
 };
 
-const createActivityChart = (weeklySteps, weeklyFlightsClimbed, weeklyMinutesActive) => {
+const createActivityChart = (
+  weeklySteps,
+  weeklyFlightsClimbed,
+  weeklyMinutesActive,
+  weeklyActivityChart,
+  date
+) => {
   const labels = weeklySteps.map((activity) => activity.date);
-  const stepValues = weeklySteps.map((activity) => activity.numSteps / 100 ) 
-  const stairValues = weeklyFlightsClimbed.map((activity) => activity.flightsOfStairs);
-  const minutesActiveValues = weeklyMinutesActive.map((activity) => activity.minutesActive);
+  const stepValues = weeklySteps.map((activity) => activity.numSteps / 100);
+  const stairValues = weeklyFlightsClimbed.map(
+    (activity) => activity.flightsOfStairs
+  );
+  const minutesActiveValues = weeklyMinutesActive.map(
+    (activity) => activity.minutesActive
+  );
 
-  const data = {
-    labels: labels,
-    datasets: [
-      {
-        label: "Weekly Steps",
-        backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-        borderColor: ["rgb(255, 99, 132)"],
-        borderWidth: 1,
-        data: stepValues,
-      },
-      {
-        label: "Weekly Flights Climbed",
-        backgroundColor: ["rgba(201, 203, 207, 0.2)"],
-        borderColor: ["rgb(201, 203, 207)"],
-        borderWidth: 1,
-        data: stairValues,
-      },
-      {
-        label: "Weekly Minutes Active",
-        backgroundColor: ["rgba(201, 203, 207, 0.2)"],
-        borderColor: ["rgb(201, 203, 207)"],
-        borderWidth: 1,
-        data: minutesActiveValues,
-      },
-    ],
-  };
+  weeklyActivityChart.data.labels = labels;
+  weeklyActivityChart.data.datasets = [
+    {
+      // label: "Weekly Steps",
+      label: date,
+      backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+      borderColor: ["rgb(255, 99, 132)"],
+      borderWidth: 1,
+      data: stepValues,
+    },
+    {
+      label: "Weekly Flights Climbed",
+      backgroundColor: ["rgba(201, 203, 207, 0.2)"],
+      borderColor: ["rgb(201, 203, 207)"],
+      borderWidth: 1,
+      data: stairValues,
+    },
+    {
+      label: "Weekly Minutes Active",
+      backgroundColor: ["rgba(201, 203, 207, 0.2)"],
+      borderColor: ["rgb(201, 203, 207)"],
+      borderWidth: 1,
+      data: minutesActiveValues,
+    },
+  ];
 
-  const config = {
-    type: 'line',
-    data: data,
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'top',
-        },
-        title: {
-          display: true,
-          text: 'Chart.js Line Chart'
-        }
-      }
+  weeklyActivityChart.options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Chart.js Line Chart",
+      },
     },
   };
-  return config;
+  weeklyActivityChart.update();
 };
-export { createSleepChart, createHydrationChart, createCompareDonut, createActivityChart };
+export {
+  createSleepChart,
+  createHydrationChart,
+  createCompareDonut,
+  createActivityChart,
+};

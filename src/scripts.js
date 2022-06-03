@@ -23,10 +23,10 @@ Chart.register(...registerables);
 const welcomeMessage = document.querySelector(".welcome");
 const contactCard = document.querySelector(".user-info");
 const snapshotWidget = document.querySelector("#snapshot");
-const allUsersActivityWidget = document.querySelector("#all-users-activity")
+const allUsersActivityWidget = document.querySelector("#all-users-activity");
 // const hydrationWidget = document.querySelector("#hydration");
 const sleepWidget = document.querySelector("#sleep");
-const dateSelected = document.querySelector(".date-selection");
+const dateSelected = document.querySelector(".dateSelection");
 const buttons = Array.from(document.querySelectorAll(".dataButton"));
 const widgets = Array.from(document.querySelectorAll(".widget"));
 const weeklyHydration = document.querySelector("#weeklyHydrationChart");
@@ -40,11 +40,16 @@ let hydrationRepo;
 let sleepRepo;
 let activityRepo;
 let currentUser;
-let currentDate;
+// let currentDate;
 let userData;
 let sleepData;
 let hydrationData;
 let activityData;
+// let currentDate = "2019/12/18";
+let currentDate = dateSelected.value.split("-").join("/") || "2019/12/18";
+// let currentDate = dateSelected.value.split("-").join("/");
+let weeklyActivityChart = new Chart("weeklyActivityChart", { type: "line" });
+let weekl;
 
 //functions
 const userDataInstances = () => {
@@ -74,20 +79,25 @@ const fetchUsers = () => {
       displayWeeklyActivity();
       displayAllUsersActivity();
       displayWelcomeMessage();
-      // console.log()
+      console.log("current date", currentDate);
     })
-      .catch((error) =>
-        console.log(error, "Error is coming back from the server")
-      );
-    //Added what Nik suggested verbatim below.
-    //Solid example of error handling
+    .catch((error) =>
+      console.log(error, "Error is coming back from the server")
+    );
+  //Added what Nik suggested verbatim below.
+  //Solid example of error handling
 };
 
 const createUserRepo = () => {
   userRepo = new UserRepository(userDataInstances());
   // currentUser = userRepo.findById(11);
   currentUser = userRepo.generateRandomUser();
-  currentDate = "2019/12/18";
+  // currentDate = dateSelected.value.split("-").join("/") || "2019/12/18";
+  // currentDate = dateSelected.valueAsDate;
+  // currentDate = dayjs("2019-12-18");
+  // currentDate = new Date();
+  // currentDate = dayjs(dateSelected.value).format("YYYY/MM/DD");
+  // setSelectedDate();
   hydrationRepo = new HydrationRepository(hydrationData);
   sleepRepo = new SleepRepository(sleepData);
   activityRepo = new ActivityRepository(activityData);
@@ -113,20 +123,43 @@ const displayUserDetails = () => {
 };
 
 const setSelectedDate = () => {
-  dateSelected.value = currentDate;
+  // dateSelected.value = currentDate;
+  return currentDate;
+};
+
+const setDate = (event) => {
+  currentDate = event.target.value.split("-").join("/");
+  return currentDate;
+};
+
+const setDefaultDate = () => {
+  currentDate = "2019/12/18";
+  return currentDate;
 };
 
 const displaySnapshotData = () => {
   snapshotWidget.innerHTML += `
   Here's a quick snapshot of your day:<br><br>
-  You took ${activityRepo.getSteps(currentUser, currentDate)} steps today <br><br>
-  You were active for ${activityRepo.getMinutesActive(currentUser, currentDate)} minutes today <br><br>
-  You walked ${activityRepo.getMilesWalked(currentUser, currentDate)} miles today <br><br>
+  You took ${activityRepo.getSteps(
+    currentUser,
+    currentDate
+  )} steps today <br><br>
+  You were active for ${activityRepo.getMinutesActive(
+    currentUser,
+    currentDate
+  )} minutes today <br><br>
+  You walked ${activityRepo.getMilesWalked(
+    currentUser,
+    currentDate
+  )} miles today <br><br>
   You drank ${hydrationRepo.getFluidIntakeByDate(
     currentUser.id,
     currentDate
   )} ounces<br><br>
-  You slept ${sleepRepo.getSleepByDate(currentUser.id, currentDate)} hours<br><br>
+  You slept ${sleepRepo.getSleepByDate(
+    currentUser.id,
+    currentDate
+  )} hours<br><br>
   Your sleep quality was ${sleepRepo.getQualityByDate(
     currentUser.id,
     currentDate
@@ -140,13 +173,17 @@ const displayAllUsersActivity = () => {
   Check out other users activity today <br><br>
   They averaged <br><br>
    ${activityRepo.getEveryonesAverageStepsTaken(currentDate)} steps. <br><br>
-   ${activityRepo.getEveryonesAverageMinutesActive(currentDate)} minutes of activity. <br><br>
-   ${activityRepo.getEveryonesAverageStairsClimb(currentDate)} stairs climbed. <br><br>
+   ${activityRepo.getEveryonesAverageMinutesActive(
+     currentDate
+   )} minutes of activity. <br><br>
+   ${activityRepo.getEveryonesAverageStairsClimb(
+     currentDate
+   )} stairs climbed. <br><br>
 
 
 
-  `
-}
+  `;
+};
 
 // Your average all-time is ${sleepRepo.getAverageSleep(
 //   currentUser.id
@@ -193,9 +230,14 @@ const displayWeeklySleep = () => {
 const displayWeeklyActivity = () => {
   let steps = activityRepo.getStepsByWeek(currentUser, currentDate);
   let flights = activityRepo.getFlightsByWeek(currentUser, currentDate);
-  let minutes = activityRepo.getMinutesActiveByWeek(currentUser, currentDate)
-  const config = createActivityChart(steps, flights, minutes);
-  return new Chart(weeklyActivity, config);
+  let minutes = activityRepo.getMinutesActiveByWeek(currentUser, currentDate);
+  createActivityChart(
+    steps,
+    flights,
+    minutes,
+    weeklyActivityChart,
+    currentDate
+  );
 };
 
 const displayActiveWidget = (selection) => {
@@ -221,7 +263,13 @@ const displayAllWidgets = () => {
 //eventlistener
 window.addEventListener("load", () => {
   fetchUsers();
-  setSelectedDate();
+  // setSelectedDate();
+  setDefaultDate();
+});
+
+dateSelected.addEventListener("change", (event) => {
+  setDate(event);
+  displayWeeklyActivity();
 });
 
 buttons.forEach((button) => {
@@ -230,6 +278,11 @@ buttons.forEach((button) => {
       displayAllWidgets();
     } else {
       displayActiveWidget(button.dataset.target);
+      console.log(
+        dateSelected.value.split("-").join("/"),
+        "dateSelected.value"
+      );
+      console.log(currentDate, "currentDate");
     }
   });
 });
