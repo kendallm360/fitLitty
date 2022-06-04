@@ -33,7 +33,8 @@ const weeklyHydration = document.querySelector("#weeklyHydrationChart");
 const weeklySleep = document.querySelector("#weeklySleepChart");
 const weeklyActivity = document.querySelector("#weeklyActivityChart");
 const stepComparisonDonut = document.querySelector("#stepComparisonDonut");
-const submitActivity = document.querySelector("#submit-activity")
+// const submitActivity = document.querySelector("#submit-activity")
+const postForm = document.querySelector("#post-input");
 
 //global variables
 let userRepo;
@@ -75,7 +76,7 @@ const fetchUsers = () => {
       createUserRepo();
       displayUserDetails();
       displaySnapshotData();
-      compareSteps();
+      // compareSteps();
       displayWeeklyWaterIntake();
       displayWeeklySleep();
       displayWeeklyActivity();
@@ -92,16 +93,9 @@ const fetchUsers = () => {
 
 const createUserRepo = () => {
   userRepo = new UserRepository(userDataInstances());
-  // currentUser = userRepo.findById(11);
   if (!currentUser) {
     currentUser = userRepo.generateRandomUser();
   }
-  // currentDate = dateSelected.value.split("-").join("/") || "2019/12/18";
-  // currentDate = dateSelected.valueAsDate;
-  // currentDate = dayjs("2019-12-18");
-  // currentDate = new Date();
-  // currentDate = dayjs(dateSelected.value).format("YYYY/MM/DD");
-  // setSelectedDate();
   hydrationRepo = new HydrationRepository(hydrationData);
   sleepRepo = new SleepRepository(sleepData);
   activityRepo = new ActivityRepository(activityData);
@@ -142,6 +136,7 @@ const setDefaultDate = () => {
 };
 
 const displaySnapshotData = () => {
+  snapshotWidget.innerHTML = ''
   snapshotWidget.innerHTML += `
   Here's a quick snapshot of your day:<br><br>
   You took ${activityRepo.getSteps(
@@ -259,12 +254,56 @@ dateSelected.addEventListener("change", (event) => {
   displayWeeklySleep();
 });
 
+const displayPostForm = (identifier) => {
+  if(identifier == "activity"){
+    addActivityLabels();
+  }else if(identifier == "hydration"){
+    addHydrationLabels();
+  }else if(identifier == "sleep"){
+    addSleepLabels();
+  }
+};
+
+const addActivityLabels = () => {
+  postForm.innerHTML = '';
+  postForm.innerHTML += `
+    <label for="numSteps">Number of Steps</label><br>
+    <input type="text" name="numSteps"><br><br>
+    <label for="minutesActive">Minutes Active</label><br>
+    <input type="text" name="minutesActive"><br><br>
+    <label for="flightsOfStairs">Flights of Stairs Climbed</label><br>
+    <input type="text" name="flightsOfStairs"><br><br>
+    <input type="submit" class="activity"id="submit-activity" value="Submit">
+  `
+}
+
+const addHydrationLabels = () => {
+  postForm.innerHTML = '';
+  postForm.innerHTML += `
+    <label for="numOunces">Number of Ounces</label><br>
+    <input type="text" name="numOunces"><br><br>
+    <input type="submit" class="hydration"id="submit-hydration" value="Submit">
+  `
+}
+
+const addSleepLabels = () => {
+  postForm.innerHTML = '';
+  postForm.innerHTML += `
+    <label for="hoursSlept">Number of Hours Slept</label><br>
+    <input type="text" name="hoursSlept"><br><br>
+    <label for="sleepQuality">Sleep Quality</label><br>
+    <input type="text" name="sleepQuality"><br><br>
+    <input type="submit" class="sleep"id="submit-sleep" value="Submit">
+  `
+}
+
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     if (button.dataset.target === "snapshot") {
       displayAllWidgets();
     } else {
       displayActiveWidget(button.dataset.target);
+      displayPostForm(button.dataset.target)
       console.log(
         dateSelected.value.split("-").join("/"),
         "dateSelected.value"
@@ -274,7 +313,7 @@ buttons.forEach((button) => {
   });
 });
 
-submitActivity.addEventListener("click", () => {
+postForm.addEventListener("click", () => {
   event.preventDefault()
   let form = event.target.closest("form");
   let inputs = Array.from(form.querySelectorAll("input[type=text]"))
@@ -286,5 +325,6 @@ submitActivity.addEventListener("click", () => {
   formData["date"] = "2022/06/04"
   let apiName = form.className
   postData(apiName, formData)
-
+  currentDate = formData["date"]
+  fetchUsers();
 })
