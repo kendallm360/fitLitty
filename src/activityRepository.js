@@ -31,7 +31,6 @@ export default class ActivityRepository {
   }
 
 
-
   getMinutesActive(current_user, date) {
     let filteredActivity = filterById(current_user.id, this.activityData);
     let minutesActive = getDataByDate(filteredActivity, date, "minutesActive");
