@@ -92,7 +92,9 @@ const fetchUsers = () => {
 const createUserRepo = () => {
   userRepo = new UserRepository(userDataInstances());
   // currentUser = userRepo.findById(11);
-  currentUser = userRepo.generateRandomUser();
+  if (!currentUser) {
+    currentUser = userRepo.generateRandomUser();
+  }
   // currentDate = dateSelected.value.split("-").join("/") || "2019/12/18";
   // currentDate = dateSelected.valueAsDate;
   // currentDate = dayjs("2019-12-18");
