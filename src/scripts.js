@@ -33,6 +33,7 @@ const weeklySleep = document.querySelector("#weeklySleepChart");
 const weeklyActivity = document.querySelector("#weeklyActivityChart");
 const stepComparisonDonut = document.querySelector("#stepComparisonDonut");
 const postForm = document.querySelector("#post-input");
+const postMessage = document.querySelector("#post-message");
 
 //global variables
 let userRepo;
@@ -45,6 +46,9 @@ let sleepData;
 let hydrationData;
 let activityData;
 let currentDate;
+let dailyActivityPosted;
+let dailySleepPosted;
+let dailyHydrationPosted;
 let weeklyActivityChart = new Chart("weeklyActivityChart", { type: "line" });
 let weeklyHydrationChart = new Chart("weeklyHydrationChart", { type: "bar" });
 let weeklySleepChart = new Chart("weeklySleepChart", { type: "bar" });
@@ -240,12 +244,15 @@ const displayAllWidgets = () => {
 };
 
 const displayPostForm = (identifier) => {
-  if(identifier == "activity"){
+  if(identifier == "activity" && !dailyActivityPosted){
     addActivityLabels();
-  }else if(identifier == "hydration"){
+  }else if(identifier == "hydration" && !dailyHydrationPosted){
     addHydrationLabels();
-  }else if(identifier == "sleep"){
+  }else if(identifier == "sleep" && !dailySleepPosted){
     addSleepLabels();
+  }else {
+    clearForm();
+    toggleMessage();
   }
 };
 
@@ -286,6 +293,20 @@ const addSleepLabels = () => {
   `
 }
 
+const toggleMessage = () => {
+  postMessage.classList.toggle("hidden")
+}
+
+const updateTypePosted = (apiName) => {
+  if(apiName == "activity"){
+    dailyActivityPosted = true
+  }else if(apiName == "sleep"){
+      dailySleepPosted = true
+  }else if(apiName == "hydration"){
+      dailyHydrationPosted = true
+  }
+}
+
 //eventlistener
 window.addEventListener("load", () => {
   fetchUsers();
@@ -304,8 +325,10 @@ buttons.forEach((button) => {
     if (button.dataset.target === "snapshot") {
       displayAllWidgets();
       clearForm();
+      postMessage.classList.add("hidden")
     } else {
       displayActiveWidget(button.dataset.target);
+      postMessage.classList.add("hidden")
       displayPostForm(button.dataset.target)
       console.log(
         dateSelected.value.split("-").join("/"),
@@ -328,10 +351,11 @@ postForm.addEventListener("click", () => {
     formData["userID"] = currentUser.id
     formData["date"] = getTodaysDate();
     let apiName = postForm.querySelector("#submit").className
+    updateTypePosted(apiName)
     postData(apiName, formData)
     currentDate = getTodaysDate()
     clearForm();
-    
+    toggleMessage()
     fetchUsers();
   }
 })
