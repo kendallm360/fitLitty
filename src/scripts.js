@@ -1,4 +1,4 @@
-import { getData } from "./apiCalls.js";
+import { getData, postData } from "./apiCalls.js";
 
 import {
   createSleepChart,
@@ -33,6 +33,7 @@ const weeklyHydration = document.querySelector("#weeklyHydrationChart");
 const weeklySleep = document.querySelector("#weeklySleepChart");
 const weeklyActivity = document.querySelector("#weeklyActivityChart");
 const stepComparisonDonut = document.querySelector("#stepComparisonDonut");
+const submitActivity = document.querySelector("#submit-activity")
 
 //global variables
 let userRepo;
@@ -185,15 +186,6 @@ const displayAllUsersActivity = () => {
   `;
 };
 
-
-// Your average all-time is ${sleepRepo.getAverageSleep(
-//   currentUser.id
-// )} hours<br><br>
-
-// Your average quality all-time is ${sleepRepo.getAverageSleepQuality(
-//   currentUser.id
-// )}
-
 const compareSteps = () => {
   const config = createCompareDonut(currentUser, userRepo.getAverageStepGoal());
   const stepComparison = new Chart(stepComparisonDonut, config);
@@ -281,3 +273,18 @@ buttons.forEach((button) => {
     }
   });
 });
+
+submitActivity.addEventListener("click", () => {
+  event.preventDefault()
+  let form = event.target.closest("form");
+  let inputs = Array.from(form.querySelectorAll("input[type=text]"))
+  let formData = inputs.reduce((acc, input) => {
+    acc[input.name] = input.value
+    return acc
+  },{})
+  formData["userID"] = currentUser.id
+  formData["date"] = "2022/06/04"
+  let apiName = form.className
+  postData(apiName, formData)
+
+})
