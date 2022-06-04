@@ -24,7 +24,6 @@ const welcomeMessage = document.querySelector(".welcome");
 const contactCard = document.querySelector(".user-info");
 const snapshotWidget = document.querySelector("#snapshot");
 const allUsersActivityWidget = document.querySelector("#all-users-activity");
-// const hydrationWidget = document.querySelector("#hydration");
 const sleepWidget = document.querySelector("#sleep");
 const dateSelected = document.querySelector(".dateSelection");
 const buttons = Array.from(document.querySelectorAll(".dataButton"));
@@ -33,7 +32,6 @@ const weeklyHydration = document.querySelector("#weeklyHydrationChart");
 const weeklySleep = document.querySelector("#weeklySleepChart");
 const weeklyActivity = document.querySelector("#weeklyActivityChart");
 const stepComparisonDonut = document.querySelector("#stepComparisonDonut");
-// const submitActivity = document.querySelector("#submit-activity")
 const postForm = document.querySelector("#post-input");
 
 //global variables
@@ -42,14 +40,11 @@ let hydrationRepo;
 let sleepRepo;
 let activityRepo;
 let currentUser;
-// let currentDate;
 let userData;
 let sleepData;
 let hydrationData;
 let activityData;
-// let currentDate = "2019/12/18";
-let currentDate = dateSelected.value.split("-").join("/") || "2019/12/18";
-// let currentDate = dateSelected.value.split("-").join("/");
+let currentDate;
 let weeklyActivityChart = new Chart("weeklyActivityChart", { type: "line" });
 let weeklyHydrationChart = new Chart("weeklyHydrationChart", { type: "bar" });
 let weeklySleepChart = new Chart("weeklySleepChart", { type: "bar" });
@@ -82,7 +77,6 @@ const fetchUsers = () => {
       displayWeeklyActivity();
       displayAllUsersActivity();
       displayWelcomeMessage();
-      console.log("current date", currentDate);
     })
     .catch((error) =>
       console.log(error, "Error is coming back from the server")
@@ -120,15 +114,19 @@ const displayUserDetails = () => {
   `;
 };
 
-const setSelectedDate = () => {
-  // dateSelected.value = currentDate;
-  return currentDate;
-};
-
 const setDate = (event) => {
   currentDate = event.target.value.split("-").join("/");
   return currentDate;
 };
+
+const getTodaysDate = () => {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+
+  return yyyy + '/' + mm + '/' + dd;
+}
 
 const setDefaultDate = () => {
   currentDate = "2019/12/18";
@@ -168,6 +166,7 @@ const displaySnapshotData = () => {
 };
 
 const displayAllUsersActivity = () => {
+  allUsersActivityWidget.innerHTML = '';
   allUsersActivityWidget.innerHTML += `
   Check out other users activity today <br><br>
   They averaged <br><br>
@@ -240,20 +239,6 @@ const displayAllWidgets = () => {
   });
 };
 
-//eventlistener
-window.addEventListener("load", () => {
-  fetchUsers();
-  // setSelectedDate();
-  setDefaultDate();
-});
-
-dateSelected.addEventListener("change", (event) => {
-  setDate(event);
-  displayWeeklyActivity();
-  displayWeeklyWaterIntake();
-  displayWeeklySleep();
-});
-
 const displayPostForm = (identifier) => {
   if(identifier == "activity"){
     addActivityLabels();
@@ -264,6 +249,10 @@ const displayPostForm = (identifier) => {
   }
 };
 
+const clearForm = () => {
+  postForm.innerHTML = '';
+}
+
 const addActivityLabels = () => {
   postForm.innerHTML = '';
   postForm.innerHTML += `
@@ -273,7 +262,7 @@ const addActivityLabels = () => {
     <input type="text" name="minutesActive"><br><br>
     <label for="flightsOfStairs">Flights of Stairs Climbed</label><br>
     <input type="text" name="flightsOfStairs"><br><br>
-    <input type="submit" class="activity"id="submit-activity" value="Submit">
+    <input type="submit" class="activity"id="submit" value="Submit">
   `
 }
 
@@ -282,7 +271,7 @@ const addHydrationLabels = () => {
   postForm.innerHTML += `
     <label for="numOunces">Number of Ounces</label><br>
     <input type="text" name="numOunces"><br><br>
-    <input type="submit" class="hydration"id="submit-hydration" value="Submit">
+    <input type="submit" class="hydration"id="submit" value="Submit">
   `
 }
 
@@ -293,14 +282,28 @@ const addSleepLabels = () => {
     <input type="text" name="hoursSlept"><br><br>
     <label for="sleepQuality">Sleep Quality</label><br>
     <input type="text" name="sleepQuality"><br><br>
-    <input type="submit" class="sleep"id="submit-sleep" value="Submit">
+    <input type="submit" class="sleep"id="submit" value="Submit">
   `
 }
+
+//eventlistener
+window.addEventListener("load", () => {
+  fetchUsers();
+  setDefaultDate();
+});
+
+dateSelected.addEventListener("change", (event) => {
+  setDate(event);
+  displayWeeklyActivity();
+  displayWeeklyWaterIntake();
+  displayWeeklySleep();
+});
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     if (button.dataset.target === "snapshot") {
       displayAllWidgets();
+      clearForm();
     } else {
       displayActiveWidget(button.dataset.target);
       displayPostForm(button.dataset.target)
@@ -314,17 +317,21 @@ buttons.forEach((button) => {
 });
 
 postForm.addEventListener("click", () => {
-  event.preventDefault()
-  let form = event.target.closest("form");
-  let inputs = Array.from(form.querySelectorAll("input[type=text]"))
-  let formData = inputs.reduce((acc, input) => {
-    acc[input.name] = input.value
-    return acc
-  },{})
-  formData["userID"] = currentUser.id
-  formData["date"] = "2022/06/04"
-  let apiName = form.className
-  postData(apiName, formData)
-  currentDate = formData["date"]
-  fetchUsers();
+  if (event.target.id == "submit") {
+    event.preventDefault()
+    let form = event.target.closest("form");
+    let inputs = Array.from(form.querySelectorAll("input[type=text]"))
+    let formData = inputs.reduce((acc, input) => {
+      acc[input.name] = input.value
+      return acc
+    },{})
+    formData["userID"] = currentUser.id
+    formData["date"] = getTodaysDate();
+    let apiName = postForm.querySelector("#submit").className
+    postData(apiName, formData)
+    currentDate = getTodaysDate()
+    clearForm();
+    
+    fetchUsers();
+  }
 })
