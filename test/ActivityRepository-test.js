@@ -36,8 +36,7 @@ describe("Activity", () => {
     expect(activity.getMinutesActive(user2, "2019/06/15")).to.equal(114);
   });
 
-
-  it("should have a method that returns how many minutes the user were active for each day of a given week", () => {
+ it("should have a method that returns how many minutes the user were active for each day of a given week", () => {
     expect(
       activity.getMinutesActiveByWeek(current_user, "2019/06/15")
     ).to.deep.equal([
@@ -159,7 +158,6 @@ describe("Activity", () => {
     ]);
   });
 
-  //revisit during refactor
   it("should have a method that returns an empty array if the step goal isn't reached", () => {
     expect(activity.determineDaysGoalReached(current_user)).to.deep.equal([]);
   });
