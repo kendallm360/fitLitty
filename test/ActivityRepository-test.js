@@ -8,8 +8,8 @@ describe("Activity", () => {
 
   beforeEach(() => {
     activity = activityData;
-    current_user = userRepoInstance.users[0];
-    user2 = userRepoInstance.users[1];
+    current_user = userRepoInstance.findById(1);
+    user2 = userRepoInstance.findById(2)
   });
 
   it("should take in activity data", () => {
