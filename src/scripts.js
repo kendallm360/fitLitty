@@ -1,4 +1,4 @@
-import { getData } from "./apiCalls.js";
+import { getData, postData } from "./apiCalls.js";
 
 import {
   createSleepChart,
@@ -24,7 +24,6 @@ const welcomeMessage = document.querySelector(".welcome");
 const contactCard = document.querySelector(".user-info");
 const snapshotWidget = document.querySelector("#snapshot");
 const allUsersActivityWidget = document.querySelector("#all-users-activity");
-// const hydrationWidget = document.querySelector("#hydration");
 const sleepWidget = document.querySelector("#sleep");
 const dateSelected = document.querySelector(".dateSelection");
 const buttons = Array.from(document.querySelectorAll(".dataButton"));
@@ -33,6 +32,8 @@ const weeklyHydration = document.querySelector("#weeklyHydrationChart");
 const weeklySleep = document.querySelector("#weeklySleepChart");
 const weeklyActivity = document.querySelector("#weeklyActivityChart");
 const stepComparisonDonut = document.querySelector("#stepComparisonDonut");
+const postForm = document.querySelector("#post-input");
+const postMessage = document.querySelector("#post-message");
 
 //global variables
 let userRepo;
@@ -40,17 +41,23 @@ let hydrationRepo;
 let sleepRepo;
 let activityRepo;
 let currentUser;
-// let currentDate;
 let userData;
 let sleepData;
 let hydrationData;
 let activityData;
-// let currentDate = "2019/12/18";
-let currentDate = dateSelected.value.split("-").join("/") || "2019/12/18";
-// let currentDate = dateSelected.value.split("-").join("/");
+let currentDate;
+let dailyActivityPosted;
+let dailySleepPosted;
+let dailyHydrationPosted;
 let weeklyActivityChart = new Chart("weeklyActivityChart", { type: "line" });
 let weeklyHydrationChart = new Chart("weeklyHydrationChart", { type: "bar" });
 let weeklySleepChart = new Chart("weeklySleepChart", { type: "bar" });
+let stepComparisonChart = new Chart("stepComparisonDonut", { type: "doughnut", options: {
+  layout: {
+    padding: 20,
+  },
+  maintainAspectRatio: false
+} });
 
 //functions
 const userDataInstances = () => {
@@ -80,7 +87,6 @@ const fetchUsers = () => {
       displayWeeklyActivity();
       displayAllUsersActivity();
       displayWelcomeMessage();
-      console.log("current date", currentDate);
     })
     .catch((error) =>
       console.log(error, "Error is coming back from the server")
@@ -91,14 +97,9 @@ const fetchUsers = () => {
 
 const createUserRepo = () => {
   userRepo = new UserRepository(userDataInstances());
-  // currentUser = userRepo.findById(11);
-  currentUser = userRepo.generateRandomUser();
-  // currentDate = dateSelected.value.split("-").join("/") || "2019/12/18";
-  // currentDate = dateSelected.valueAsDate;
-  // currentDate = dayjs("2019-12-18");
-  // currentDate = new Date();
-  // currentDate = dayjs(dateSelected.value).format("YYYY/MM/DD");
-  // setSelectedDate();
+  if (!currentUser) {
+    currentUser = userRepo.generateRandomUser();
+  }
   hydrationRepo = new HydrationRepository(hydrationData);
   sleepRepo = new SleepRepository(sleepData);
   activityRepo = new ActivityRepository(activityData);
@@ -123,15 +124,19 @@ const displayUserDetails = () => {
   `;
 };
 
-const setSelectedDate = () => {
-  // dateSelected.value = currentDate;
-  return currentDate;
-};
-
 const setDate = (event) => {
   currentDate = event.target.value.split("-").join("/");
   return currentDate;
 };
+
+const getTodaysDate = () => {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+
+  return yyyy + '/' + mm + '/' + dd;
+}
 
 const setDefaultDate = () => {
   currentDate = "2019/12/18";
@@ -139,6 +144,7 @@ const setDefaultDate = () => {
 };
 
 const displaySnapshotData = () => {
+  snapshotWidget.innerHTML = ''
   snapshotWidget.innerHTML += `
   Here's a quick snapshot of your day:<br><br>
   You took ${activityRepo.getSteps(
@@ -170,6 +176,7 @@ const displaySnapshotData = () => {
 };
 
 const displayAllUsersActivity = () => {
+  allUsersActivityWidget.innerHTML = '';
   allUsersActivityWidget.innerHTML += `
   Check out other users activity today <br><br>
   They averaged <br><br>
@@ -183,18 +190,9 @@ const displayAllUsersActivity = () => {
   `;
 };
 
-
-// Your average all-time is ${sleepRepo.getAverageSleep(
-//   currentUser.id
-// )} hours<br><br>
-
-// Your average quality all-time is ${sleepRepo.getAverageSleepQuality(
-//   currentUser.id
-// )}
-
 const compareSteps = () => {
-  const config = createCompareDonut(currentUser, userRepo.getAverageStepGoal());
-  const stepComparison = new Chart(stepComparisonDonut, config);
+  let updatedChart = createCompareDonut(currentUser, userRepo.getAverageStepGoal(), stepComparisonChart);
+  updatedChart.update();
 };
 
 const displayWeeklyWaterIntake = () => {
@@ -251,10 +249,73 @@ const displayAllWidgets = () => {
   });
 };
 
+const displayPostForm = (identifier) => {
+  if(identifier == "activity" && !dailyActivityPosted){
+    addActivityLabels();
+  }else if(identifier == "hydration" && !dailyHydrationPosted){
+    addHydrationLabels();
+  }else if(identifier == "sleep" && !dailySleepPosted){
+    addSleepLabels();
+  }else {
+    clearForm();
+    toggleMessage();
+  }
+};
+
+const clearForm = () => {
+  postForm.innerHTML = '';
+}
+
+const addActivityLabels = () => {
+  postForm.innerHTML = '';
+  postForm.innerHTML += `
+    <label for="numSteps">Number of Steps</label><br>
+    <input type="text" name="numSteps"><br><br>
+    <label for="minutesActive">Minutes Active</label><br>
+    <input type="text" name="minutesActive"><br><br>
+    <label for="flightsOfStairs">Flights of Stairs Climbed</label><br>
+    <input type="text" name="flightsOfStairs"><br><br>
+    <input type="submit" class="activity"id="submit" value="Submit">
+  `
+}
+
+const addHydrationLabels = () => {
+  postForm.innerHTML = '';
+  postForm.innerHTML += `
+    <label for="numOunces">Number of Ounces</label><br>
+    <input type="text" name="numOunces"><br><br>
+    <input type="submit" class="hydration"id="submit" value="Submit">
+  `
+}
+
+const addSleepLabels = () => {
+  postForm.innerHTML = '';
+  postForm.innerHTML += `
+    <label for="hoursSlept">Number of Hours Slept</label><br>
+    <input type="text" name="hoursSlept"><br><br>
+    <label for="sleepQuality">Sleep Quality</label><br>
+    <input type="text" name="sleepQuality"><br><br>
+    <input type="submit" class="sleep"id="submit" value="Submit">
+  `
+}
+
+const toggleMessage = () => {
+  postMessage.classList.toggle("hidden")
+}
+
+const updateTypePosted = (apiName) => {
+  if(apiName == "activity"){
+    dailyActivityPosted = true
+  }else if(apiName == "sleep"){
+      dailySleepPosted = true
+  }else if(apiName == "hydration"){
+      dailyHydrationPosted = true
+  }
+}
+
 //eventlistener
 window.addEventListener("load", () => {
   fetchUsers();
-  // setSelectedDate();
   setDefaultDate();
 });
 
@@ -269,8 +330,12 @@ buttons.forEach((button) => {
   button.addEventListener("click", () => {
     if (button.dataset.target === "snapshot") {
       displayAllWidgets();
+      clearForm();
+      postMessage.classList.add("hidden")
     } else {
       displayActiveWidget(button.dataset.target);
+      postMessage.classList.add("hidden")
+      displayPostForm(button.dataset.target)
       console.log(
         dateSelected.value.split("-").join("/"),
         "dateSelected.value"
@@ -279,3 +344,24 @@ buttons.forEach((button) => {
     }
   });
 });
+
+postForm.addEventListener("click", () => {
+  if (event.target.id == "submit") {
+    event.preventDefault()
+    let form = event.target.closest("form");
+    let inputs = Array.from(form.querySelectorAll("input[type=text]"))
+    let formData = inputs.reduce((acc, input) => {
+      acc[input.name] = input.value
+      return acc
+    },{})
+    formData["userID"] = currentUser.id
+    formData["date"] = getTodaysDate();
+    let apiName = postForm.querySelector("#submit").className
+    updateTypePosted(apiName)
+    postData(apiName, formData)
+    currentDate = getTodaysDate()
+    clearForm();
+    toggleMessage()
+    fetchUsers();
+  }
+})
