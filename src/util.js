@@ -6,7 +6,7 @@ const filterById = (id, arr) => {
 
 const getAverage = (arr, attr) => {
   let total = arr.reduce((sum, obj) => {
-    sum += obj[attr];
+    sum += parseInt(obj[attr]);
     return sum;
   }, 0);
   let average = total / arr.length;
