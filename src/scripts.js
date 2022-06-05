@@ -256,9 +256,14 @@ const displayActiveWidget = (selection) => {
 
 const displayAllWidgets = () => {
   widgets.forEach((widget) => {
-    widget.style.display = "flex";
-    widget.classList.add("widget");
-    widget.classList.remove("resize-widget");
+    if (widget.id === 'activity' || widget.id === 'all-users-activity'){
+      widget.style.display = "none";
+    } else {
+      widget.style.display = "flex";
+      widget.classList.add("widget");
+      widget.classList.remove("resize-widget");
+    }
+   
   });
 };
 
@@ -295,9 +300,9 @@ const addActivityLabels = () => {
 const addHydrationLabels = () => {
   postForm.innerHTML = '';
   postForm.innerHTML += `
-    <label for="numOunces">Number of Ounces</label><br>
-    <input type="text" name="numOunces"><br><br>
-    <input type="submit" class="hydration"id="submit" value="Submit">
+    <label for="numOunces" >Number of Ounces</label><br>
+    <input type="text" name="numOunces" ><br><br>
+    <input type="submit" class="hydration"id="submit" value="Submit" >
   `
 }
 

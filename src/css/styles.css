@@ -87,9 +87,9 @@ ul.navbar #sleep-button:hover {
 
 .widget,
 .resize-widget {
-  height: 35%;
+  height: 38%;
   padding: 20px;
-  width: 30%;
+  width: 33%;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -112,7 +112,7 @@ ul.navbar #sleep-button:hover {
 #activity {
   border: solid 3px purple;
   font-size: 1em;
-  display: flex;
+  display: hidden;
 }
 
 #stepComparisonDonut {
