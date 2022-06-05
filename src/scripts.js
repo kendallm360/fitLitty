@@ -231,15 +231,28 @@ const displayWeeklyActivity = () => {
 
 const displayActiveWidget = (selection) => {
   widgets.forEach((widget) => {
-    if (selection === widget.id) {
+    if (widget.classList.contains(selection)) {
       widget.style.display = "flex";
       widget.classList.add("resize-widget");
       widget.classList.remove("widget");
+      // widget.classList.remove("hidden");
     } else {
       widget.style.display = "none";
     }
   });
 };
+
+// const displayActiveWidget = (selection) => {
+//   widgets.forEach((widget) => {
+//     if (selection === widget.id) {
+//       widget.style.display = "flex";
+//       widget.classList.add("resize-widget");
+//       widget.classList.remove("widget");
+//     } else {
+//       widget.style.display = "none";
+//     }
+//   });
+// };
 
 const displayAllWidgets = () => {
   widgets.forEach((widget) => {
