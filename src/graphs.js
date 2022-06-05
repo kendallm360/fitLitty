@@ -98,7 +98,7 @@ const createActivityChart = (
   weeklyActivityChart
 ) => {
   const labels = weeklySteps.map((activity) => activity.date);
-  const stepValues = weeklySteps.map((activity) => activity.numSteps / 100);
+  const stepValues = weeklySteps.map((activity) => activity.numSteps);
   const stairValues = weeklyFlightsClimbed.map(
     (activity) => activity.flightsOfStairs
   );
