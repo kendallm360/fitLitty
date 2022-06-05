@@ -52,6 +52,12 @@ let dailyHydrationPosted;
 let weeklyActivityChart = new Chart("weeklyActivityChart", { type: "line" });
 let weeklyHydrationChart = new Chart("weeklyHydrationChart", { type: "bar" });
 let weeklySleepChart = new Chart("weeklySleepChart", { type: "bar" });
+let stepComparisonChart = new Chart("stepComparisonDonut", { type: "doughnut", options: {
+  layout: {
+    padding: 20,
+  },
+  maintainAspectRatio: false
+} });
 
 //functions
 const userDataInstances = () => {
@@ -75,7 +81,7 @@ const fetchUsers = () => {
       createUserRepo();
       displayUserDetails();
       displaySnapshotData();
-      // compareSteps();
+      compareSteps();
       displayWeeklyWaterIntake();
       displayWeeklySleep();
       displayWeeklyActivity();
@@ -185,8 +191,8 @@ const displayAllUsersActivity = () => {
 };
 
 const compareSteps = () => {
-  const config = createCompareDonut(currentUser, userRepo.getAverageStepGoal());
-  const stepComparison = new Chart(stepComparisonDonut, config);
+  let updatedChart = createCompareDonut(currentUser, userRepo.getAverageStepGoal(), stepComparisonChart);
+  updatedChart.update();
 };
 
 const displayWeeklyWaterIntake = () => {
