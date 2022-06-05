@@ -67,10 +67,10 @@ const createHydrationChart = (weeklyWaterIntake, weeklyHydrationChart) => {
   weeklyHydrationChart.update();
 };
 
-const createCompareDonut = (currentUser, avgSteps) => {
+const createCompareDonut = (currentUser, avgSteps, stepComparisonChart) => {
   const labels = [currentUser.returnFirstName(), "Other Users"];
   const values = [currentUser.dailyStepGoal, avgSteps];
-  const data = {
+  stepComparisonChart.data = {
     labels: labels,
     datasets: [
       {
@@ -82,18 +82,13 @@ const createCompareDonut = (currentUser, avgSteps) => {
       },
     ],
   };
-
-  const config = {
-    type: "doughnut",
-    data: data,
-    options: {
-      layout: {
-        padding: 20,
-      },
-      maintainAspectRatio: false,
+  stepComparisonChart.options = {
+    layout: {
+      padding: 20,
     },
+    maintainAspectRatio: false
   };
-  return config;
+  return stepComparisonChart
 };
 
 const createActivityChart = (

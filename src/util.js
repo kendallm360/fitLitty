@@ -15,7 +15,11 @@ const getAverage = (arr, attr) => {
 
 const getDataByDate = (arr, date, attr) => {
   const objByDate = arr.find((data) => data.date === date);
-  return Math.round(objByDate[attr]);
+  if(objByDate){
+    return Math.round(objByDate[attr]);
+  }else{
+    return 0;
+  }
 };
 
 const getFilteredDataByDate = (arr, date) => {
