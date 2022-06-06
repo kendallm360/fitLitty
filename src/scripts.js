@@ -79,14 +79,9 @@ const fetchUsers = () => {
       hydrationData = data[2].hydrationData;
       activityData = data[3].activityData;
       createUserRepo();
-      displayUserDetails();
-      displaySnapshotData();
+      displayUserInfo();
       compareSteps();
-      displayWeeklyWaterIntake();
-      displayWeeklySleep();
-      displayWeeklyActivity();
-      displayAllUsersActivity();
-      displayWelcomeMessage();
+      displayWeeklyUpdates();
     })
     .catch((error) =>
       console.log(error, "Error is coming back from the server")
@@ -309,12 +304,27 @@ const toggleMessage = () => {
 const updateTypePosted = (apiName) => {
   if(apiName == "activity"){
     dailyActivityPosted = true
-  }else if(apiName == "sleep"){
+  } else if (apiName == "sleep") {
       dailySleepPosted = true
-  }else if(apiName == "hydration"){
+  } else if (apiName == "hydration") {
       dailyHydrationPosted = true
   }
 }
+//helper functions
+const displayWeeklyUpdates = () => {
+  displayWeeklyActivity();
+  displayWeeklyWaterIntake();
+  displayWeeklySleep();
+  displayAllUsersActivity()
+}
+
+const displayUserInfo = () =>{
+  displayUserDetails();
+  displaySnapshotData();
+  displayWelcomeMessage();
+}
+
+
 
 //eventlistener
 window.addEventListener("load", () => {
@@ -324,10 +334,7 @@ window.addEventListener("load", () => {
 
 dateSelected.addEventListener("change", (event) => {
   setDate(event);
-  displayWeeklyActivity();
-  displayWeeklyWaterIntake();
-  displayWeeklySleep();
-  displayAllUsersActivity();
+  displayWeeklyUpdates();
 });
 
 buttons.forEach((button) => {
@@ -340,11 +347,6 @@ buttons.forEach((button) => {
       displayActiveWidget(button.dataset.target);
       postMessage.classList.add("hidden")
       displayPostForm(button.dataset.target)
-      console.log(
-        dateSelected.value.split("-").join("/"),
-        "dateSelected.value"
-      );
-      console.log(currentDate, "currentDate");
     }
   });
 });
@@ -360,12 +362,12 @@ postForm.addEventListener("click", () => {
     },{})
     formData["userID"] = currentUser.id
     formData["date"] = getTodaysDate();
-    let apiName = postForm.querySelector("#submit").className
-    updateTypePosted(apiName)
-    postData(apiName, formData)
-    currentDate = getTodaysDate()
+    let apiName = postForm.querySelector("#submit").className;
+    updateTypePosted(apiName);
+    postData(apiName, formData);
+    currentDate = getTodaysDate();
     clearForm();
-    toggleMessage()
+    toggleMessage();
     fetchUsers();
   }
 })
