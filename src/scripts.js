@@ -66,6 +66,40 @@ const userDataInstances = () => {
   });
 };
 
+const setFormData = (event) => {
+  let form = event.target.closest("form");
+  let inputs = Array.from(form.querySelectorAll("input[type=text]"))
+  let formData = inputs.reduce((acc, input) => {
+    acc[input.name] = input.value;
+    return acc
+  },{})
+  formData["userID"] = currentUser.id;
+  formData["date"] = getTodaysDate();
+  return formData
+};
+
+const postObject = (event) => {
+  let formData = setFormData(event);
+  let apiName = postForm.querySelector("#submit").className;
+  updateTypePosted(apiName);
+  Promise.all([
+    postData(apiName, formData)
+  ]).then((data) => {
+      currentDate = getTodaysDate();
+      clearForm();
+      toggleMessage();
+      fetchUsers();
+    }
+  );
+};
+
+const setLocalData = (data) => {
+  userData = data[0].userData;
+  sleepData = data[1].sleepData;
+  hydrationData = data[2].hydrationData;
+  activityData = data[3].activityData;
+};
+
 const fetchUsers = () => {
   Promise.all([
     getData("users"),
@@ -74,10 +108,7 @@ const fetchUsers = () => {
     getData("activity"),
   ])
     .then((data) => {
-      userData = data[0].userData;
-      sleepData = data[1].sleepData;
-      hydrationData = data[2].hydrationData;
-      activityData = data[3].activityData;
+      setLocalData(data);
       createUserRepo();
       displayUserInfo();
       compareSteps();
@@ -351,23 +382,9 @@ buttons.forEach((button) => {
   });
 });
 
-postForm.addEventListener("click", () => {
+postForm.addEventListener("click", (event) => {
+  event.preventDefault()
   if (event.target.id == "submit") {
-    event.preventDefault()
-    let form = event.target.closest("form");
-    let inputs = Array.from(form.querySelectorAll("input[type=text]"))
-    let formData = inputs.reduce((acc, input) => {
-      acc[input.name] = input.value
-      return acc
-    },{})
-    formData["userID"] = currentUser.id
-    formData["date"] = getTodaysDate();
-    let apiName = postForm.querySelector("#submit").className;
-    updateTypePosted(apiName);
-    postData(apiName, formData);
-    currentDate = getTodaysDate();
-    clearForm();
-    toggleMessage();
-    fetchUsers();
+    postObject(event);
   }
 })
