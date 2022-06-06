@@ -91,8 +91,6 @@ const fetchUsers = () => {
     .catch((error) =>
       console.log(error, "Error is coming back from the server")
     );
-  //Added what Nik suggested verbatim below.
-  //Solid example of error handling
 };
 
 const createUserRepo = () => {
@@ -186,7 +184,7 @@ const displayAllUsersActivity = () => {
    )} minutes of activity. <br><br>
    ${activityRepo.getEveryonesAverageStairsClimb(
      currentDate
-   )} stairs climbed. <br><br>
+   )} flights of stairs climbed. <br><br>
   `;
 };
 
@@ -235,26 +233,13 @@ const displayActiveWidget = (selection) => {
       widget.style.display = "flex";
       widget.classList.add("resize-widget");
       widget.classList.remove("widget");
-      // widget.classList.remove("hidden");
     } else {
       widget.style.display = "none";
     }
   });
 };
 
-// const displayActiveWidget = (selection) => {
-//   widgets.forEach((widget) => {
-//     if (selection === widget.id) {
-//       widget.style.display = "flex";
-//       widget.classList.add("resize-widget");
-//       widget.classList.remove("widget");
-//     } else {
-//       widget.style.display = "none";
-//     }
-//   });
-// };
-
-const displayAllWidgets = () => {
+const displaySnapshotWidgets = () => {
   widgets.forEach((widget) => {
     if (widget.id === 'activity' || widget.id === 'all-users-activity'){
       widget.style.display = "none";
@@ -342,12 +327,13 @@ dateSelected.addEventListener("change", (event) => {
   displayWeeklyActivity();
   displayWeeklyWaterIntake();
   displayWeeklySleep();
+  displayAllUsersActivity();
 });
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     if (button.dataset.target === "snapshot") {
-      displayAllWidgets();
+      displaySnapshotWidgets();
       clearForm();
       postMessage.classList.add("hidden")
     } else {
