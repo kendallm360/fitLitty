@@ -79,20 +79,13 @@ const fetchUsers = () => {
       hydrationData = data[2].hydrationData;
       activityData = data[3].activityData;
       createUserRepo();
-      displayUserDetails();
-      displaySnapshotData();
+      displayUserInfo();
       compareSteps();
-      displayWeeklyWaterIntake();
-      displayWeeklySleep();
-      displayWeeklyActivity();
-      displayAllUsersActivity();
-      displayWelcomeMessage();
+      displayWeeklyUpdates();
     })
     .catch((error) =>
       console.log(error, "Error is coming back from the server")
     );
-  //Added what Nik suggested verbatim below.
-  //Solid example of error handling
 };
 
 const createUserRepo = () => {
@@ -186,7 +179,7 @@ const displayAllUsersActivity = () => {
    )} minutes of activity. <br><br>
    ${activityRepo.getEveryonesAverageStairsClimb(
      currentDate
-   )} stairs climbed. <br><br>
+   )} flights of stairs climbed. <br><br>
   `;
 };
 
@@ -231,7 +224,7 @@ const displayWeeklyActivity = () => {
 
 const displayActiveWidget = (selection) => {
   widgets.forEach((widget) => {
-    if (selection === widget.id) {
+    if (widget.classList.contains(selection)) {
       widget.style.display = "flex";
       widget.classList.add("resize-widget");
       widget.classList.remove("widget");
@@ -241,11 +234,16 @@ const displayActiveWidget = (selection) => {
   });
 };
 
-const displayAllWidgets = () => {
+const displaySnapshotWidgets = () => {
   widgets.forEach((widget) => {
-    widget.style.display = "flex";
-    widget.classList.add("widget");
-    widget.classList.remove("resize-widget");
+    if (widget.id === 'activity' || widget.id === 'all-users-activity'){
+      widget.style.display = "none";
+    } else {
+      widget.style.display = "flex";
+      widget.classList.add("widget");
+      widget.classList.remove("resize-widget");
+    }
+   
   });
 };
 
@@ -282,9 +280,9 @@ const addActivityLabels = () => {
 const addHydrationLabels = () => {
   postForm.innerHTML = '';
   postForm.innerHTML += `
-    <label for="numOunces">Number of Ounces</label><br>
-    <input type="text" name="numOunces"><br><br>
-    <input type="submit" class="hydration"id="submit" value="Submit">
+    <label for="numOunces" >Number of Ounces</label><br>
+    <input type="text" name="numOunces" ><br><br>
+    <input type="submit" class="hydration"id="submit" value="Submit" >
   `
 }
 
@@ -306,12 +304,27 @@ const toggleMessage = () => {
 const updateTypePosted = (apiName) => {
   if(apiName == "activity"){
     dailyActivityPosted = true
-  }else if(apiName == "sleep"){
+  } else if (apiName == "sleep") {
       dailySleepPosted = true
-  }else if(apiName == "hydration"){
+  } else if (apiName == "hydration") {
       dailyHydrationPosted = true
   }
 }
+//helper functions
+const displayWeeklyUpdates = () => {
+  displayWeeklyActivity();
+  displayWeeklyWaterIntake();
+  displayWeeklySleep();
+  displayAllUsersActivity()
+}
+
+const displayUserInfo = () =>{
+  displayUserDetails();
+  displaySnapshotData();
+  displayWelcomeMessage();
+}
+
+
 
 //eventlistener
 window.addEventListener("load", () => {
@@ -321,26 +334,19 @@ window.addEventListener("load", () => {
 
 dateSelected.addEventListener("change", (event) => {
   setDate(event);
-  displayWeeklyActivity();
-  displayWeeklyWaterIntake();
-  displayWeeklySleep();
+  displayWeeklyUpdates();
 });
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     if (button.dataset.target === "snapshot") {
-      displayAllWidgets();
+      displaySnapshotWidgets();
       clearForm();
       postMessage.classList.add("hidden")
     } else {
       displayActiveWidget(button.dataset.target);
       postMessage.classList.add("hidden")
       displayPostForm(button.dataset.target)
-      console.log(
-        dateSelected.value.split("-").join("/"),
-        "dateSelected.value"
-      );
-      console.log(currentDate, "currentDate");
     }
   });
 });
@@ -356,12 +362,12 @@ postForm.addEventListener("click", () => {
     },{})
     formData["userID"] = currentUser.id
     formData["date"] = getTodaysDate();
-    let apiName = postForm.querySelector("#submit").className
-    updateTypePosted(apiName)
-    postData(apiName, formData)
-    currentDate = getTodaysDate()
+    let apiName = postForm.querySelector("#submit").className;
+    updateTypePosted(apiName);
+    postData(apiName, formData);
+    currentDate = getTodaysDate();
     clearForm();
-    toggleMessage()
+    toggleMessage();
     fetchUsers();
   }
 })
