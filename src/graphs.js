@@ -159,9 +159,8 @@ const createActivityChart = (
           display: true,
           position: 'right',
           ticks: { color: "rgb(255, 99, 132)"},
-          // grid line settings
           grid: {
-            drawOnChartArea: false, // only want the grid lines for one axis to show up
+            drawOnChartArea: false, 
           },
         },
       }

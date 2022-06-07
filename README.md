@@ -2,7 +2,7 @@
 
 ## Setup
 
-The details and setup of this project are outline in [this project spec](http://frontend.turing.io/projects/fitlit.html).
+The details and setup of this project are outline in [this project spec](https://frontend.turing.edu/projects/Fitlit-part-two.html).
 
 ## Overview:
 
@@ -51,12 +51,15 @@ Mocha and chai are already set up, with a boilerplate test for you.
 For this project we sourced inspiration from Dribble creators, and also used our imagination during the building process to make it our own!
 
 ### Example of Project:
-![Demo](./src/images/demogif.gif)
+![Demo](./src/images/allTabs.gif)
+![Demo](./src/images/changeDate.gif)
+![Demo](./src/images/postData.gif)
+
+
 
 ### Future Additions:
-- Functionality that allows the user to filter by date
+- Login Page
 - A feature that allows the user to change the color scheme
-- Pictures to the design
 
 ## Contributors:
 - [Trish Fox-Collis](https://github.com/tfoxcollis)

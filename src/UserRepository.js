@@ -21,5 +21,3 @@ export default class UserRepository {
     return this.users[Math.floor(Math.random() * this.users.length)];
   }
 }
-
-// export default UserRepository;

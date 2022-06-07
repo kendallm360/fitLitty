@@ -194,6 +194,7 @@ const activityData = new ActivityRepository([
     flightsOfStairs: 32,
   },
 ]);
+
 export {
   userRepoInstance,
   userHydrationData,

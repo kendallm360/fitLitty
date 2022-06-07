@@ -9,12 +9,12 @@
   <body>
     <aside class="information-bar">
       <section class="user-info"></section>
-      <label for="date-selection">Pick a Date to View Past Data</label>
-      <input type="date" name="dateSelection" class="dateSelection" id="date-selection" />
-      <section>
-        <form class="postForm" id="post-input" action="index.html" method="post">
+      <section class="user-form">
+        <label for="date-selection">Pick a Date to View Past Data</label>
+        <input type="date" name="dateSelection" class="date-Selection" id="date-selection" />
+        <form class="postForm" id="postInput" action="index.html" method="post">
         </form>
-        <h2 class="hidden" id="post-message">Thanks for adding your stats for the day!<br> Keep it up &#128170;<br> See you back here tomorrow!</h2>
+        <p class="hidden" id="postMessage">Thanks for adding your stats for the day!<br> Keep it up &#128170;<br> See you back here tomorrow!</p>
       </section>
     </aside>
     <aside class="main-section">
@@ -69,7 +69,7 @@
           <p>Step Goal</p>
           <canvas id="stepComparisonDonut"></canvas>
         </div>
-        <div class="widget activity" id="activity-2">
+        <div class="widget activity" id="activity2">
           <p>Activity</p>
           <canvas id="weeklyActivityChart"></canvas>
         </div>
@@ -81,7 +81,7 @@
           <p>Sleep</p>
           <canvas id="weeklySleepChart"></canvas>
         </div>
-        <div class="widget activity hidden" id="all-users-activity"></div>
+        <div class="widget activity hidden" id="allUsersActivity"></div>
       </section>
     </aside>
     <script src="bundle.js"></script>

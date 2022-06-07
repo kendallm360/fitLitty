@@ -44,28 +44,46 @@ ul.navbar #sleep-button:hover {
   color: orange;
   font-size: 3em;
   text-align: center;
-  
 }
 
 .information-bar {
+  border: solid 1px orange;
   display: flex;
   height: 100vh;
   width: 20%;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   text-align: center;
 }
 
 .user-info {
-  border: solid 1px gray;
+  border: solid 1px orange;
   font-size: 0.75em;
   height: 25%;
   width: 100%;
 }
 
+.user-form {
+  height: 50%;
+  width: 100%;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.date-Selection {
+  text-align: center;
+}
+
+#postMessage {
+  font-size: 1em;
+}
+
 .main-section {
-  border: solid 1px gray;
+  border: solid 1px orange;
   height: 100vh;
   width: 80%;
   display: flex;
@@ -73,7 +91,7 @@ ul.navbar #sleep-button:hover {
 }
 
 .title-bar {
-  border: solid 1px gray;
+  border: solid 1px orange;
   height: 25vh;
 }
 
@@ -120,6 +138,15 @@ ul.navbar #sleep-button:hover {
   height: 400px;
   margin-top: -10px;
   width: 400px;
+}
+
+#allUsersActivity {
+  border: solid 3px purple;
+  text-align: center;
+}
+
+#activity2 {
+  border: solid 3px purple;
 }
 
 #hydration {
