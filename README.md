@@ -51,9 +51,9 @@ Mocha and chai are already set up, with a boilerplate test for you.
 For this project we sourced inspiration from Dribble creators, and also used our imagination during the building process to make it our own!
 
 ### Example of Project:
-![Demo](./src/images/allTabs.gif)
-![Demo](./src/images/changeDate.gif)
-![Demo](./src/images/postData.gif)
+- ![Demo of All Tabs](./src/images/allTabs.gif)
+- ![Demo of Filter By Date](./src/images/changeDate.gif)
+- ![Demo of the Data Posting](./src/images/postData.gif)
 
 
 
