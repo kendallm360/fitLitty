@@ -32,8 +32,8 @@ const weeklyHydration = document.querySelector("#weeklyHydrationChart");
 const weeklySleep = document.querySelector("#weeklySleepChart");
 const weeklyActivity = document.querySelector("#weeklyActivityChart");
 const stepComparisonDonut = document.querySelector("#stepComparisonDonut");
-const postForm = document.querySelector("#post-input");
-const postMessage = document.querySelector("#post-message");
+const postForm = document.querySelector("#postInput");
+const postMessage = document.querySelector("#postMessage");
 
 //global variables
 let userRepo;
@@ -267,7 +267,7 @@ const displayActiveWidget = (selection) => {
 
 const displaySnapshotWidgets = () => {
   widgets.forEach((widget) => {
-    if (widget.id === 'activity' || widget.id === 'all-users-activity'){
+    if (widget.id === 'activity' || widget.id === 'allUsersActivity'){
       widget.style.display = "none";
     } else {
       widget.style.display = "flex";
@@ -341,6 +341,7 @@ const updateTypePosted = (apiName) => {
       dailyHydrationPosted = true
   }
 }
+
 //helper functions
 const displayWeeklyUpdates = () => {
   displayWeeklyActivity();
@@ -354,8 +355,6 @@ const displayUserInfo = () =>{
   displaySnapshotData();
   displayWelcomeMessage();
 }
-
-
 
 //eventlistener
 window.addEventListener("load", () => {

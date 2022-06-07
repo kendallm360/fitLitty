@@ -47,9 +47,9 @@ ul.navbar #sleep-button:hover {
 }
 
 .information-bar {
+  border: solid 1px orange;
   display: flex;
   height: 100vh;
-  /* margin-bottom: 50px; */
   width: 20%;
   flex-direction: column;
   justify-content: space-between;
@@ -65,7 +65,6 @@ ul.navbar #sleep-button:hover {
 }
 
 .user-form {
-  border: solid 1px orange;
   height: 50%;
   width: 100%;
   margin-bottom: 100px;
@@ -77,6 +76,10 @@ ul.navbar #sleep-button:hover {
 
 .date-Selection {
   text-align: center;
+}
+
+#postMessage {
+  font-size: 1em;
 }
 
 .main-section {
